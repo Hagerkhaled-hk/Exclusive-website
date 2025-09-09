@@ -1,0 +1,71 @@
+/*
+ * This file contains the styles for the ErrorMessage component.
+ * It is a pure CSS alternative to using Tailwind classes directly.
+ */
+
+/* Main container for the error message, controlling its opacity */
+
+
+/* The card-like container for the message content */
+.ErrorMessage
+{
+width: 100%;
+height: fit-content;
+overflow-y: auto;
+}
+
+
+
+
+.error-card {
+    border-radius: 0.375rem; /* rounded-md */
+    background-color: #fef2f2; /* bg-red-50 */
+    padding: 1rem; /* p-4 */
+    /* Adds a smooth transition for opacity changes */
+    transition-property: opacity;
+    transition-duration: 300ms;
+}
+
+/* Flexbox container for the icon and text */
+.flex-container {
+    display: flex; /* flex */
+}
+
+/* Styles for the icon wrapper */
+.icon-wrapper {
+    flex-shrink: 0; /* flex-shrink-0 */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: var(--red-color);
+}
+
+/* Styles for the text content area */
+.text-content {
+    margin-left: 0.75rem; /* ml-3 */
+}
+
+/* Styling for the main error heading */
+.error-heading {
+    font-size: 12px;
+    font-weight: 500; /* font-medium */
+    color: #991b1b; /* text-red-800 */
+}
+
+/* Styles for the error details section */
+.error-details {
+    margin-top: 0.5rem; /* mt-2 */
+    font-size: 12px;
+    color: #b91c1c; /* text-red-700 */
+}
+
+/* List styles for error messages */
+.error-list {
+    list-style-type: disc;
+    margin-top: 0.25rem;
+    padding-left: 1.25rem;
+}
+
+.error-list li {
+    font-size: 12px;
+}
