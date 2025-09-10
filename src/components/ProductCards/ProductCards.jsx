@@ -6,6 +6,8 @@ import AddTOCart from "../../services/APIs/addToCart";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
 import toast, { Toaster } from "react-hot-toast";
+import { FaRegHeart } from "react-icons/fa";
+import { IoEyeOutline } from "react-icons/io5";
 
 export default function ProductCards({ products }) {
   
@@ -28,14 +30,24 @@ setCart_All_State();
 />
   
       {products.map((product) => (
-        <div key={product.id}>
+        <div className="card" key={product.id}>
           <div className="product-card">
             <div className="fav-icon">
-              <FaHeart />
+                <Link  to = {`/wishlist/${product.name}`}>
+                < FaRegHeart /> 
+
+                                    </Link>
+             
+                <Link className="image-container" to = {`/product/${product.name}`}>
+                <IoEyeOutline />
+                                    </Link>
             </div>
-            <Link to = {`/product/${product.id}`}>
+            <div className="img-container">
             <img src={product.images} alt={product.name} />
-                        </Link>
+
+            </div>
+          
+
 
             <button onClick={()=>{
               addToCart({
@@ -48,11 +60,13 @@ setCart_All_State();
             <h3>{product.name}</h3>
             <div className="price-rate">
               <span className="price">${product.price}</span>
+                            <span className="sale">${product.price}</span>
+
             </div>
 
             <div className="stars">
-              <RatingStars rating={product.rating} />
-              <span className="reviews">({product.reviews} reviews)</span>
+              <RatingStars rating={5} />
+              <span className="reviews">(65)</span>
             </div>
           </div>
         </div>

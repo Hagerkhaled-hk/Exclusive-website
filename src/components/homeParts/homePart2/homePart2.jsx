@@ -88,12 +88,19 @@ Getproducts(res.data[4].name);
     "455":{
         slidesPerView:2
     },
-    "630":{
+    "600":{
         slidesPerView:3
     },
-    "823":{
+    "762":{
         slidesPerView:4
-    }
+    },
+    "944":{
+        slidesPerView:5
+    },
+    "1030":{
+        slidesPerView:6
+    },
+
    }}
 >
 <div className="categories-container">
