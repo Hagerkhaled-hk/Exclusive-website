@@ -112,10 +112,13 @@ padding: 10px 15px;
     width: 200px;
     height: 30px;
     outline: none;
+            font-size: var(--input-txt-size);
+
 
     &::placeholder
     {
         font-size: var(--input-txt-size);
+
     }
 }    
 span
@@ -160,6 +163,7 @@ nav
     {
 position: relative;
 overflow: visible;
+
         .blankSearch
         {
             position: absolute;

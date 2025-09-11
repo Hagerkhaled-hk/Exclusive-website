@@ -12,27 +12,25 @@
   position: relative;
   text-align: center;
   transition: 0.3s;
-  background: var(--grey-color);
   overflow: hidden;
   transition: var(--hover-transition);
 }
 
 .product-card:hover {
   box-shadow: var(--box-shadow);
-  transform: translateY(-1.5px);
+  transform: translateY(-0.5px);
 }
 
 .products-container .card
-{  width: 270px !important;
+{  width:230px!important;
 height:360px !important;
 overflow: hidden;
 border-radius:  0px;
 border: none;
 display: flex;
 justify-content: flex-start;
-align-items: flex-start;
 flex-direction: column;
-gap: 20px;
+gap: 8px;
 font-weight: 500;
 
 }
@@ -40,7 +38,7 @@ font-weight: 500;
 .fav-icon{
   position: absolute;
   top: 15px;
-  right: 15px;
+  right: 10px;
   color: var(--black-color);
   font-size: var(--text-size);
   font-family: var(--poppines-bold);
@@ -54,8 +52,8 @@ margin-bottom: 8px;
 color: var(--black-color);
 background-color: white;
 display: block;
-width: 22px;
-height: 22px;
+width: 25px;
+height: 25px;
 border-radius: 50%;
 display: flex;
 justify-content: center;
@@ -71,18 +69,27 @@ transition: var(--hover-transition);
 
 .img-container
 {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-width: 270px;
-height:250px;
+width:100% ;
+height:220px;
+background-color: var(--grey-color);
 
 
 }
-.product-card .img-container img {
+
+.product-card .img-container .image
+{
+  width:160px;
+  height: 150px;
+}
+
+.product-card .img-container .image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .product-info 
@@ -107,10 +114,12 @@ height:250px;
   align-items: center;
   gap: 10px;
   width: 100%;
-  font-weight: 500;
+  font-size: var(--input-txt-size);
+
 }
 .product-info .price {
   color: var(--red-color);
+  font-family: var(--poppines-bold) !important ;
 
 }
 .sale
@@ -119,11 +128,12 @@ text-decoration: line-through;
 }
 .star {
   color: var(--grey-hover);
-      font-size: var(--text-size);
  display: flex;
   justify-content: flex-start;
   align-items: center;
 gap: 8px;
+  font-size: var(--input-txt-size);
+
 }
 .stars{
 
@@ -131,11 +141,13 @@ gap: 8px;
   justify-content: flex-start;
   align-items: center;
   gap: 2px;
+    font-size: var(--input-txt-size);
+
 }
 .reviews {
-        font-size: var(--text-size);
+  font-size: var(--input-txt-size);
 
-  font-family: var(--poppines-regular);
+  font-family: var(--poppines-semi-bold);
   margin-left: 5px;
   color: var(--black-color);
   opacity: var(--text-opacity);
@@ -143,15 +155,14 @@ gap: 8px;
 
 .add-to-cart {
   position: absolute;
+    bottom:0px;
+
   width: 100%;
-  bottom: -40px;
-  left: 50%;
   transform: translateX(-50%);
   padding: 10px 15px;
   background: var(--black-color);
   border: none;
   color: var(--white-color);
-  border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
   opacity: 0;
@@ -161,7 +172,7 @@ gap: 8px;
 
 }
 .product-card:hover .add-to-cart {
-  bottom:0px;
+  
   opacity: 1;
 }
 

@@ -1,8 +1,16 @@
 
-h2{
-  font-size: var(--header-size);
-  font-family: var(--poppines-bold);
-  color: var(--red-color);
-  text-align: center;
-  margin-top: 40px;
+.ProductsPage
+{
+  
+  
+  padding: var(--pages-padding);
+  padding-top:20px ;
 }
+
+
+.ProductsPage .products-container-ProductsPage .products-container
+{
+grid-template-columns: repeat(4,auto) ;
+margin-top: 50px;
+}
+

@@ -32,28 +32,32 @@ setCart_All_State();
       {products.map((product) => (
         <div className="card" key={product.id}>
           <div className="product-card">
-            <div className="fav-icon">
-                <Link  to = {`/wishlist/${product.name}`}>
+          
+            <div className="img-container">
+                <div className="fav-icon">
+                <Link  to = {`/wishlist/${product.id}`}>
                 < FaRegHeart /> 
 
                                     </Link>
              
-                <Link className="image-container" to = {`/product/${product.name}`}>
+                <Link  to = {`/product/${product.id}`}>
                 <IoEyeOutline />
                                     </Link>
             </div>
-            <div className="img-container">
+              <div className="image">
+
             <img src={product.images} alt={product.name} />
+              </div>
 
             </div>
-          
-
 
             <button onClick={()=>{
               addToCart({
   "productId": product.id,
   "quantity": 1
-})}} className="add-to-cart">Add to Cart</button>
+})}} className="add-to-cart">Add to Cart</button>          
+
+
           </div>
 
           <div className="product-info">

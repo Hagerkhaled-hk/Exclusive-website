@@ -46,7 +46,7 @@
   --yellow-hover: #FF9A00; /* Darker yellow */
   
   --black-color: #000000;
-  --black-hover: rgba(0, 0, 0, 0.6); /* 80% opacity */
+  --black-hover: rgba(0, 0, 0, 0.85); /* 80% opacity */
   
   --white-color: #FAFAFA;
   --white-hover: rgba(239, 238, 238, 0.8); /* 80% opacity */

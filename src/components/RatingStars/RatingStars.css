@@ -2,3 +2,7 @@
 .star-filled , .star-half{
     color : var(--yellow-color);
 }
+.star 
+{
+    color: var(--grey-color);
+}

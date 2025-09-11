@@ -41,7 +41,7 @@
             padding: 20px;
             flex-wrap: wrap;
             justify-content: center;
-            font-size: var(--text-size);
+            font-size: var(--input-txt-size);
              color: var(--black-color);
              text-transform: capitalize;
 
@@ -50,14 +50,16 @@
         .category-item {
            
             @include Col-Centering;
-            width: 150px;
-            height: 150px;
+            width: 125px;
+            height: 120px;
             border:var(--sec-border);
             border-radius: 8px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             box-shadow: var(--box-shadow);
+                        font-size: var(--input-txt-size);
+
         }
 
         .category-item:hover {
@@ -110,6 +112,45 @@ font-size: 27px;
     }
 }
 
+
+
+
+
+
+
+.HomePart2 ,.HomePart5 ,.ProductsPage
+{
+.products-container-home2 ,.products-container-ProductsPage
+{
+    width: 100% ;
+    overflow: hidden;
+}
+.products-container
+{
+    grid-template-columns: repeat(4,auto) !important;
+justify-content: flex-start !important;
+align-items: center;
+gap: 40px ;
+margin-top: 50px;
+
+> *
+{
+    width: fit-content !important;
+    height: fit-content !important;
+} 
+}
+}
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width:578px) {
     
     .HomeHeader .title-text h2
@@ -145,56 +186,8 @@ font-size: 27px;
 
 
 
-.HomePart5 
-{
-    width: 100% !important;
 
-    .inner
-{
 
-display: flex;
-flex-direction: column !important;
-justify-content: center;
-align-items: center;
-.products-container
-{
-    grid-template-columns: repeat(3,auto);
-    width: fit-content !important;
-}
-    .RedButton
-  {
-    width:  50% !important;
-  }
-}
-}
-
-@media (max-width:750px)
-{.HomePart5 .inner .products-container
-{
-    grid-template-columns: repeat(2,auto);
-}
-}
-@media (max-width:505px)
-{.HomePart5 .inner .products-container
-{
-    grid-template-columns: repeat(1,auto);
-}
-}
-
-.products-container
-{
-    width: fit-content !important;
-    grid-template-columns: repeat(3,auto) !important;
-justify-content: center;
-align-items: center;
-gap: 25px !important;
-
-> *
-{
-    width: fit-content !important;
-    height: fit-content !important;
-} 
-}
 
 
 @media (max-width:760px) {

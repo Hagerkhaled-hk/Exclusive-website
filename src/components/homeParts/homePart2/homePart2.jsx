@@ -128,7 +128,7 @@ Getproducts(res.data[4].name);
 
     </div>
     </Swiper>
-    <div className="products-container">
+    <div className="products-container-home2 ">
         {
             products.length?
 

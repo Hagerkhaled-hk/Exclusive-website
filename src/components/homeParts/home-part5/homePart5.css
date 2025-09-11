@@ -1,0 +1,43 @@
+
+.HomePart5 
+{
+    width: 100% !important;
+
+
+}
+
+.HomePart5     .inner
+{
+
+display: flex;
+flex-direction: column !important;
+justify-content: center;
+align-items: center;
+gap: 20px;
+
+}
+
+
+
+.HomePart5     .RedButton
+  {
+    width:  40% !important;
+  }
+  .HomePart5     .RedButton button
+  {
+    padding: 12px;
+  }
+
+
+@media (max-width:750px)
+{.HomePart5 .inner .products-container
+{
+    grid-template-columns: repeat(2,auto);
+}
+}
+@media (max-width:505px)
+{.HomePart5 .inner .products-container
+{
+    grid-template-columns: repeat(1,auto);
+}
+}

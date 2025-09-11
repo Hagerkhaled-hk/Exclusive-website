@@ -9,6 +9,8 @@
     font-weight: bolder;
     color: var(--sec-grey-color);
     margin-top: 20px;
+text-transform: capitalize;
+
 }
 
 .DynamicIndex p:last-child
@@ -21,7 +23,7 @@
     margin: 0px 2px;
 }
 
-.DynamicIndex p:last-child span
+.DynamicIndex p span:last-child
 {
     color: var(--black-color);
     font-weight: bolder;

@@ -64,18 +64,19 @@ Logout()
         onBlur={()=>{setOpenSearch(false)}}
         type="search" placeholder="What are u looking for?" />
       <span>  <IoSearchOutline/></span>
-        <div className={`blankSearch ${openSearch?"active":""}`}  >
+        <div className={`blankSearch ${(openSearch&&productSearch.length)?"active":""}`}  >
 
-            {!productSearch.length?<p style={{padding:"5px"}}>No products found</p>
-            :
-                
+           
+              {
                 productSearch.map((item ,index)=>{
                     return(
                         <Link key={index} to={`product/${item.id}`}> {item.name}</Link>
 
                     )
                 })
+            
             }
+
 
         </div>
 

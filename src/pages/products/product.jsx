@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ProductCards from "../../components/ProductCards/ProductCards";
 import "./product.css";
 import ViewProducts from "../../services/APIs/viewProducts";
+import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
  
 export default function ProductsPage() {
   const [products,setProducts] =  useState([]); 
@@ -18,10 +19,15 @@ setProducts(res.data);
   })
  
   return (
-    <div>
-      <h2>All Products</h2>
+    <div className="ProductsPage">
+
+<DynamicIndex page={["home","all products"]}/>
+
+
+    <div className="products-container-ProductsPage ">
 
       <ProductCards products={products} />
+      </div>
     </div>
   );
 }

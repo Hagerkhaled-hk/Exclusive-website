@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import RatingStars from "../../components/RatingStars/RatingStars";
-import { FaHeart } from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
 import "./ProductDetail.css";
 import ProductById from "../../services/APIs/get_Product_Id";
+import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
  
 export default function ProductDetail() {
   const { id } = useParams();
@@ -32,20 +33,42 @@ setProducts(res.data);
 
   return (
     <div className="product-detail">
+<div className="top">
+
+      <DynamicIndex page={["account",products.categoryName,products.name]} />
+</div>
+<div className="down">
+{/* <div className="images">
+ */} {/*  <div className="altImages">
+    <div className="image">
+              <img src={products.images} alt={products.name} />
+
+    </div>
+  </div> */}
+
       <div className="image-section">
+     
+
+        <div className="image">
+
         <img src={products.images} alt={products.name} />
+        </div>
       </div>
+{/* </div>
+ */}
 
       <div className="info-section">
         <h2>{products.name}</h2>
 
-        <div className="stars">
-          <span className="reviews">({products.reviews} reviews)</span>
+        <div className="stars-container">
+          <RatingStars rating={4.5} />
+          <span className="reviews">(65 reviews)</span>
         </div>
 
         <p className="price">${products.price}</p>
 
         <p className="description">{products.description}</p>
+        <hr className="split" />
 
         <div className="section">
           <span>Colours:</span>
@@ -85,11 +108,11 @@ setProducts(res.data);
             <button onClick={handleIncrease}>+</button>
           </div>
           <button className="buy-btn">Buy Now</button>
-          <button className="heart">
-            <FaHeart />
+          <button className="heart"><CiHeart />
           </button>
         </div>
 
+      </div>
       </div>
     </div>
   );

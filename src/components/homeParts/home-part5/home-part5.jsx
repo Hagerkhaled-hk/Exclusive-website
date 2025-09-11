@@ -5,7 +5,7 @@ import HomeHeader from "../../../Common/homeHeader/homeHeader";
 import RedButton from "../../../Common/redButton/redButton";
 import { useNavigate } from "react-router-dom";
 
-
+import "./HomePart5.css"
 export default function HomePart5()
 {
 
@@ -30,9 +30,12 @@ navigate("/product")
     return <div  className="HomePart5"> 
     <HomeHeader title={"Explore our products"} note={"our products"}  /> 
 
-<div className="inner">
+<div className="inner 
+">
+<div className="products-container-home2">
 
-      <ProductCards products={products.splice(0,6)} />
+      <ProductCards products={products.splice(0,8)} />
+</div>
 
       <RedButton text={"View all product"} btn_Function={navigatetoProduct}/>
 </div>
