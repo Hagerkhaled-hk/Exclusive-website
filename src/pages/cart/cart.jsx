@@ -11,16 +11,21 @@ import empty from "../../assets/images/icons/icons8-empty-100.png";
 import { Link } from "react-router-dom";
 import AddToOrder from "../../services/APIs/addOrder";
 import ApplyDiscount from "../../services/APIs/applyDiscount";
+import { UserContext } from "../../context/userContext/userContext";
 export default function Cart()
 {
   const {cartItems,cartInfo,setCart_Info_State } = useContext(CartContext);
-
+const{getToken} =useContext(UserContext);
 const coupounRef=useRef();
   async function processOrder()
   {
-    let res =await AddToOrder(cartItems);
+let token= getToken();
+if(token){
+
+  let res =await AddToOrder(cartItems,token);
 setCart_Info_State();
-    console.log("order",res);
+  console.log("order",res);
+}
     
 
   }

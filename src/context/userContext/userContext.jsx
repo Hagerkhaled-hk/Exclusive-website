@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react"
-import ReGenerateToken from "../../services/APIs/reGenerateToken";
 
 
 export const UserContext=createContext();
@@ -8,7 +7,7 @@ export const UserContext=createContext();
 export default function UserProvider({children})
 {
 
-
+const [userLogin ,setUserLogin]=useState(false)
 
     const [userData,setUserData]=useState({});
 
@@ -21,24 +20,28 @@ export default function UserProvider({children})
             setUserData(Data);
             
             
-         
-
+    
         
         }
     }
 
 function isLogin()
 {
+    console.log("userLogin",userLogin);
     
+ return userLogin;
+/*   return(localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined);
+ */}
+
+
+function getToken()
+{
  
-  return(localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined);
+  return  Object.keys(userData)?  userData.accessToken : "";
 }
 
 
-
-
-
-    return <UserContext.Provider value={{UserDataSetting,isLogin
+    return <UserContext.Provider value={{UserDataSetting,isLogin ,setUserLogin, getToken
     }}>
         {children}
     </UserContext.Provider>

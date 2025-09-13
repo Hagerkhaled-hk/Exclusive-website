@@ -2,16 +2,33 @@
 
 import "../signup/signup.css";
 import register_img from "../../assets/images/register-img.png";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import GenerateToken from "../../services/APIs/generateToken";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../Common/errorComponents/errorComponents";
+import { useGoogleLogin } from '@react-oauth/google';
+import {UserContext} from "../../context/userContext/userContext";
+import Google_Login_Api from "../../services/APIs/googleLogin";
 export default function Login()
 {
+    const {setUserLogin} =useContext(UserContext);
     const inputRef=useRef([]);
 const navigate=useNavigate(null);
 const [errorData,setErrorData] =useState({message1:"" ,messsage2:"" ,Opacity:0})
 
+
+ const google_login = useGoogleLogin({
+    onSuccess: async(codeResponse) => {console.log(codeResponse);
+        
+        let res =await Google_Login_Api({"idToken":codeResponse.access_token},codeResponse.access_token);
+    console.log(res);
+    localStorage.setItem("userData",res.data);
+    
+    
+    
+    },
+    onError: (error) => setErrorData({message1:"Opps" ,messsage2:error ,Opacity:1})
+  });
 
 async   function TokenGeneration()
     {
@@ -22,12 +39,12 @@ async   function TokenGeneration()
 
 
 
-
 let res = await GenerateToken (inputData);
 
 if(res.succeeded){
 localStorage.setItem("userData",JSON.stringify(res.data) );
-navigate("/");}
+setUserLogin(true);
+ navigate("/"); }
 else if(res.statusCode == 500 ){setErrorData({message1:`Oops! Something went wrong on our end.`,
     message2:`We're having trouble loading this page right now. Please try refreshing the page or try again in a few minutes.`  ,Opacity:1})}
 else{
@@ -66,7 +83,15 @@ else{
                 
                 onClick={()=>{TokenGeneration();setErrorData({messsage1:"",message2:""  ,Opacity:0}
                 )}}
-                className="create-account-btn">Log in</button>
+                className="create-account-btn">Login</button>
+
+                <button
+                
+                onClick={()=>{google_login()}}
+                className="create-account-btn">Login with google</button>
+
+
+
                 <div className="add" style={{display:"flex",justifyContent:"space-between",fontSize:"10px"}}>
 
                 <Link   to={"/signup"}>Create Account</Link>

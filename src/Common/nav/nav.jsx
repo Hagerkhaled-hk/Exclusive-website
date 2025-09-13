@@ -13,7 +13,7 @@ import Logout from "../../services/APIs/logout";
 import { ProductContext } from "../../context/productContext/productContext";
 export default function Nav()
 {
-const {isLogin} =useContext(UserContext);  
+const {isLogin,setUserLogin , getToken} =useContext(UserContext);  
  const {products} =useContext(ProductContext)
  const [openSearch ,setOpenSearch]=useState(false);
 const [productSearch ,setProductSearch]=useState([]);
@@ -21,12 +21,27 @@ const searchRef =useRef();
 
  function seacrhProduct()
  {
-    
-    
+if (searchRef.current.value.trim() == "") {setProductSearch([]); return;}
+   
 let data = products.filter((item)=> { 
- return item.name.toLowerCase().includes(searchRef.current.value.toLowerCase())});
+    
+ return item.name.trim().toLowerCase().includes(searchRef.current.value.trim().toLowerCase())
+});
  
 setProductSearch(data);
+ }
+
+
+async function logingOut()
+ {
+let token =getToken()
+if(token){
+let res = await Logout(token);
+console.log(res);
+
+ if(res.succeeded) setUserLogin(false);
+}
+
  }
     return <nav>
 <div className="top">
@@ -48,9 +63,10 @@ setProductSearch(data);
    <NavLink to="/about">About</NavLink>
       {
 isLogin()?
-<NavLink  onClick={()=>{ console.log(
-Logout()
-);
+<NavLink  onClick={()=>{ 
+ logingOut()
+
+
  }} to="/login">Logout   </NavLink>
        :
 <NavLink  to="/signup">Sign Up   </NavLink>
@@ -107,7 +123,7 @@ Logout()
    <NavLink className="dropdown-item" to="/about">About</NavLink>
    {
 isLogin()?
-<NavLink className="dropdown-item" onClick={()=>{Logout()}} to="/login">Logout   </NavLink>
+<NavLink className="dropdown-item" onClick={()=>{ logingOut()}} to="/login">Logout   </NavLink>
        :
 <NavLink className="dropdown-item" to="/signup">Sign Up   </NavLink>
     }

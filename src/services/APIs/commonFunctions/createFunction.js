@@ -2,6 +2,8 @@
 
 export default async function CreateAPi_Function (initialUrl,headersData,intialData){
  
+    console.log(initialUrl);
+    console.log(headersData);
     console.log(intialData);
     
     

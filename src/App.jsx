@@ -7,6 +7,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "./App.css";
+
+
 const  ForgetPassword = lazy(()=>import ("./pages/forgetpassword/forgetpassword.jsx")) ;
 const  EmailComponent  = lazy(()=>import ("./pages/emailComponent/emailComponent.jsx")) ;
 

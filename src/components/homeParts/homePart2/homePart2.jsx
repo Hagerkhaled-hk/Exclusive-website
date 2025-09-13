@@ -107,8 +107,7 @@ Getproducts(res.data[4].name);
     {
         categories.map((item,index)=>{
             return( 
-                <>
-                {index != 0 &&
+                
              <SwiperSlide key={index}>
    
                 <div key={index}  
@@ -118,8 +117,7 @@ Getproducts(res.data[4].name);
  */}        <p>{item.name}</p>
         </div>
             </SwiperSlide>
-        }
-</>
+
         
         );
         })

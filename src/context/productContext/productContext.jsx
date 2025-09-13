@@ -10,7 +10,6 @@ export default function ProductProvider({ children }) {
 (async()=>{
 
 let res = await ViewProducts();
-console.log(res.data);
 setProducts(res.data)
 
 

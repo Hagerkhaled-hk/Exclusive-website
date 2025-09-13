@@ -1,10 +1,9 @@
 
 import CreateAPi_Function from "./commonFunctions/createFunction.js";
 import { getToken, ReToken } from "./commonFunctions/TokenFunction.js";
-export default async function AddToOrder(intialData)
+export default async function AddToOrder(intialData,Token)
 {
 
-      let Token =getToken();
 
      let res =await CreateAPi_Function(import.meta.env.VITE_ADD_TO_CART_API,{"Content-Type":"application/json",
      'Authorization': `Bearer ${Token}`},

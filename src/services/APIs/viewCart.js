@@ -1,9 +1,8 @@
 
 import FetchApi_Function from "./commonFunctions/fetchFunction.js";
-import { getToken, ReToken } from "./commonFunctions/TokenFunction.js";
-export default async function ViewCart()
+import {  ReToken } from "./commonFunctions/TokenFunction.js";
+export default async function ViewCart(Token)
 {
-let Token =getToken();
 if (!Token) return [];
 
      let res =await FetchApi_Function(import.meta.env.VITE_VIEW_CART_API,   

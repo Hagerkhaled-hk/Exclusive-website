@@ -1,8 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import ViewCart from "../../services/APIs/viewCart";
 import UpdateQunatityCart from "../../services/APIs/update_Quantity_Cart";
 import ProductById from "../../services/APIs/get_Product_Id";
 import DeleteCart from "../../services/APIs/deleteCart";
+import { UserContext } from "../userContext/userContext";
 
 export const CartContext = createContext();
 
@@ -12,22 +13,32 @@ export default function CartProvider({ children }) {
   
   const [cartItems,setCartItem]=useState([]);
   const [cartInfo,setCartInfo]=useState([]);
-
+const {getToken}=useContext(UserContext);
 async function setCart_All_State()
 {
-    let dataCart = await ViewCart();
-    console.log("data", dataCart);
+let token =getToken();
+
+if(token){
+
+  let dataCart = await ViewCart(token);
     
     setCartItem(dataCart?.data?.items);
     setCartInfo(dataCart?.data);
+}
 
 }
 async function setCart_Info_State()
 {
-    let dataCart = await ViewCart();
+
+  let token =getToken();
+
+if(token){
+
+    let dataCart = await ViewCart(token);
     console.log("data", dataCart);
     
     setCartInfo(dataCart?.data);
+}
 
 }
 
@@ -43,9 +54,11 @@ async function Quantity_Function( {type,payload})
     {
 
       
-      console.log(payload);
+let token =getToken();
+
+if(token){
       
-   let res= await ProductById(payload.productId);
+   let res= await ProductById(payload.productId ,token);
    console.log(res);
    
    let stock=res.data.stock;
@@ -76,7 +89,7 @@ async function Quantity_Function( {type,payload})
       let res =await UpdateQunatityCart({
   "cartItemId":payload.cartItemId,
   "quantity":  payload.quantity+1
-});
+,token});
 
 setCart_Info_State();
 
@@ -85,21 +98,23 @@ setCart_Info_State();
 
     }
 
+  }
+
 
   async  function Delete_From_Cart(index ,cartId)
     {
-      console.log(index);
-      console.log(cartId);
+let token =getToken();
+
+if(token){
       
  cartItems.splice(index,1);
   setCartItem([...cartItems]);
  console.log(cartItems);
 
-let res = await DeleteCart(cartId);
+let res = await DeleteCart(cartId,token);
 console.log(res); 
 
-``
-        
+}
     }
 
 

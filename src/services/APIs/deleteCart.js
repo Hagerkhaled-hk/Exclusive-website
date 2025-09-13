@@ -1,9 +1,8 @@
 
 import DeleteAPi_Function from "./commonFunctions/deleteFunction.js";
-import { getToken, ReToken } from "./commonFunctions/TokenFunction.js";
-export default async function DeleteCart(id)
+import {  ReToken } from "./commonFunctions/TokenFunction.js";
+export default async function DeleteCart(id,Token)
 {
-let Token = getToken();
 
      let res =await DeleteAPi_Function(`${import.meta.env.VITE_REMOVE_ITEM_CART_API}/${id}`,
           {"Content-Type":"application/json",

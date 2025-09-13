@@ -2,12 +2,10 @@ import ReGenerateToken from "../reGenerateToken";
 
 export async function ReToken()
     {
-    console.log("RETOKENNNN");
 
          if(localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined)
         {     
 
-            console.log("ddddddddd");
             
              let Data= JSON.parse(localStorage.getItem("userData")) ;
                console.log("Data",Data
@@ -32,7 +30,7 @@ export async function ReToken()
 
 
 
-    export    function getToken()
+/*     export    function getToken()
     {
         
  if(localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined)
@@ -42,4 +40,4 @@ export async function ReToken()
 
         }
 return "";
-    }
+    } */

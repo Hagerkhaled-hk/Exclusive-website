@@ -1,11 +1,10 @@
 
 import UpdateAPi_Function from "./commonFunctions/updateFuntion.js";
 
-import { ReToken ,getToken } from "./commonFunctions/TokenFunction.js";
-export default async function UpdateQunatityCart(intialData)
+import { ReToken  } from "./commonFunctions/TokenFunction.js";
+export default async function UpdateQunatityCart(intialData,Token)
 {
 
-     let Token =getToken();
      let res =await UpdateAPi_Function(import.meta.env.VITE_UPDATE_QUNTITY_CART_API,
           {"Content-Type":"application/json",
      'Authorization': `Bearer ${Token}`}

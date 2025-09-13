@@ -1,21 +1,18 @@
     import CreateAPi_Function from "./commonFunctions/createFunction.js";
-import { getToken, ReToken } from "./commonFunctions/TokenFunction.js";
-    export default async function Logout()
+import {  ReToken } from "./commonFunctions/TokenFunction.js";
+    export default async function Logout(Token)
     {
-    let Token =getToken();
-    console.log(Token);
-    
+/*     let Token =getToken();
+ */    
          let res =await CreateAPi_Function(import.meta.env.VITE_LOGOUT_API,   
               {"Content-Type":"application/json",
          'Authorization': `Bearer ${Token}`});
     
     
          
-    console.log("logout");
     
          
          if(res.statusCode===401){
-              console.log("logout");
               
     let retoken= await ReToken();
     if (!retoken) return [];
@@ -28,7 +25,6 @@ import { getToken, ReToken } from "./commonFunctions/TokenFunction.js";
 
        if(res.succeeded) localStorage.removeItem("userData");
          
-        console.log(res);
         
          return res;
     }

@@ -15,27 +15,30 @@ export default function HomePart5()
    {
 navigate("/product")
    }
+
+
    useEffect(()=>{
      
- 
-     (async ()=>{
- let res= await  ViewProducts();
- 
- 
- setProducts(res.data);
- 
-     })()
-   })
+ console.log(
+      "ddd"
+ );
+(async()=>{
+
+       let res= await  ViewProducts();
+  setProducts(res.data);
+})()    
+   },[])
 
     return <div  className="HomePart5"> 
     <HomeHeader title={"Explore our products"} note={"our products"}  /> 
 
 <div className="inner 
 ">
-<div className="products-container-home2">
-
-      <ProductCards products={products.splice(0,8)} />
-</div>
+ <div className="products-container-home2">
+{
+products.length && <ProductCards products={products.splice(0,8)} />
+}
+</div> 
 
       <RedButton text={"View all product"} btn_Function={navigatetoProduct}/>
 </div>
