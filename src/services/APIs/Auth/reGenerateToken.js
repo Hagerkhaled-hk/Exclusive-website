@@ -1,6 +1,6 @@
 
 
-import CreateAPi_Function from "./commonFunctions/createFunction.js";
+import CreateAPi_Function from "../commonFunctions/createFunction.js";
 
 export default async function ReGenerateToken(intialData)
 { 

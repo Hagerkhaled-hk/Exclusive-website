@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import ViewCart from "../../services/APIs/viewCart";
-import UpdateQunatityCart from "../../services/APIs/update_Quantity_Cart";
-import ProductById from "../../services/APIs/get_Product_Id";
-import DeleteCart from "../../services/APIs/deleteCart";
+import ViewCart from "../../services/APIs/cart/viewCart";
+import UpdateQunatityCart from "../../services/APIs/cart/update_Quantity_Cart";
+import ProductById from "../../services/APIs/products/get_Product_Id";
+import DeleteCart from "../../services/APIs/cart/deleteCart";
 import { UserContext } from "../userContext/userContext";
 
 export const CartContext = createContext();
@@ -13,7 +13,7 @@ export default function CartProvider({ children }) {
   
   const [cartItems,setCartItem]=useState([]);
   const [cartInfo,setCartInfo]=useState([]);
-const {getToken}=useContext(UserContext);
+const {getToken,userData}=useContext(UserContext);
 async function setCart_All_State()
 {
 let token =getToken();
@@ -35,7 +35,6 @@ async function setCart_Info_State()
 if(token){
 
     let dataCart = await ViewCart(token);
-    console.log("data", dataCart);
     
     setCartInfo(dataCart?.data);
 }
@@ -47,7 +46,7 @@ if(token){
    useEffect(()=>{
  setCart_All_State();
 
-   },[]) 
+   },[userData]) 
 
 
 async function Quantity_Function( {type,payload})
@@ -59,11 +58,12 @@ let token =getToken();
 if(token){
       
    let res= await ProductById(payload.productId ,token);
-   console.log(res);
    
    let stock=res.data.stock;
    
    let affected =false;
+   let before_Cart_Affect=cartItems;
+
 
 
 
@@ -73,7 +73,6 @@ if(token){
         case "add": ( payload.quantity < stock) && (
           
           affected=true,
-          
           setCartItem(()=>{
            cartItems[payload.index].quantity= payload.quantity+1; return [...cartItems]}) );
         break;
@@ -91,8 +90,8 @@ if(token){
   "quantity":  payload.quantity+1
 ,token});
 
-setCart_Info_State();
-
+if (!res.succeeded)setCartItem(before_Cart_Affect) ;
+  
 
     }
 
@@ -106,13 +105,13 @@ setCart_Info_State();
 let token =getToken();
 
 if(token){
-      
+      let beforeSplice=cartItems;
  cartItems.splice(index,1);
   setCartItem([...cartItems]);
- console.log(cartItems);
 
 let res = await DeleteCart(cartId,token);
-console.log(res); 
+if(!res.succeeded) setCartItem(beforeSplice) ;
+
 
 }
     }

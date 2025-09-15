@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import RatingStars from "../../components/RatingStars/RatingStars";
 import { CiHeart } from "react-icons/ci";
 import "./ProductDetail.css";
-import ProductById from "../../services/APIs/get_Product_Id";
+import ProductById from "../../services/APIs/products/get_Product_Id";
 import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { Spinner } from "react-bootstrap";
-import AddTOCart from "../../services/APIs/addToCart";
+import AddTOCart from "../../services/APIs/cart/addToCart";
 import { UserContext } from "../../context/userContext/userContext";
 
  
@@ -119,38 +119,7 @@ products.length!==0 ?
         <p className="price">${products.price}</p>
 
         <p className="description">{products.description}</p>
-        <hr className="split" />
 
-        <div className="section">
-          <span>Colours:</span>
-          <div className="colors">
-            <button
-              className={`circle ${color === "blue" ? "active" : ""}`}
-              style={{ background: "lightblue" }}
-              onClick={() => setColor("blue")}
-            ></button>
-            <button
-              className={`circle ${color === "red" ? "active" : ""}`}
-              style={{ background: "red" }}
-              onClick={() => setColor("red")}
-            ></button>
-          </div>
-        </div>
-
-        <div className="section">
-          <span>Size:</span>
-          <div className="sizes">
-            {["XS", "S", "M", "L", "XL"].map((s) => (
-              <button
-                key={s}
-                className={`size-btn ${size === s ? "active" : ""}`}
-                onClick={() => setSize(s)}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-        </div>
 
         <div className="actions">
           <div className="qty">

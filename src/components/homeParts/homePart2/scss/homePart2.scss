@@ -128,9 +128,9 @@ font-size: 27px;
 .products-container
 {
     grid-template-columns: repeat(4,auto) !important;
-justify-content: flex-start !important;
+justify-content: center !important;
 align-items: center;
-gap: 40px ;
+gap: 50px ;
 margin-top: 50px;
 
 > *

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ProductCards from "../../components/ProductCards/ProductCards";
 import "./product.css";
-import ViewProducts from "../../services/APIs/viewProducts";
+import ViewProducts from "../../services/APIs/products/viewProducts";
 import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
  
 export default function ProductsPage() {

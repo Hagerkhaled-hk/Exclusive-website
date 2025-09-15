@@ -3,6 +3,7 @@
 export default async function FetchApi_Function (initialUrl,headersData){
     try
     {
+      
 let res=await fetch(initialUrl,{
 
       headers:headersData

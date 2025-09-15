@@ -7,9 +7,9 @@ import { PiShoppingCartLight } from "react-icons/pi";
 import { IoSearchOutline } from "react-icons/io5";
 
 import { MdMenu } from "react-icons/md";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../context/userContext/userContext";
-import Logout from "../../services/APIs/logout";
+import Logout from "../../services/APIs/Auth/logout";
 import { ProductContext } from "../../context/productContext/productContext";
 export default function Nav()
 {
@@ -32,14 +32,22 @@ setProductSearch(data);
  }
 
 
+  
+
+ 
+
+
 async function logingOut()
  {
 let token =getToken()
 if(token){
 let res = await Logout(token);
-console.log(res);
 
- if(res.succeeded) setUserLogin(false);
+ if(res.succeeded) {localStorage.removeItem("userData");
+window.dispatchEvent(new Event('localStorageChange'));
+
+  }
+
 }
 
  }
@@ -64,8 +72,8 @@ console.log(res);
       {
 isLogin()?
 <NavLink  onClick={()=>{ 
- logingOut()
-
+  logingOut()
+ 
 
  }} to="/login">Logout   </NavLink>
        :
@@ -80,7 +88,7 @@ isLogin()?
         onBlur={()=>{setOpenSearch(false)}}
         type="search" placeholder="What are u looking for?" />
       <span>  <IoSearchOutline/></span>
-        <div className={`blankSearch ${(openSearch&&productSearch.length)?"active":""}`}  >
+        <div className={`blankSearch ${(productSearch.length&&openSearch)?"active":""}`}  >
 
            
               {
@@ -99,18 +107,9 @@ isLogin()?
         </div>
 <div className="links">
 
-    {
-        isLogin()?
-        <>
-         <Link to="/whishlist"  className="wishList"><AiOutlineHeart/></Link>
-    <Link to="/cart" className="Cart"><PiShoppingCartLight/></Link>
-    </>
-    :
-    <>
-    <Link to="/signup" className="wishList"><AiOutlineHeart/></Link>
-    <Link to="/signup" className="Cart"><PiShoppingCartLight/></Link>  
-    </>   
-    }
+         <Link to={ isLogin()?`/wishlist`:"/signup"}  className="wishList"><AiOutlineHeart/></Link>
+    <Link to={ isLogin()?`/cart`:"/signup"}  className="Cart"><PiShoppingCartLight/></Link>
+    
    
     <div class="nav-item dropdown" style={{position:"unset",display:"none"}}>
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -123,7 +122,7 @@ isLogin()?
    <NavLink className="dropdown-item" to="/about">About</NavLink>
    {
 isLogin()?
-<NavLink className="dropdown-item" onClick={()=>{ logingOut()}} to="/login">Logout   </NavLink>
+<NavLink className="dropdown-item" onClick={()=>{  logingOut() }} to="/login">Logout   </NavLink>
        :
 <NavLink className="dropdown-item" to="/signup">Sign Up   </NavLink>
     }

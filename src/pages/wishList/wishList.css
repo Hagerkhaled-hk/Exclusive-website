@@ -1,0 +1,45 @@
+.Wishlist .top
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+.Wishlist .top > * 
+{
+    margin-top: 0px;
+    align-items: flex-start;
+}
+.Wishlist .top  
+{
+        margin-top: 35px;
+
+
+}
+.Wishlist .top  .BlackButton
+{
+    font-size: var(--input-txt-size);
+            padding:0px 30px;
+
+}
+
+
+.Wishlist .bottom{
+  
+    padding: var(--pages-padding);
+  padding-top:20px ;
+  
+}
+
+
+.Wishlist  .products-container
+{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+grid-template-columns: repeat(4,auto) ;
+gap: 40px;
+}
+

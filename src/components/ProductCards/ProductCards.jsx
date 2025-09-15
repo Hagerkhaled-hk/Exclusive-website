@@ -1,70 +1,143 @@
-import { FaHeart } from "react-icons/fa";
 import RatingStars from "../RatingStars/RatingStars";
 import {Link, useNavigate} from "react-router-dom"
 import "./ProductCards.css";
-import AddTOCart from "../../services/APIs/addToCart";
-import { useContext } from "react";
+import AddTOCart from "../../services/APIs/cart/addToCart";
+import { useContext, useEffect, useRef } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
 import toast, { Toaster } from "react-hot-toast";
 import { FaRegHeart } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { Spinner } from "react-bootstrap";
 import { UserContext } from "../../context/userContext/userContext";
-
+import { motion } from "motion/react"
+import AddToWishlist from "../../services/APIs/wishlist/addToWishlist";
+import { WishlistContext } from "../../context/wishlistContext/wishlistContext";
+import RemoveWishlist from "../../services/APIs/wishlist/removeWishlist";
+import { FaRegTrashCan } from "react-icons/fa6";
 export default function ProductCards({ products }) {
   
   const {setCart_All_State}=useContext(CartContext);
   const Navigate =useNavigate();
     const{getToken,isLogin} =useContext(UserContext);
-  
+    const {fetchWishlist}=useContext(WishlistContext);
+
+
+
+
+
 async function addToCart(data)
   {
 
-        let token =getToken();
+         let token =getToken();
     if(token){
     
     let res =await AddTOCart(data,token);
-    console.log(res);
-    if(res.succeeded) toast.success('Successfully added to cart!')
+    if(res.succeeded) {toast.success('Successfully added to cart!')
 setCart_All_State();    
-  }
+}
+else  if(res.statusCode=400) toast.error(res?.message)
+  } 
+
     
   }
 
-  console.log(products);
+
+
+  async function AddTOWishlist(data)
+  {     
+    let token =getToken();
+    if(token){  
+      let res =await AddToWishlist(data,token);
+      if(res.succeeded) {toast.success('Successfully added to wishlist!');fetchWishlist();}
+      else  if(res.statusCode=400) toast.error(res?.message)
+       }
+  }
+
+  async function DeleteFromWishlist(id)
+  {     
+    console.log("ddd");
+    
+    let token =getToken();  
+    if(token){  
+      let res =await RemoveWishlist({productId:id},token);
+      if(res.succeeded) {toast.success('Successfully removed from wishlist!');fetchWishlist();}
+      else  if(res.statusCode=400) toast.error(res?.message)
+  }
+  }
   
   
   return (
-    <div className="products-container">
+    <div className="products-Cards" 
+
+    >
       <Toaster
   position="top-center"
   reverseOrder={false}
 />
 
-  
+  <div className="products-container">
       {
       
       products.length==0 &&<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> 
       }
       {
-      products.map((product) => (
-        <div className="card" key={product.id}>
-          <div className="product-card">
+      products.map((product) => {
+        
+        
+        return(
+
+        
+        <motion.div  
+
+          initial={{ opacity: 0, y: 50 }}
+ 
+ whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.1 }}
+        className="card" key={product.id}>
+          <div
+         
+          
+          className="product-card">
           
             <div className="img-container">
                 <div className="fav-icon">
-                <Link  to = {`/wishlist/${product.id}`}>
-                < FaRegHeart /> 
 
-                                    </Link>
+
+                <button
+                 onClick={()=>{
+                  product?.productImageUrl ? 
+DeleteFromWishlist(product.productId)
+                  :
+            (      isLogin()?
+                  
+                  AddTOWishlist(
+                  {
+  "productId": product.id || product.productId
+                  }
+                )
+              :
+              Navigate("/signup"))
+              
+              }} 
+              
+                            
+
+              >
+                {
+                product?.productImageUrl ?<FaRegTrashCan/> :  
+                              < FaRegHeart /> }
+
+
+                                    </button>
              
-                <Link  to = {`/product/${product.id}`}>
+                <Link  to = {`/product/${product.id || product.productId}`} className="view-icon">
                 <IoEyeOutline />
                                     </Link>
             </div>
               <div className="image">
 
-            <img src={product.images[0]} alt={product.name} />
+            <img src={product?.productImageUrl || product?.images[0] } alt={product.name} />
               </div>
 
             </div>
@@ -83,20 +156,26 @@ Navigate("/signup")
           </div>
 
           <div className="product-info">
-            <h3>{product.name}</h3>
-            <div className="price-rate">
+            <h3>{product.name || product.productName}</h3>
+           
+   <div className="price-rate">
               <span className="price">${product.price}</span>
                             <span className="sale">${product.price}</span>
 
             </div>
 
+
             <div className="stars">
               <RatingStars rating={5} />
               <span className="reviews">(65)</span>
             </div>
+         
           </div>
-        </div>
-      ))}
+        </motion.div>
+
+
+      )})}
+      </div>
     </div>
   );
 }

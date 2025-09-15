@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react"
+import { data } from "react-router-dom";
 
 
 export const UserContext=createContext();
@@ -11,37 +12,70 @@ const [userLogin ,setUserLogin]=useState(false)
 
     const [userData,setUserData]=useState({});
 
+        useEffect(()=>{
+    
+    
+      window.addEventListener('localStorageChange',()=>{UserDataSetting()} );
+       return () => window.removeEventListener('localStorageChange', UserDataSetting());
+         },[])  
+         
+
+         useEffect(()=>{
+       window.dispatchEvent(new Event('localStorageChange'));
+            },[])
+
+    
+
+
     function UserDataSetting()
     {
          if(localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined)
         {
             let Data= JSON.parse(localStorage.getItem("userData")) ;
-            console.log("userData",Data);
             setUserData(Data);
+            setUserLogin(true);
             
-            
-    
         
+        }
+        else
+        {
+            setUserData([]);
+            setUserLogin(false);
+
         }
     }
 
+
+
 function isLogin()
 {
-    console.log("userLogin",userLogin);
-    
+
  return userLogin;
-/*   return(localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined);
- */}
+
+}
+
+
 
 
 function getToken()
 {
- 
-  return  Object.keys(userData)?  userData.accessToken : "";
-}
+
+         if( localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined)
+         {            
+            let Data= JSON.parse(localStorage.getItem("userData")) ;
+
+            
+             return Data.accessToken ;
+         } 
 
 
-    return <UserContext.Provider value={{UserDataSetting,isLogin ,setUserLogin, getToken
+         return  "";
+         }
+        
+
+
+
+    return <UserContext.Provider value={{isLogin ,setUserLogin, getToken,userData
     }}>
         {children}
     </UserContext.Provider>

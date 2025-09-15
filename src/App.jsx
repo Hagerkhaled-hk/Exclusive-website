@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useContext, useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from './components/layout/layout';
 
@@ -19,9 +19,15 @@ const Login = lazy(() => import('./pages/login/login.jsx'));
 const ProductsPage = lazy(() => import("./pages/products/product.jsx"));
 const ProductDetail = lazy(() => import("./pages/productDetail/productDetail.jsx"));
 const AboutUs = lazy(() => import("./pages/aboutUs/AboutUs"));
+const Account = lazy(() => import("./pages/account/account.jsx"));
+const Wishlist = lazy(() => import("./pages/wishList/wishList.jsx"));
 
 
 export default function App() {
+
+
+      
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -93,6 +99,25 @@ path: "resetPassword", element: (
         </Suspense>
 
         ) },
+       ,
+      { path: "account", element:(
+        <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
+<Account />
+        
+        </Suspense>
+
+        ) },
+       ,
+      { path: "wishList", element:(
+        <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
+<Wishlist />
+        
+        </Suspense>
+
+        ) },
+
+
+
       { path: "*", element: (
                                    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
 

@@ -2,13 +2,7 @@ import "./css/HomePart2.css";
 import HomeHeader from "../../../Common/homeHeader/homeHeader";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-/* import { IoPhonePortraitOutline } from "react-icons/io5";
-import { IoTvOutline } from "react-icons/io5";
-import { IoWatchOutline } from "react-icons/io5";
-import { PiGameControllerThin } from "react-icons/pi";
-import { CiHeadphones } from "react-icons/ci";
-import { CiCamera } from "react-icons/ci";
- */
+
 //swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -19,11 +13,9 @@ import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper/modules';
 import { useEffect, useState } from "react";
-import Viewateg from "../../../services/APIs/ViewCateg";
+import Viewateg from "../../../services/APIs/category/ViewCateg";
 import ProductCards from "../../ProductCards/ProductCards";
-import CategId from "../../../services/APIs/categ_id";
-import ViewProducts from "../../../services/APIs/viewProducts";
-import { color } from "framer-motion";
+import ViewProducts from "../../../services/APIs/products/viewProducts";
 
 
 export default function HomePart2()

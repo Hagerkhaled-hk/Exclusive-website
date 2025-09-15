@@ -5,23 +5,24 @@ import HomePart3 from "../components/homeParts/home-part3/homePart3"
 import HomePart4 from "../components/homeParts/home-part4/homePart4"
 import ServicesComponents from "../Common/servicesComponents/serivcesComponents"
 import { useContext, useEffect } from "react"
-import { UserContext } from "../context/userContext/userContext.jsx"
+/* import { UserContext } from "../context/userContext/userContext.jsx"
 import ProductsPage from "./products/product.jsx"
-import HomePart5 from "../components/homeParts/home-part5/home-part5.jsx"
+ */import HomePart5 from "../components/homeParts/home-part5/home-part5.jsx"
 export default function HomePage()
 {
 
-    const{UserDataSetting}=useContext(UserContext);
-window.dispatchEvent(new Event('localStorageChange'));
-    useEffect(()=>{
-
-
-  window.addEventListener('localStorageChange',()=>{window.location.reload()} );
-  return () => window.removeEventListener('localStorageChange', UserDataSetting());
-    },[])
- 
-
-
+/*     const{UserDataSetting}=useContext(UserContext);
+ */  
+      
+   
+  /*    window.dispatchEvent(new Event('localStorageChange'));
+        useEffect(()=>{
+    
+    
+      window.addEventListener('localStorageChange',()=>{window.location.reload()} );
+      return () => window.removeEventListener('localStorageChange', UserDataSetting());
+        },[]) 
+ */
     return <div className="HomePage pe-2 ps-2"> 
 {/* Slider-Swiper*/}
  <HomePart1/>

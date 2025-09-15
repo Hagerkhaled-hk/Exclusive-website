@@ -1,4 +1,4 @@
-import ReGenerateToken from "../reGenerateToken";
+import ReGenerateToken from "../Auth/reGenerateToken";
 
 export async function ReToken()
     {
@@ -18,6 +18,7 @@ export async function ReToken()
     Data.accessToken=res.data.accessToken;
     Data.refreshToken=res.data.refreshToken;
     localStorage.setItem("userData" , JSON.stringify({...Data}));
+    window.dispatchEvent(new Event('localStorageChange'));
     
     return res.data.accessToken; 
 

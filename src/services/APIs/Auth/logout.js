@@ -1,5 +1,5 @@
-    import CreateAPi_Function from "./commonFunctions/createFunction.js";
-import {  ReToken } from "./commonFunctions/TokenFunction.js";
+    import CreateAPi_Function from "../commonFunctions/createFunction.js";
+import {  ReToken } from "../commonFunctions/TokenFunction.js";
     export default async function Logout(Token)
     {
 /*     let Token =getToken();

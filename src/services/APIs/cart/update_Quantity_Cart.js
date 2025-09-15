@@ -1,7 +1,7 @@
 
-import UpdateAPi_Function from "./commonFunctions/updateFuntion.js";
+import UpdateAPi_Function from "../commonFunctions/updateFuntion.js";
 
-import { ReToken  } from "./commonFunctions/TokenFunction.js";
+import { ReToken  } from "../commonFunctions/TokenFunction.js";
 export default async function UpdateQunatityCart(intialData,Token)
 {
 

@@ -1,13 +1,16 @@
 
-import CreateAPi_Function from "./commonFunctions/createFunction.js";
-import { ReToken } from "./commonFunctions/TokenFunction.js";
-export default async function AddTOCart(intialData,Token)
+import DeleteAPi_Function from "../commonFunctions/deleteFunction.js";
+import { ReToken } from "../commonFunctions/TokenFunction.js";
+export default async function RemoveWishlist(intialData,Token)
 {
+     
 
-     let res =await CreateAPi_Function(import.meta.env.VITE_ADD_TO_CART_API,{"Content-Type":"application/json",
+     let res =await DeleteAPi_Function(import.meta.env.VITE_DELETE_WISHLIST_API,{"Content-Type":"application/json",
      'Authorization': `Bearer ${Token}`},
      intialData);
 
+     console.log("AddToWishlist Api",res);
+     
       if(res.statusCode===401){
 
           console.log("viewCart Retoken");

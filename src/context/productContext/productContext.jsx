@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import ViewProducts from "../../services/APIs/viewProducts";
+import ViewProducts from "../../services/APIs/products/viewProducts";
 
 export const ProductContext = createContext();
 

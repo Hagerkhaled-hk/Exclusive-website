@@ -1,6 +1,6 @@
 
-import DeleteAPi_Function from "./commonFunctions/deleteFunction.js";
-import {  ReToken } from "./commonFunctions/TokenFunction.js";
+import DeleteAPi_Function from "../commonFunctions/deleteFunction.js";
+import {  ReToken } from "../commonFunctions/TokenFunction.js";
 export default async function DeleteCart(id,Token)
 {
 

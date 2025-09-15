@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ViewProducts from "../../../services/APIs/viewProducts";
+import ViewProducts from "../../../services/APIs/products/viewProducts";
 import ProductCards from "../../ProductCards/ProductCards";
 import HomeHeader from "../../../Common/homeHeader/homeHeader";
 import RedButton from "../../../Common/redButton/redButton";
@@ -19,9 +19,7 @@ navigate("/product")
 
    useEffect(()=>{
      
- console.log(
-      "ddd"
- );
+ 
 (async()=>{
 
        let res= await  ViewProducts();
@@ -29,6 +27,8 @@ navigate("/product")
 })()    
    },[])
 
+
+   
     return <div  className="HomePart5"> 
     <HomeHeader title={"Explore our products"} note={"our products"}  /> 
 

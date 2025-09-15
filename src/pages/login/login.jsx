@@ -11,7 +11,7 @@ import {UserContext} from "../../context/userContext/userContext";
 import Google_Login_Api from "../../services/APIs/googleLogin";
 export default function Login()
 {
-    const {setUserLogin} =useContext(UserContext);
+    const {UserDataSetting} =useContext(UserContext);
     const inputRef=useRef([]);
 const navigate=useNavigate(null);
 const [errorData,setErrorData] =useState({message1:"" ,messsage2:"" ,Opacity:0})
@@ -43,8 +43,8 @@ let res = await GenerateToken (inputData);
 
 if(res.succeeded){
 localStorage.setItem("userData",JSON.stringify(res.data) );
-setUserLogin(true);
- navigate("/"); }
+window.dispatchEvent(new Event('localStorageChange'));
+  navigate("/"); }
 else if(res.statusCode == 500 ){setErrorData({message1:`Oops! Something went wrong on our end.`,
     message2:`We're having trouble loading this page right now. Please try refreshing the page or try again in a few minutes.`  ,Opacity:1})}
 else{

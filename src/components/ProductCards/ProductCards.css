@@ -48,7 +48,7 @@ font-weight: 500;
 .fav-icon > *{
 margin-bottom: 8px;
 }
-.fav-icon a{
+.fav-icon a,.fav-icon button{
 color: var(--black-color);
 background-color: white;
 display: block;
@@ -60,9 +60,11 @@ justify-content: center;
 align-items: center;
 transition: var(--hover-transition);
   padding: 3px;
+  outline: none;
+  border: none;
 
 }
-.fav-icon a:hover {
+.fav-icon a:hover, .fav-icon button:hover {
   transform: scale(1.2);
 }
 
@@ -74,7 +76,7 @@ transition: var(--hover-transition);
   justify-content: center;
   align-items: center;
 width:100% ;
-height:220px;
+height:200px;
 background-color: var(--grey-color);
 
 
