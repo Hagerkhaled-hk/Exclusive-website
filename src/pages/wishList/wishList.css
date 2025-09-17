@@ -26,13 +26,17 @@
 }
 
 
-.Wishlist .bottom{
+.Wishlist .bottom,.Wishlist  .recommendation-bottom{
   
     padding: var(--pages-padding);
   padding-top:20px ;
-  
+  padding-bottom:0px ;
 }
 
+.Wishlist  .recommendation
+{
+    margin-top: 20px;
+}
 
 .Wishlist  .products-container
 {

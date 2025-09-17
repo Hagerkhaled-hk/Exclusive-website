@@ -11,6 +11,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../context/userContext/userContext";
 import Logout from "../../services/APIs/Auth/logout";
 import { ProductContext } from "../../context/productContext/productContext";
+import { GoPerson } from "react-icons/go";
 export default function Nav()
 {
 const {isLogin,setUserLogin , getToken} =useContext(UserContext);  
@@ -56,7 +57,7 @@ window.dispatchEvent(new Event('localStorageChange'));
 
 
     <p>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-        <Link to="" >ShopNow</Link ></p>
+        <Link to="/product" >ShopNow</Link ></p>
         <p>English <span><IoIosArrowDown/></span></p>
 
 
@@ -94,7 +95,9 @@ isLogin()?
               {
                 productSearch.map((item ,index)=>{
                     return(
-                        <Link key={index} to={`product/${item.id}`}> {item.name}</Link>
+                        <Link key={index} to={`product/${item.id}`}>
+                            
+                        <IoSearchOutline style={{marginRight:"2px"}}/> {item.name}</Link>
 
                     )
                 })
@@ -109,6 +112,7 @@ isLogin()?
 
          <Link to={ isLogin()?`/wishlist`:"/signup"}  className="wishList"><AiOutlineHeart/></Link>
     <Link to={ isLogin()?`/cart`:"/signup"}  className="Cart"><PiShoppingCartLight/></Link>
+    <Link to={ isLogin()?`/account`:"/signup"}  className="Account"><GoPerson/></Link>
     
    
     <div class="nav-item dropdown" style={{position:"unset",display:"none"}}>

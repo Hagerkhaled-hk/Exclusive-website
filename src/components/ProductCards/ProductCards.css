@@ -14,6 +14,7 @@
   transition: 0.3s;
   overflow: hidden;
   transition: var(--hover-transition);
+  width: 100%;
 }
 
 .product-card:hover {

@@ -83,15 +83,26 @@ object-fit: contain;
   flex-direction: column;
 gap: 8px;  
 font-size: var(--text-size);
-
-
+height: 100%;
+width: 600px;
 }
+
 .info-section h2 {
 font-family: var(--Inter-semi-bold);
   font-size: var(--sec-text-size);
   text-align: start;
+  width: 100%;
   color: var(--black-color);
   margin-top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-section h2  span{
+
+font-size: var(--input-txt-size);
+color: var(--sec-grey-color);
 }
 
 .info-section .stars *
@@ -241,6 +252,11 @@ align-items: center;
   color: var(--sec-grey-color);
   }
 
+  .heart:hover
+  {
+    background-color: var(--white-hover);
+  }
+
 .altImages .swiper {
   height: 100% !important;
 }
@@ -278,6 +294,11 @@ align-items: center;
   content: '▼';
   font-size: 12px;
   color:  var(--black-color);
+}
+
+.altImages .swiper-button-disabled.swiper-button-lock
+{
+ display: none !important;
 }
 
 /* ========= Responsive ========= */

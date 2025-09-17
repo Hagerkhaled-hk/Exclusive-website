@@ -21,6 +21,7 @@ const ProductDetail = lazy(() => import("./pages/productDetail/productDetail.jsx
 const AboutUs = lazy(() => import("./pages/aboutUs/AboutUs"));
 const Account = lazy(() => import("./pages/account/account.jsx"));
 const Wishlist = lazy(() => import("./pages/wishList/wishList.jsx"));
+const Payment = lazy(() => import("./pages/payment/payment.jsx"));
 
 
 export default function App() {
@@ -112,6 +113,13 @@ path: "resetPassword", element: (
         <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
 <Wishlist />
         
+        </Suspense>
+
+        ) },
+       ,
+      { path: "payment", element:(
+        <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
+<Payment/>        
         </Suspense>
 
         ) },

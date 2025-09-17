@@ -90,7 +90,7 @@ Getproducts(res.data[4].name);
         slidesPerView:5
     },
     "1030":{
-        slidesPerView:6
+        slidesPerView:7
     },
 
    }}

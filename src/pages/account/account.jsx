@@ -165,36 +165,14 @@ export default function Account() {
       </aside>
 
       <main className="account-content">
-        <h2>Edit Your Profile</h2>
+        <h2>Your Profile</h2>
 
         {successMessage && <p className="success-message">{successMessage}</p>}
 
         <form className="profile-form" onSubmit={handleSubmit}>
           <div className="form-grid">
-            <div>
-              <label>First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                value={form.firstName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Md"
-              />
-              {errors.firstName && <p className="error">{errors.firstName}</p>}
-            </div>
-            <div>
-              <label>Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                value={form.lastName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Rimel"
-              />
-              {errors.lastName && <p className="error">{errors.lastName}</p>}
-            </div>
+          
+          
             <div>
               <label>Email</label>
               <input
@@ -203,22 +181,12 @@ export default function Account() {
                 value={form.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled
                 placeholder="rimel111@gmail.com"
               />
               {errors.email && <p className="error">{errors.email}</p>}
             </div>
-            <div>
-              <label>Address</label>
-              <input
-                type="text"
-                name="address"
-                value={form.address}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Kingston, 5236, United State"
-              />
-              {errors.address && <p className="error">{errors.address}</p>}
-            </div>
+         
           </div>
 
           <label style={{ marginTop: 25 }}>Password Changes</label>
