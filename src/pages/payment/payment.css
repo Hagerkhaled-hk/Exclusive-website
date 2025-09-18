@@ -1,13 +1,16 @@
 .Payment {
-  padding: 40px 0;
   background: #fff;
   font-family: 'Inter', Arial, sans-serif;
+  
 }
 
 .payment-container {
   display: flex;
   max-width: 1100px;
   margin: 0 auto;
+padding: var(--pages-padding);
+padding-left: 0px;
+padding-top:20px ;
   gap: 48px;
 }
 
@@ -62,6 +65,7 @@
 
 .save-info label {
   font-size: 0.98rem;
+margin: 0px;
 }
 
 .order-summary {
@@ -70,7 +74,8 @@
   border-radius: 8px;
   padding: 24px 28px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-  min-width: 340px;
+  max-width: 400px;
+  height: fit-content;
 }
 
 .order-items {
@@ -118,7 +123,7 @@
 
 .order-totals .total {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: var(--input-txt-size);
   margin-top: 6px;
 }
 
@@ -129,15 +134,20 @@
 .payment-methods label {
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: var(--input-txt-size);
   margin-bottom: 10px;
   cursor: pointer;
 }
 
 .payment-methods input[type="radio"] {
   margin-right: 10px;
-  accent-color: #d23f3f;
+  accent-color: var(--red-color);
+    font-size: var(--input-txt-size);
+
+
 }
+
+
 
 .bank-icons img {
   height: 22px;
@@ -149,24 +159,35 @@
   display: flex;
   gap: 10px;
   margin-bottom: 18px;
+  align-items: center;
+}
+.coupon-row > *
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+
+
 }
 
-.coupon-row input[type="text"] {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  background: #fafafa;
+.coupon-row .RedButton button 
+{
+  font-size:8px;
 }
 
+.coupon-row  input[type="text"] {
+height:fit-content;
+}
+
+.coupon-row  input[type="text"]::placeholder {
+font-size: var(--text-size);
+}
 .apply-coupon {
-  background: #d23f3f;
+  accent-color: var(--red-color);
   color: #fff;
   border: none;
-  padding: 0 22px;
-  border-radius: 4px;
-  font-size: 1rem;
+font-size: var(--text-size);
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -177,7 +198,7 @@
 
 .place-order {
   width: 100%;
-  background: #d23f3f;
+  accent-color: var(--red-color);
   color: #fff;
   border: none;
   padding: 14px 0;

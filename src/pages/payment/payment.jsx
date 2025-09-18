@@ -1,8 +1,45 @@
+import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
+import RedButton from "../../Common/redButton/redButton";
+import TotalDetails from "../../Common/totalDetails/totalDetails";
 import "./payment.css";
 
 export default function Payment() {
+
+
+    async function processOrder()
+    {
+  let token= getToken();
+  if(token){
+  
+    let res =await AddToOrder(cartItems,token);
+  setCart_Info_State();
+    console.log("order",res);
+  }
+      
+  
+    }
+
+    async function applyDiscount()
+    {let data=[];
+      cartItems.map((item,index)=>{
+  
+           data.push(item.productId) ;
+      });
+      console.log(data);
+      
+      let res =await ApplyDiscount({
+    "code": coupounRef.current.value,
+    "productIds": data
+  });
+  setCart_Info_State();
+      console.log("order",res);
+      
+  
+    }
+  
   return (
     <div className="Payment">
+      <DynamicIndex page={["Account", "My Account","Product","View Cart","CheckOut"]} />
       <div className="payment-container">
         {/* Billing Details */}
         <div className="billing-details">
@@ -47,32 +84,8 @@ export default function Payment() {
 
         {/* Order Summary */}
         <div className="order-summary">
-          <div className="order-items">
-            <div className="order-item">
-              <img src="https://i.imgur.com/8Km9tLL.png" alt="LCD Monitor" />
-              <span>LCD Monitor</span>
-              <span className="price">$650</span>
-            </div>
-            <div className="order-item">
-              <img src="https://i.imgur.com/1Q9Z1Zm.png" alt="HI Gamepad" />
-              <span>HI Gamepad</span>
-              <span className="price">$1100</span>
-            </div>
-          </div>
-          <div className="order-totals">
-            <div>
-              <span>Subtotal:</span>
-              <span>$1750</span>
-            </div>
-            <div>
-              <span>Shipping:</span>
-              <span>Free</span>
-            </div>
-            <div className="total">
-              <span>Total:</span>
-              <span>$1750</span>
-            </div>
-          </div>
+         
+     <TotalDetails total={2000} subTotal={3000} />
           <div className="payment-methods">
             <label>
               <input type="radio" name="payment" />
@@ -86,11 +99,12 @@ export default function Payment() {
               Cash on delivery
             </label>
           </div>
-          <div className="coupon-row">
-            <input type="text" placeholder="Coupon Code" />
-            <button className="apply-coupon">Apply Coupon</button>
+       <div className="coupoun coupon-row" >
+              <input type="text"  placeholder="Coupoun"  />
+              <RedButton text="Apply Coupoun" btn_Function={applyDiscount}/>
           </div>
-          <button className="place-order">Place Order</button>
+                        <RedButton text="Place order" btn_Function={processOrder}/>
+
         </div>
       </div>
     </div>
