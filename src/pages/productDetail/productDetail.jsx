@@ -37,6 +37,7 @@ async function addToCart(data)
       console.log(res);
       if(res.succeeded){ toast.success('Successfully added to cart!')
   setCart_All_State();}    
+else {toast.error(res?.message)}
     }
     
   }
@@ -48,7 +49,7 @@ async function addToCart(data)
     if(token){  
       let res =await AddToWishlist(data,token);
       if(res.succeeded) {toast.success('Successfully added to wishlist!');fetchWishlist();}
-      else  if(res.statusCode=400) toast.error(res?.message)
+      else {toast.error(res?.message)}
        }
   }
 

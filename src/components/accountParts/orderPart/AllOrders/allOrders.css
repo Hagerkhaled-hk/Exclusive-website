@@ -1,0 +1,80 @@
+.AllOrders {
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  background: #fff;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 16px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 16px;
+}
+
+.orders-table th {
+  font-weight: 600;
+  color: #222;
+  background: #fafafa;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #222;
+}
+
+.status-pending {
+  background: #ffd6dd;
+  color: #e74c3c;
+}
+
+.status-inprogress {
+  background: #ffe97a;
+  color: #b38600;
+}
+
+.status-completed {
+  background: #2ee5c7;
+  color: #fff;
+}
+
+.status-cancelled {
+  background: #e0e0e0;
+  color: #888;
+}
+
+.cancel-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #ff4d4f;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancel-btn:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .orders-table th,
+  .orders-table td {
+    padding: 10px 6px;
+    font-size: 14px;
+  }
+}

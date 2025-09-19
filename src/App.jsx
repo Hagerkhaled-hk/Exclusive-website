@@ -22,7 +22,9 @@ const AboutUs = lazy(() => import("./pages/aboutUs/AboutUs"));
 const Account = lazy(() => import("./pages/account/account.jsx"));
 const Wishlist = lazy(() => import("./pages/wishList/wishList.jsx"));
 const Payment = lazy(() => import("./pages/payment/payment.jsx"));
-
+const ProfilePart = lazy(() => import("./components/accountParts/profilePart.jsx"));
+const AllOrders = lazy(() => import("./components/accountParts/orderPart/AllOrders/allOrders.jsx"));
+const CurrentOrders = lazy(() => import("./components/accountParts/orderPart/currentOrders/currentOrders.jsx"));
 
 export default function App() {
 
@@ -101,13 +103,43 @@ path: "resetPassword", element: (
 
         ) },
        ,
-      { path: "account", element:(
+      { path: "account",
+         element:(
         <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
 <Account />
         
-        </Suspense>
+        </Suspense>),
+         
+         errorElement:<ErrorPage/>,
+        children:[
+          {
+            path:"profile" ,
+            element:(
+          
+                  <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
 
-        ) },
+          <ProfilePart/>
+                </Suspense>
+          )
+        
+        } 
+      ,
+      {
+
+    path:"allOrders" ,
+            element:(
+          
+                  <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
+
+          <AllOrders/>
+                </Suspense>
+          )
+      }
+      
+      
+      ]
+      }
+         
        ,
       { path: "wishList", element:(
         <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>

@@ -25,14 +25,14 @@ padding-top:20px ;
   letter-spacing: 1px;
 }
 
-.billing-details form label {
+.billing-details .form label {
   display: block;
   margin-bottom: 18px;
   font-size: 1rem;
   font-weight: 400;
 }
 
-.billing-details form label span {
+.billing-details .form label span {
   color: #e74c3c;
   margin-left: 2px;
 }
@@ -53,6 +53,7 @@ padding-top:20px ;
 .save-info {
   display: flex;
   align-items: center;
+
   margin-top: 18px;
 }
 
@@ -63,10 +64,10 @@ padding-top:20px ;
   margin-right: 8px;
 }
 
-.save-info label {
+.form .save-info label {
   font-size: 0.98rem;
 margin: 0px;
-}
+} 
 
 .order-summary {
   flex: 1;
@@ -150,7 +151,7 @@ margin: 0px;
 
 
 .bank-icons img {
-  height: 22px;
+  height: 20px;
   margin-left: 10px;
   vertical-align: middle;
 }
@@ -181,8 +182,8 @@ height:fit-content;
 }
 
 .coupon-row  input[type="text"]::placeholder {
-font-size: var(--text-size);
-}
+font-size: var(--input-txt-size);
+} 
 .apply-coupon {
   accent-color: var(--red-color);
   color: #fff;
