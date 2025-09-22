@@ -197,19 +197,13 @@ font-size: var(--text-size);
   background: #b92e2e;
 }
 
-.place-order {
-  width: 100%;
-  accent-color: var(--red-color);
-  color: #fff;
-  border: none;
-  padding: 14px 0;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
+.Payment .RedButton:not(:nth-of-type(1)).active button span
+{
+  display: none;
 }
 
-.place-order:hover {
-  background: #b92e2e;
-}
+ .Payment .RedButton:not(:nth-of-type(1)).active .processing
+{
+ 
+  display: block;
+} 

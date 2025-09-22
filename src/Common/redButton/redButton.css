@@ -17,9 +17,19 @@ color: var(--white-color);
 background-color: var(--red-color);
 outline: none;
 border: none;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .RedButton button:hover
 {
     background-color: var(--red-hover);
+}
+
+.RedButton .processing
+{
+    display: none;
+width: 20px;
+height: 20px;
 }

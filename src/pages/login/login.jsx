@@ -3,12 +3,12 @@
 import "../signup/signup.css";
 import register_img from "../../assets/images/register-img.png";
 import { useContext, useRef, useState } from "react";
-import GenerateToken from "../../services/APIs/generateToken";
+import GenerateToken from "../../services/APIs/Auth/generateToken";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../Common/errorComponents/errorComponents";
 import { useGoogleLogin } from '@react-oauth/google';
 import {UserContext} from "../../context/userContext/userContext";
-import Google_Login_Api from "../../services/APIs/googleLogin";
+import Google_Login_Api from "../../services/APIs/Auth/googleLogin";
 export default function Login()
 {
     const {UserDataSetting} =useContext(UserContext);

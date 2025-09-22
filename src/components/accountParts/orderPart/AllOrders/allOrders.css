@@ -1,22 +1,27 @@
 .AllOrders {
-  padding: 24px;
   background: #fff;
   border-radius: 8px;
+  font-size: var(--sec-text-size);
+  font-family: var(--Inter-regular);
+
 }
+
 
 .orders-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 16px;
+  margin-top: 20px;
   background: #fff;
+  font-size: var(--sec-text-size);
+
 }
 
 .orders-table th,
 .orders-table td {
-  padding: 16px 12px;
+    padding: 16px 12px;
   text-align: left;
   border-bottom: 1px solid #f0f0f0;
-  font-size: 16px;
+  font-size:var(--text-size);
 }
 
 .orders-table th {
@@ -25,11 +30,18 @@
   background: #fafafa;
 }
 
+.orders-table *
+{
+
+  font-size: var(--input-txt-size);
+}
+
+
 .status-badge {
   display: inline-block;
   padding: 6px 16px;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: var(--input-txt-size);
   font-weight: 500;
   color: #222;
 }
@@ -37,11 +49,13 @@
 .status-pending {
   background: #ffd6dd;
   color: #e74c3c;
+  
 }
 
 .status-inprogress {
   background: #ffe97a;
   color: #b38600;
+  
 }
 
 .status-completed {

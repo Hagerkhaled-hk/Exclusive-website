@@ -4,10 +4,9 @@ import "./signup.css";
 import register_img from "../../assets/images/register-img.png";
 import { FcGoogle } from "react-icons/fc";
 import { useRef, useState } from "react";
-import SignUp_Api from "../../services/APIs/signup";
+import SignUp_Api from "../../services/APIs/Auth/signup";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../Common/errorComponents/errorComponents";
-import Login from "../login/login";
 export default function Signup()
 {
     const inputRef=useRef([]);

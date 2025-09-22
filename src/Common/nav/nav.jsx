@@ -112,7 +112,7 @@ isLogin()?
 
          <Link to={ isLogin()?`/wishlist`:"/signup"}  className="wishList"><AiOutlineHeart/></Link>
     <Link to={ isLogin()?`/cart`:"/signup"}  className="Cart"><PiShoppingCartLight/></Link>
-    <Link to={ isLogin()?`/account`:"/signup"}  className="Account"><GoPerson/></Link>
+    <Link to={ isLogin()?`/account/profile`:"/signup"}  className="Account"><GoPerson/></Link>
     
    
     <div class="nav-item dropdown" style={{position:"unset",display:"none"}}>

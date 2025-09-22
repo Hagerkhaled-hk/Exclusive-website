@@ -149,15 +149,16 @@ path: "resetPassword", element: (
 
         ) },
        ,
-      { path: "payment", element:(
-        <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
-<Payment/>        
-        </Suspense>
-
-        ) },
-
-
-
+      { path: "payment", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <Payment />
+    </Suspense>
+)},
+{ path: "success-payment", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <Payment />
+    </Suspense>
+)},
       { path: "*", element: (
                                    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
 

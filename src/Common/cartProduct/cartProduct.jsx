@@ -36,7 +36,7 @@ export default function CartProduct  ({ item , index })  {
                     <Modal.Header closeButton>
                         <Modal.Title style={{ fontSize: "22px" }}>Delete</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body style={{ fontSize: "12px" }}>Are you sure you want to delete <span style={{ fontWeight: "bold" }}>{item.productName}</span></Modal.Body>
+                    <Modal.Body style={{ fontSize: "12px" }}>Do you want to delete <span style={{ fontWeight: "bold" }}>{item.productName}</span></Modal.Body>
                     <Modal.Footer>
                         <Button style={{ fontSize: "12px", background: "var(--red-color)", outline: "none", border: "none", padding: "8px 20px" }} variant="primary" onClick={() => { handleClose(); Delete_From_Cart(index, item.cartItemId); }}>
                             Delete

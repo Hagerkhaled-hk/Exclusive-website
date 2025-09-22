@@ -1,4 +1,4 @@
-import { useContext, useState, useRef, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
 import RedButton from "../../Common/redButton/redButton";
 import TotalDetails from "../../Common/totalDetails/totalDetails";
@@ -6,10 +6,16 @@ import banks from "../../assets/images/banks.png";
 import { CartContext } from "../../context/cartContext/cartContext"
 import "./payment.css";
 import CheckoutSession from "../../services/APIs/payment/session";
+import { useLocation } from "react-router-dom";
+import { UserContext } from "../../context/userContext/userContext";
+import AddToOrder from "../../services/APIs/orders/addOrder";
 
 export default function Payment() {
 
   const {cartItems}=useContext(CartContext);
+  const {getToken} =useContext(UserContext);
+  const [activeProcess,setActiveProcess] =useState(false);
+  const url=useLocation();
 
   // State for form fields
   const [form, setForm] = useState({
@@ -26,6 +32,7 @@ export default function Payment() {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+
     // Load saved address from localStorage if available
     const savedAddress = localStorage.getItem("user_Address_Payment");   
     console.log(JSON.parse(savedAddress));
@@ -33,7 +40,25 @@ export default function Payment() {
     
       setForm(JSON.parse(savedAddress));
     }
+    
   
+if (url.pathname=="/success-payment") {
+  (async()=>{
+
+    let token =getToken();
+    console.log(token);
+    
+let user_Address_Payment =JSON.parse(localStorage.getItem("user_Address_Payment"));
+
+if(!user_Address_Payment) return;
+
+  let res= await AddToOrder({
+  "shippingAddress": user_Address_Payment["streetAddress"],
+  "shipPostalCode": user_Address_Payment["postalCode"]
+},token);
+  console.log(res);
+} )()
+}
   
   },[]);
 
@@ -100,39 +125,19 @@ export default function Payment() {
         setForm(newForm);
 
     if (validateForm()) {
-   if(checked)
-    {
-      
-      console.log("newForm",newForm);
-      
-
-        localStorage.setItem("user_Address_Payment", JSON.stringify(newForm));
-
-
-    }
-    else
-    {
-      localStorage.removeItem("user_Address_Payment");
-
-    }}
+   if(checked) {localStorage.setItem("user_Address_Payment", JSON.stringify(newForm)); }
+    else{localStorage.removeItem("user_Address_Payment");}}
   }
   // Save address to localStorage if valid
 
 
-/* 
-  async function processOrder() {
-    let token= getToken();
-    if(token){
-      let res =await AddToOrder(cartItems,token);
-      setCart_Info_State(); 
-      console.log("order",res);
-    }
-  } */
+
 
   async function processpayment() {
     // Validate and save address before payment
     if (!validateForm()) return;
 
+setActiveProcess(true);
     /*   let data=[{"productNames":[],"unitAmounts":[],"quantities":[]}];
     cartItems.map((item)=>{
       data["productNames"].push(item.productName) ;
@@ -166,18 +171,17 @@ export default function Payment() {
     1,2,3
   ],
   "currency": "EGP",
-  "successUrl": "http://localhost:5173/account",
+  "successUrl": "http://localhost:5173/success-payment",
   "cancelUrl": "http://localhost:5173/Payment"
 });  
-    console.log("payment",res);
     if(res.data.url) {
-      window.location.href=res.data.url;
-    }
+       window.location.href=res.data.url;
+     }
   }
 
   async function applyDiscount() {
     let data=[];
-    cartItems.map((item,index)=>{
+    cartItems.map((item)=>{
       data.push(item.productId) ;
     });
     console.log(data);
@@ -186,7 +190,6 @@ export default function Payment() {
       "productIds": data
     });
     setCart_Info_State();
-    console.log("order",res);
   }
 
   return (
@@ -305,7 +308,8 @@ export default function Payment() {
             <input type="text"  placeholder="Coupoun"  />
             <RedButton text="Apply Coupoun" btn_Function={applyDiscount}/>
           </div>
-          <RedButton text="Place order" btn_Function={processpayment}/>
+          <RedButton text="Place order"
+          className={`${activeProcess?"active":""}`}  btn_Function={processpayment}/>
         </div>
       </div>
     </div>

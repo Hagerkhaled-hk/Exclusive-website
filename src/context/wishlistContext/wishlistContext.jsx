@@ -39,9 +39,7 @@ if(token)
 
      async function add_Wishlit_To_Cart()
     {
-        console.log("add_Wishlit_To_Cart");
         let token = getToken();
-        console.log("token", token);
 
         if (token) {
             let AddedAll = 0;

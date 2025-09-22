@@ -90,7 +90,6 @@ if(token){
   "quantity":  payload.quantity+1
 ,token});
 
-if (!res.succeeded)setCartItem(before_Cart_Affect) ;
   
 
     }

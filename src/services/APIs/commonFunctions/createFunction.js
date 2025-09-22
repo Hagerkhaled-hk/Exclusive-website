@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 
 
 export default async function CreateAPi_Function (initialUrl,headersData,intialData){
@@ -17,6 +18,8 @@ export default async function CreateAPi_Function (initialUrl,headersData,intialD
     })
     
 
+    if(!res.ok) return { statusCode: res.status};
+
 // Http  level error (status code) 
             
             
@@ -27,10 +30,12 @@ const contentType = res.headers.get("content-type");
             return await res.json();
         } else {
             return await res.text();
-        }       }
-        catch(error)
-        {
-            return false;
-/*  throw new Error (error.message);
- */        }
+        }
+
+
+    } catch(error) {
+        return false;
+        /*  throw new Error (error.message);
+        */
+    }
 }

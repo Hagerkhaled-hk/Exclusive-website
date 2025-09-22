@@ -4,9 +4,13 @@ import CreateAPi_Function from "../commonFunctions/createFunction.js";
 
 export default async function ReGenerateToken(intialData)
 { 
+console.log("ReGenerateToken Call",intialData);
 
-     let res =await CreateAPi_Function(import.meta.env.VITE_RE_TOKEN_API
-,{"Content-Type":"application/json"},intialData);
+     let res =await CreateAPi_Function(import.meta.env.VITE_RE_TOKEN_API   
+,{"Content-Type":"application/json" },intialData);
+
+
+
      return res;
 
 }
