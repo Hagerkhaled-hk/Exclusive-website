@@ -13,9 +13,7 @@ export default async function UpdateAPi_Function (initialUrl,headers, intialData
     
 
 // Http  level error (status code) 
-     if(!res.ok) {
-        throw new Error (`Create HTTP error!${res.status} `);
-    }  
+  
 
 
 const contentType = res.headers.get("content-type");
@@ -26,6 +24,7 @@ const contentType = res.headers.get("content-type");
         }       }
         catch(error)
         {
- throw new Error (error.message);
+
+return error;
         }
 }

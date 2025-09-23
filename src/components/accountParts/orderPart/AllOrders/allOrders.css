@@ -3,7 +3,11 @@
   border-radius: 8px;
   font-size: var(--sec-text-size);
   font-family: var(--Inter-regular);
+  overflow-y: auto;
+    padding:5px 2rem;
 
+  /* Height for 7 rows (each row ~48px + header ~48px) */
+  height: calc(50px * 8); /* 7 rows + 1 header row */
 }
 
 
@@ -15,6 +19,11 @@
   font-size: var(--sec-text-size);
 
 }
+
+.orders-table tr:hover {
+  background: #f9f9f9;
+  cursor: pointer;
+} 
 
 .orders-table th,
 .orders-table td {
@@ -91,4 +100,53 @@
     padding: 10px 6px;
     font-size: 14px;
   }
+}
+
+.filter-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white-color);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: var(--input-txt-size);
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin: 10px 3px;
+  border: 1px solid #e0e0e0;
+}
+
+.filter-status:hover {
+  background: var(--grey-hover);
+}
+
+.filter-select {
+  display: inline-flex;
+  align-items: center;
+  background: var(--white-color);
+  border-radius: 6px;
+  padding: 8px 2px;
+  font-size: var(--input-txt-size);
+  color: #222;
+  border: 1px solid #e0e0e0;
+  margin: 10px 3px;
+}
+
+.custom-filter-select {
+  background: transparent;
+  border: none;
+  font-size: var(--input-txt-size);
+  color: #222;
+  outline: none;
+  padding: 0px;
+  cursor: pointer;
+  min-width:50px;
+}
+
+
+
+.filter-select:hover,
+.custom-filter-select:hover {
+  background: #e9f0ff;
 }

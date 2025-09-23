@@ -1,0 +1,57 @@
+.currentOrder-container {
+  background: #fff;
+  border-radius: 8px;
+  font-size: var(--sec-text-size);
+  font-family: var(--Inter-regular);
+  padding:5px 2rem;
+  
+  overflow-y: auto;
+height: calc(52px * 8); /* 7 rows + 1 header row */
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  font-size: var(--sec-text-size);
+}
+
+.order-table tr:hover {
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
+.order-table th,
+.order-table td {
+  padding: 16px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: var(--text-size);
+}
+
+.order-table th {
+  font-weight: 600;
+  color: #222;
+  background: #fafafa;
+}
+
+.order-table * {
+  font-size: var(--input-txt-size);
+}
+
+.no-orders {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 2rem 0;
+  background: #fafafa;
+}
+
+@media (max-width: 600px) {
+  .order-table th,
+  .order-table td {
+    padding: 10px 6px;
+    font-size: 14px;
+  }
+}

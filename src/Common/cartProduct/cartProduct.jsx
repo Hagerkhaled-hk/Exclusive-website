@@ -4,10 +4,10 @@ import { CartContext } from '../../context/cartContext/cartContext';
 
 export default function CartProduct  ({ item , index })  {
     const [show, setShow] = useState(false);
-
-    const  {Quantity_Function,Delete_From_Cart} = useContext(CartContext);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const  {Quantity_Function,Delete_From_Cart} = useContext(CartContext);
 
     return (
         <tr >

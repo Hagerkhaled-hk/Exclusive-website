@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import RatingStars from "../../components/RatingStars/RatingStars";
 import { CiHeart } from "react-icons/ci";
@@ -10,13 +10,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import { Spinner } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { CartContext } from "../../context/cartContext/cartContext";
 import { UserContext } from "../../context/userContext/userContext";
 import AddToWishlist from "../../services/APIs/wishlist/addToWishlist";
 import AddTOCart from "../../services/APIs/cart/addToCart";
-import notFound from "../../assets/images/icons/icons8-empty-100.png"
+import LoadingModal from "../../Common/modal/modal";
 
 
 export default function ProductDetail() {
@@ -57,7 +56,6 @@ else {toast.error(res?.message)}
    useEffect(()=>{
     (async()=>{
       let res =await ProductById(id)
-      console.log(res.data);
 
 setProducts(res.data);
     })()
@@ -227,16 +225,8 @@ AddTOWishlist(
   
     </> 
       :
-      loading ?
-    
-<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> 
-:
-<div 
+      <LoadingModal loading={loading} text="product" />
 
-style={{marginTop:"50px", width:"100%" , display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column" } }>
-<img src={notFound}  alt="NOTFOUND" />
-<p style={{marginTop:"20px",fontSize:"var(--text-size)"}}>No product found.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.</p>
-</div>
   }
         </div>
           

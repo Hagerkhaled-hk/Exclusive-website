@@ -1,70 +1,96 @@
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./allOrders.css";
 import viewOrders from "../../../../services/APIs/orders/viewOrders";
 import { UserContext } from "../../../../context/userContext/userContext";
 import toast, { Toaster } from "react-hot-toast";
 import CancelOrder from "../../../../services/APIs/orders/cancelOrder";
-import AlertModal from "../../../../Common/modal/modal";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
+import DeleteOrder from "../../../../services/APIs/orders/deleteOrder";
+import { Link, useNavigate } from "react-router-dom";
+import { CiFilter } from "react-icons/ci";
+import LoadingModal from "../../../../Common/modal/modal";
 
 export default function AllOrders() {
-const [orders,setOrders]=useState([]);
+  const [orders, setOrders] = useState([]);
+  const { getToken } = useContext(UserContext);
+  const [filter, setFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [modelINfo, setModelInfo] = useState({ selectedOrderId: "", actionType: "", id: null, show: false });
+  const navigate = useNavigate();
 
-const [show, setShow] = useState(false);
+  const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
+  const handleShow = (order, id, type) => { setModelInfo({ selectedOrderId: order, actionType: type, id: id, show: true }); };
 
-const {getToken} =useContext(UserContext);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-async function View_Orders() {
-    let token=getToken();
-  if(!token)return;
-let res =await viewOrders(getToken(token,{PageNumber:1,PageSize:10}));
-console.log(res);
-setOrders(res?.data?.items||[]);
-}
+  async function View_Orders(status = "all") {
+    let token = getToken();
+    if (!token) return;
+    let apiStatus = status === "all" ? "" : status;    
+      let res = await viewOrders(token, { PageNumber: 1, Status: apiStatus });
+      setOrders(res?.data?.items || []);
+  }
 
-async function Cancel_Order(id)
-{
-  console.log(id);
-  
-let token= getToken();
-if(!token)return;
+  async function Cancel_Order(id) {
+    let token = getToken();
+    if (!token) return;
+    let res = await CancelOrder(id, token);
+    if (res.succeeded) { toast.success("Order Cancelled"); View_Orders(filter); }
+    else toast.error(res?.message || "Error Occured");
+  }
 
-let res =await CancelOrder(id,token);
+  async function Delete_Order(id) {
+    let token = getToken();
+    if (!token) return;
+    let res = await DeleteOrder(id, token);
+    if (res.succeeded) { toast.success("Order Deleted"); View_Orders(filter); }
+    else toast.error(res?.message || "Error Occured");
+  }
 
-if(res.succeeded){toast.success("Order Cancelled"); View_Orders(); }
-else toast.error("Error Occured");
+  useEffect(() => {
+    View_Orders(filter);
 
-}
-
-
-useEffect(()=>{
-View_Orders();
-
-},[])
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, [filter]);
 
   const getStatusClass = (status) => {
     switch (status) {
-      case "Pending":
-        return "status-pending";
-      case "In progress":
-        return "status-inprogress";
-      case "Completed":
-        return "status-completed";
-      case "Cancelled":
-        return "status-cancelled";
-      default:
-        return "";
+      case "Pending": return "status-pending";
+      case "In progress": return "status-inprogress";
+      case "Completed": return "status-completed";
+      case "Canceled": return "status-cancelled";
+      default: return "";
     }
   };
 
   return (
     <div className="AllOrders">
-            <Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+      {orders.length ==0?
+       
+      <LoadingModal loading={loading} text="orders" />
+
+    
+
+      :
+      <>  
+      
+          <Toaster position="top-center" reverseOrder={false} />
       <h2>All Orders</h2>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+        <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an order to see more information.</small>
+        <div className="filter-select">
+          <CiFilter />
+          <select
+            className="custom-filter-select"
+            value={filter}
+            onChange={e => setFilter(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="pending">Pending</option>
+            <option value="canceled">Canceled</option>
+          </select>
+        </div>
+      </div>
       <table className="orders-table">
         <thead>
           <tr>
@@ -72,51 +98,66 @@ View_Orders();
             <th>Created At</th>
             <th>Total</th>
             <th>Status</th>
-            <th>Cancel</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order , id) => (
-            <tr key={order.id}>
-              <td>{id+1}</td>
+          {orders.map((order, id) => (
+            <tr onClick={() => { navigate(`/account/order/${id + 1}/${order.id}`); }} key={order.id}>
+              <td>{id + 1}</td>
               <td>{order.createdAt}</td>
-              <td>{order.total} EGP</td>
+              <td>{(order.total / 100).toFixed(1)} EGP</td>
               <td>
                 <span className={`status-badge ${getStatusClass(order.status)}`}>
                   {order.status}
                 </span>
               </td>
               <td>
-              <Button         
-                         className="cancel-btn"
-                  disabled={order.status !== "Pending" }
-                   onClick={handleShow}>
-                                   Cancel
-                                </Button>
-            
-   <Modal  show={show}   onHide={handleClose}>
-  
-
-        <Modal.Header closeButton>
-          <Modal.Title style={{fontSize:"22px"}}> Order {id+1} </Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{fontSize:"12px"}}>
-          Do u want  to Cancel  <span style={{ fontWeight: "bold" }}> Order {id+1} </span>
-        </Modal.Body>
-        <Modal.Footer>
-
-          <Button style={{fontSize:"10px"}} variant="danger" onClick={()=>{
-            Cancel_Order(order.id); handleClose();}}>
-            Cancel Order
-          </Button>
-        </Modal.Footer>
-      </Modal>
-                
+                <Button
+                  className="btn cancel-icon"
+                  disabled={order.status !== "Pending"}
+                  onClick={() => { handleShow(order.id, id, "cancel"); }}
+                >
+                  Cancel
+                </Button>
+              </td>
+              <td>
+                <Button
+                  className="btn cancel-icon"
+                  variant="danger"
+                  disabled={order.status !== "Canceled"}
+                  onClick={() => { handleShow(order.id, id, "delete"); }}
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
+          <Modal show={modelINfo.show} onHide={() => { handleClose(null); }}>
+            <Modal.Header closeButton>
+              <Modal.Title style={{ fontSize: "22px" }}> Order {modelINfo.id + 1} </Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{ fontSize: "12px" }}>
+              Do u want to {modelINfo.actionType} <span style={{ fontWeight: "bold" }}> Order {modelINfo.id + 1} </span>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button style={{ fontSize: "10px" }} variant="danger" onClick={() => {
+                modelINfo.actionType == "delete"
+                  ? Delete_Order(modelINfo.selectedOrderId ? modelINfo.selectedOrderId : null)
+                  : Cancel_Order(modelINfo.selectedOrderId ? modelINfo.selectedOrderId : null);
+                handleClose(modelINfo.selectedOrderId ? modelINfo.selectedOrderId : null);
+              }}>
+                {modelINfo.actionType} Order
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </tbody>
       </table>
+      </>
+            }
     </div>
+
+
   );
 }

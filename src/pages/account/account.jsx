@@ -26,17 +26,18 @@ export default function Account() {
           <h3>My Orders</h3>
           <ul>
             <li>
-              <NavLink to="allOrders">Current orders</NavLink>
+              <NavLink to="allOrders">Orders</NavLink>
             </li>
-            <li>
-              <NavLink to="#"> Deliverd orders</NavLink>
-            </li>
-            <li>
-              <NavLink to="#"> Cancellations</NavLink>
-            </li>
+        
           </ul>
 
           <h3>My Wishlist</h3>
+              <ul>
+            <li>
+              <NavLink to="/wishlist">Wishlist</NavLink>
+            </li>
+        
+          </ul>
         </div>
       </aside>
 

@@ -6,7 +6,7 @@ export default async function viewOrders(Token,intialData)
      
 if (!Token) return [];
 
-let url = new URL(import.meta.env.VITE_VIEW_ORDERS_API);
+let url = new URL(import.meta.env.VITE__ORDERS_API);
 url.search= new URLSearchParams(intialData).toString();
 
      let res =await FetchApi_Function(url,             

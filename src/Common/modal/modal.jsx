@@ -1,28 +1,28 @@
 
-import Button from 'react-bootstrap/Button';
+import { Spinner } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import { useContext } from "react";
-import { CartContext } from "../../context/cartContext/cartContext";
+import { Link } from 'react-router-dom';
+import notFound from "../../assets/images/icons/icons8-empty-100.png"
 
-export default function AlertModal({heading,text,option,Alert_Function})
+
+export default function LoadingModal({loading,text})
 {
 
-    const {show,handleClose }=useContext(CartContext);
     return (
-   <Modal   show={show} onHide={handleClose}>
-  
+      <>{
 
-        <Modal.Header closeButton>
-          <Modal.Title style={{fontSize:"22px"}}>{heading}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{fontSize:"12px"}}>{text}</Modal.Body>
-        <Modal.Footer>
+      
+      loading ?
+   <Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> 
+:
+<div 
 
-          <Button style={{fontSize:"10px"}} variant="primary" onClick={()=>{Alert_Function}}>
-           {option}
-          </Button>
-        </Modal.Footer>
-      </Modal>
+style={{marginTop:"50px", width:"100%" , display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column" } }>
+<img src={notFound}  alt="NOTFOUND" />
+<p style={{marginTop:"20px",fontSize:"var(--text-size)"}}>No {text} found.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.</p>
+</div>
+}
+</>
     );
 
     
