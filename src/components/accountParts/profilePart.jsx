@@ -1,28 +1,52 @@
-import { useEffect, useState } from "react";
+import { use, useContext, useState } from "react";
+import { UserContext } from "../../context/userContext/userContext";
+import ForgetPasword from "../../services/APIs/Auth/forgetPassword";
+import RestPassword from "../../services/APIs/Auth/resetPassword";
 
 export default function ProfilePart() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    address: "",
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
-
-
-
-
+  const {userData}=useContext(UserContext);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+const [passAct,setPassAct]=useState(false);
+  const [form, setForm] = useState({
+    email: userData.email,
+    newPassword: "",
+    confirmPassword: "",
+  });
+  
+  
+
+
+  async function change_password() {
+
+    let res= await ForgetPasword({"email":form.email});
+    
+    if(res.statusCode==400) return { ...errors,"confirmPassword":"password not changed"};
+  
+   let  restRes =await RestPassword({
+  "userId": res.data.userId,
+  "newPassword": form.newPassword,
+  "confirmPassword": form.confirmPassword
+
+}
+)
+
+if(restRes.statusCode==400) return { ...errors,"confirmPassword":"password not changed"};
+
+
+return {};
+  }
+
+
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  
 
   const handleBlur = (e) => {
+    if (submitted) return; // Don't run blur validation if submitting
     const { name, value } = e.target;
     const fieldError = runFieldValidation(name, value, form);
 
@@ -34,34 +58,15 @@ export default function ProfilePart() {
 
   const runFieldValidation = (name, value, allValues) => {
     switch (name) {
-      case "firstName":
-        if (!value.trim()) return "First name is required";
-        if (value.length < 2) return "First name must be at least 2 characters";
-        if (!/^[A-Za-z]+$/.test(value))
-          return "First name should contain only letters";
-        break;
-
-      case "lastName":
-        if (!value.trim()) return "Last name is required";
-        if (value.length < 2) return "Last name must be at least 2 characters";
-        if (!/^[A-Za-z]+$/.test(value))
-          return "Last name should contain only letters";
-        break;
-
+ 
       case "email":
         if (!value.trim()) return "Email is required";
         if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value))
           return "Invalid email format";
         break;
 
-      case "address":
-        if (!value.trim()) return "Address is required";
-        if (value.length < 10) return "Address must be at least 10 characters";
-        break;
 
-      case "currentPassword":
-        if (!value.trim()) return "Current password is required";
-        break;
+      
 
       case "newPassword":
         if (!value.trim()) return "New password is required";
@@ -86,6 +91,7 @@ export default function ProfilePart() {
 
   const runValidation = (values) => {
     const newErrors = {};
+    
     Object.keys(values).forEach((key) => {
       const error = runFieldValidation(key, values[key], values);
       if (error) newErrors[key] = error;
@@ -93,38 +99,39 @@ export default function ProfilePart() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit =async () => {
     setSubmitted(true);
     setSuccessMessage("");
 
+
     const validationErrors = runValidation(form);
+    
     setErrors(validationErrors);
+    
 
-    if (Object.keys(validationErrors).length > 0) {
-      return;
+    if (Object.keys(validationErrors).length == 0) {
+    const  database_validationErrors= await change_password();
+console.log(database_validationErrors);
+
+    if(Object.keys(database_validationErrors).length > 0)
+{      setErrors(database_validationErrors) 
+    return ;
+}   
     }
+    else return;
 
-    // Temporary Password
-    if (form.currentPassword !== "123456") {
-      setErrors((prev) => ({
-        ...prev,
-        currentPassword: "Current password is incorrect",
-      }));
-      return;
-    }
 
-    console.log("Form submitted successfully!", form);
     setSuccessMessage(" Your changes have been saved successfully!");
+    setTimeout(() => {
+
+      handleCancel();
+      
+    }, 1500);
   };
 
   const handleCancel = () => {
     setForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      address: "",
-      currentPassword: "",
+      email: userData.email,
       newPassword: "",
       confirmPassword: "",
     });
@@ -141,7 +148,7 @@ export default function ProfilePart() {
 
         {successMessage && <p className="success-message">{successMessage}</p>}
 
-        <form className="profile-form" onSubmit={handleSubmit}>
+        <div className="profile-form" >
           <div className="form-grid">
           
           
@@ -161,20 +168,14 @@ export default function ProfilePart() {
          
           </div>
 
-          <label style={{ marginTop: 25 }}>Password Changes</label>
-          <input
-            type="password"
-            name="currentPassword"
-            value={form.currentPassword}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Current Password"
-          />
-          {errors.currentPassword && (
-            <p className="error">{errors.currentPassword}</p>
-          )}
+          <label   onClick={ ()=>{setPassAct(!passAct)}} className="password-label btn "  >Password Changes</label>
 
-          <input
+           <div             className={`${passAct?"visible":""} password-input`}
+>
+
+  
+   <input
+
             type="password"
             name="newPassword"
             value={form.newPassword}
@@ -184,27 +185,35 @@ export default function ProfilePart() {
           />
           {errors.newPassword && <p className="error">{errors.newPassword}</p>}
 
-          <input
+          <input 
             type="password"
             name="confirmPassword"
             value={form.confirmPassword}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Confirm New Password"
+          
+
           />
           {errors.confirmPassword && (
             <p className="error">{errors.confirmPassword}</p>
           )}
 
-          <div className="form-actions">
+
+          <div className="form-actions "          
+>
             <button type="button" className="btn-cancel" onClick={handleCancel}>
               Cancel
             </button>
-            <button type="submit" className="btn-save">
+            <button type="submit" onClick={handleSubmit} className="btn-save">
               Save Changes
             </button>
           </div>
-        </form>
+          </div>  
+          </div>
+
+          
+ 
       </main>
   );
 }

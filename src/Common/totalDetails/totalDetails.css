@@ -17,7 +17,7 @@ text-align: end;
 }
 
 
-.TotalDetails p:nth-child(2)
+.TotalDetails p:nth-child(even)
 {
     border-bottom: 1px solid var(--sec-grey-color);
     border-top: 1px solid var(--sec-grey-color);

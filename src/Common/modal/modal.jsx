@@ -1,11 +1,10 @@
 
 import { Spinner } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 import notFound from "../../assets/images/icons/icons8-empty-100.png"
 
 
-export default function LoadingModal({loading,text})
+export default function LoadingModal({loading,text,mainText=""})
 {
 
     return (
@@ -19,7 +18,19 @@ export default function LoadingModal({loading,text})
 
 style={{marginTop:"50px", width:"100%" , display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column" } }>
 <img src={notFound}  alt="NOTFOUND" />
-<p style={{marginTop:"20px",fontSize:"var(--text-size)"}}>No {text} found.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.</p>
+
+
+
+<p style={{marginTop:"20px",fontSize:"var(--text-size)"}}>
+    
+{mainText ? mainText : 
+      <span>
+        {text}.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.`    
+
+        </span>     
+}
+        
+    </p>
 </div>
 }
 </>

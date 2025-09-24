@@ -1,22 +1,22 @@
 import "./css/cart.css";
 import DynamicIndex from  "../../Common/DynamicIndex/DynamicIndex"
 import BlackButton from "../../Common/blackButton/blackButton";
-import { useContext, useEffect, useReducer, useRef,  } from "react";
+import {  useContext, useEffect, useRef, useState,  } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
 import TotalDetails from "../../Common/totalDetails/totalDetails";
 import RedButton from "../../Common/redButton/redButton";
 
 import CartProduct from "../../Common/cartProduct/cartProduct";
-import empty from "../../assets/images/icons/icons8-empty-100.png";
-import { Link } from "react-router-dom";
 import AddToOrder from "../../services/APIs/orders/addOrder";
 import ApplyDiscount from "../../services/APIs/discount/applyDiscount";
 import { UserContext } from "../../context/userContext/userContext";
+import LoadingModal from "../../Common/modal/modal";
 export default function Cart()
 {
   const {cartItems,cartInfo,setCart_Info_State } = useContext(CartContext);
 const{getToken} =useContext(UserContext);
 const coupounRef=useRef();
+const [loading,setLoading]=useState(true);
 
   async function processOrder()
   {
@@ -49,7 +49,11 @@ setCart_Info_State();
 
   }
 
-  
+  useEffect(()=>{
+setTimeout(() => {
+  setLoading(false);
+}, 2000);
+  },[]);
 
   
 
@@ -61,12 +65,8 @@ setCart_Info_State();
      <DynamicIndex page={["Home","Cart"]} />
      {
 !cartItems.length?
-<div 
+<LoadingModal loading={loading} text={"Your cart is empty"} />
 
-style={{marginTop:"50px", width:"100%" , display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column" } }>
-<img src={empty}  alt="empty" />
-<p style={{marginTop:"20px",fontSize:"var(--text-size)"}}>Your cart is empty.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.</p>
-</div>
 :
 
 <div className="container cart-container ">

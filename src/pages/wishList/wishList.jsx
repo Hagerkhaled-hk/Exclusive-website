@@ -1,15 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import BlackButton from "../../Common/blackButton/blackButton";
 import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
 import ProductCards from "../../components/ProductCards/ProductCards";
 import { WishlistContext } from "../../context/wishlistContext/wishlistContext";
 import "./wishList.css";
-import empty from "../../assets/images/icons/icons8-empty-100.png";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 import { FaRegTrashCan } from "react-icons/fa6";
 import HomeHeader from "../../Common/homeHeader/homeHeader";
 import { ProductContext } from "../../context/productContext/productContext";
+import LoadingModal from "../../Common/modal/modal";
 export default function Wishlist()
 {
  
@@ -17,6 +17,13 @@ const {wishlistItems,add_Wishlit_To_Cart}=useContext(WishlistContext);
 
 const {products}=useContext(ProductContext);
 const Navigate=useNavigate(null);
+const [loading,setLoading]=useState(true);
+
+useEffect(()=>{
+    setTimeout(() => {
+setLoading(false);
+    }, 2000);
+},[])
 
 
     return <div className="Wishlist"> 
@@ -35,19 +42,15 @@ const Navigate=useNavigate(null);
     <div className="wishlistItmes">
 {
  wishlistItems.length==0?
-<div 
-
-style={{width:"100%" , display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column" } }>
-
-<img src={empty}  alt="empty" />
-
-<p style={{marginTop:"20px",fontSize:"var(--text-size)"}}>Your wishList is empty.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.</p>
-</div>       
+<LoadingModal loading={loading} text={"Your wishlist is empty "}  />
 :
-<ProductCards products={wishlistItems} />
+<ProductCards products={wishlistItems} />   
 
 }
     </div>
+ {
+
+  
 <div className="recommendation">
 
 <HomeHeader note={"Just for you"} >
@@ -61,6 +64,7 @@ style={{width:"100%" , display:"flex",justifyContent:"center",alignItems:"center
 
 </div>
 
+ }
 
 
     </div>

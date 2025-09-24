@@ -6,6 +6,7 @@
   padding:30px 10px;
   width: 90%;
   margin: auto;
+  height: 70vh;
 }
 
 .account-sidebar h3 {
@@ -41,6 +42,7 @@
   padding: 20px 80px;
   border-radius: 8px;
   box-shadow: 1px 1px 13px 0 rgba(0, 0, 0, 0.05);
+  height:max-content;
 }
 .account-content h2 {
   color: var(--red-color);
@@ -54,16 +56,17 @@
   gap: 15px;
 }
 
-.form-grid {
+.form-grid  {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
-.form-grid div {
+.form-grid div ,.password-input{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transition: var(--hover-transition);
 }
 
 label {
@@ -72,7 +75,20 @@ label {
   margin-bottom: 5px;
   color: var(--black-color);
 }
+.password-label{
+    cursor: pointer;
+    margin-top: 25px ;
+    background-color: var(--grey-color);
+    width: fit-content;
+    font-size: var(--input-txt-size);
 
+
+}
+
+.password-label:hover{
+
+  background-color: var(--grey-hover);
+}
 input {
   padding: 10px;
   border-radius: 4px;
@@ -82,6 +98,14 @@ input {
   border: none;
   transform: var(--hover-transition);
 }
+.password-input
+{
+visibility: hidden;
+height: 0px;
+overflow: hidden;
+ 
+}
+
 input:hover {
   background-color: var(--grey-hover);
 }
@@ -99,6 +123,14 @@ input:hover {
   color: var(--black-color);
   font-size: var(--input-txt-size);
   cursor: pointer;
+}
+
+.password-input.visible{
+
+  visibility: visible;
+  height: 100%;
+  overflow: visible;
+
 }
 
 .btn-save {

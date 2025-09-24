@@ -9,8 +9,13 @@
 height: calc(52px * 8); /* 7 rows + 1 header row */
 }
 
+section{
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
 .order-table {
-  width: 100%;
+  width:65%;
   border-collapse: collapse;
   margin-top: 20px;
   background: #fff;
@@ -46,6 +51,15 @@ height: calc(52px * 8); /* 7 rows + 1 header row */
   font-style: italic;
   padding: 2rem 0;
   background: #fafafa;
+}
+.order-summary {
+  flex: 1;
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  max-width: 400px;
+  height: fit-content;
 }
 
 @media (max-width: 600px) {

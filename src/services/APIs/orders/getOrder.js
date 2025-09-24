@@ -5,7 +5,6 @@ export default async function GetAnOrder(intialData,Token)
 {
 
     let url= import.meta.env.VITE__ORDERS_API +`/${intialData}`;
-    console.log("getAnorder", url);
     
 
      let res =await FetchApi_Function(url,{"Content-Type":"application/json",

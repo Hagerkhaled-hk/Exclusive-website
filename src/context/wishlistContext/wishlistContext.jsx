@@ -40,8 +40,12 @@ if(token)
      async function add_Wishlit_To_Cart()
     {
         let token = getToken();
-
-        if (token) {
+toast(
+  "Please wait, we are adding products to your cart...",
+  {
+    duration: 6000,
+  }
+);        if (token) {
             let AddedAll = 0;
             for (const item of wishlistItems) {
                 let res = await AddTOCart({

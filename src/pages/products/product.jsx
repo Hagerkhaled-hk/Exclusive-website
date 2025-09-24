@@ -26,7 +26,7 @@ setProducts(res.data);
 
     <div className="products-container-ProductsPage ">
 
-      <ProductCards products={products} />
+      <ProductCards products={products} mainText={true} />
       </div>
     </div>
   );

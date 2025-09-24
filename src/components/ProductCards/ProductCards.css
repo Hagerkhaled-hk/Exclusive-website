@@ -6,6 +6,8 @@
   padding: 5px;
   margin: auto;
   height: max-content;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-card {

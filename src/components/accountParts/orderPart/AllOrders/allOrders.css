@@ -7,7 +7,7 @@
     padding:5px 2rem;
 
   /* Height for 7 rows (each row ~48px + header ~48px) */
-  height: calc(50px * 8); /* 7 rows + 1 header row */
+  height: calc(55px * 8); /* 7 rows + 1 header row */
 }
 
 

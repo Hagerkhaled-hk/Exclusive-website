@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from "react"
-import { data } from "react-router-dom";
+import { createContext,  useEffect, useState } from "react"
 
 
 export const UserContext=createContext();
@@ -57,6 +56,7 @@ function isLogin()
 
 
 
+
 function getToken()
 {
 
@@ -75,8 +75,7 @@ function getToken()
 
 
 
-    return <UserContext.Provider value={{isLogin ,setUserLogin, getToken,userData
-    }}>
+    return <UserContext.Provider value={{isLogin ,setUserLogin, getToken,userData }}>
         {children}
     </UserContext.Provider>
 

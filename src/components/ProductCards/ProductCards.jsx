@@ -2,7 +2,7 @@ import RatingStars from "../RatingStars/RatingStars";
 import {Link, useNavigate} from "react-router-dom"
 import "./ProductCards.css";
 import AddTOCart from "../../services/APIs/cart/addToCart";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
 import toast, { Toaster } from "react-hot-toast";
 import { FaRegHeart } from "react-icons/fa";
@@ -14,10 +14,12 @@ import AddToWishlist from "../../services/APIs/wishlist/addToWishlist";
 import { WishlistContext } from "../../context/wishlistContext/wishlistContext";
 import RemoveWishlist from "../../services/APIs/wishlist/removeWishlist";
 import { FaRegTrashCan } from "react-icons/fa6";
+import LoadingModal from "../../Common/modal/modal";
 export default function ProductCards({ products }) {
   
-  const {setCart_All_State}=useContext(CartContext);
   const Navigate =useNavigate();
+  const [loading,setLoading]=useState(true);
+  const {setCart_All_State}=useContext(CartContext);
     const{getToken,isLogin} =useContext(UserContext);
     const {fetchWishlist}=useContext(WishlistContext);
 
@@ -55,7 +57,6 @@ else  if(res.statusCode=400) toast.error(res?.message)
 
   async function DeleteFromWishlist(id)
   {     
-    console.log("ddd");
     
     let token =getToken();  
     if(token){  
@@ -65,11 +66,17 @@ else  if(res.statusCode=400) toast.error(res?.message)
   }
   }
   
+  useEffect(()=>{
+
+    setTimeout(() => {
+setLoading(false);
+    },5000);
+  },[])
   
   return (
-    <div className="products-Cards" 
+    <div className="products-Cards  ">
 
-    >
+    
       <Toaster
   position="top-center"
   reverseOrder={false}
@@ -78,10 +85,12 @@ else  if(res.statusCode=400) toast.error(res?.message)
   <div className="products-container">
       {
       
-      products.length==0 &&<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> 
-      }
-      {
-      products.map((product) => {
+      products.length==0 ? 
+      
+      <LoadingModal  loading={loading} text={"products"} mainText={  "Something went wrong while loading the products. Please give it another try by reloading the page.  "} />
+      
+      :
+      products.map((product ) => {
         
         
         return(
@@ -94,7 +103,7 @@ else  if(res.statusCode=400) toast.error(res?.message)
  whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true, amount: 0 }}
-        className="card" key={product.id}>
+        className="card " key={product.id}>
           <div
          
           
@@ -174,7 +183,9 @@ Navigate("/signup")
         </motion.div>
 
 
-      )})}
+      )})
+      
+      }
       </div>
     </div>
   );

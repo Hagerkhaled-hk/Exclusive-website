@@ -27,6 +27,7 @@ export default function AllOrders() {
     let apiStatus = status === "all" ? "" : status;    
       let res = await viewOrders(token, { PageNumber: 1, Status: apiStatus });
       setOrders(res?.data?.items || []);
+      
   }
 
   async function Cancel_Order(id) {

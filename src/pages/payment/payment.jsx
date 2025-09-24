@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
 import RedButton from "../../Common/redButton/redButton";
 import TotalDetails from "../../Common/totalDetails/totalDetails";
@@ -6,17 +6,20 @@ import banks from "../../assets/images/banks.png";
 import { CartContext } from "../../context/cartContext/cartContext"
 import "./payment.css";
 import CheckoutSession from "../../services/APIs/payment/session";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext/userContext";
 import AddToOrder from "../../services/APIs/orders/addOrder";
+import ApplyDiscount from "../../services/APIs/discount/applyDiscount";
 
 export default function Payment() {
 
-  const {cartItems}=useContext(CartContext);
+  const {cartItems,setCart_Info_State}=useContext(CartContext);
   const {getToken} =useContext(UserContext);
   const [activeProcess,setActiveProcess] =useState(false);
+  const [paymentMethod,setPaymentMethod] =useState("Delivery");
+  const navigate=useNavigate();
   const url=useLocation();
-
+const coupounRef=useRef(null)
   // State for form fields
   const [form, setForm] = useState({
     firstName: "",
@@ -35,18 +38,16 @@ export default function Payment() {
 
     // Load saved address from localStorage if available
     const savedAddress = localStorage.getItem("user_Address_Payment");   
-    console.log(JSON.parse(savedAddress));
   if (savedAddress) {
     
       setForm(JSON.parse(savedAddress));
     }
     
   
-if (url.pathname=="/success-payment") {
+if (url.pathname=="/account/allOrders") {
   (async()=>{
 
     let token =getToken();
-    console.log(token);
     
 let user_Address_Payment =JSON.parse(localStorage.getItem("user_Address_Payment"));
 
@@ -56,7 +57,6 @@ if(!user_Address_Payment) return;
   "shippingAddress": user_Address_Payment["streetAddress"],
   "shipPostalCode": user_Address_Payment["postalCode"]
 },token);
-  console.log(res);
 } )()
 }
   
@@ -120,7 +120,6 @@ if(!user_Address_Payment) return;
 
   function saveAddressToLocalStorage(e) {
         const {name,  checked } = e.target;
-        console.log("checked",checked);
         let newForm = { ...form, [name]: checked };
         setForm(newForm);
 
@@ -133,8 +132,16 @@ if(!user_Address_Payment) return;
 
 
 
-  async function processpayment() {
+  async function processpayment_Delivery() {
+    if (!validateForm()) return;
+setActiveProcess(true);
+
+    navigate("/account/allOrders");
+
+  }
+  async function processpayment_OnBank() {
     // Validate and save address before payment
+    
     if (!validateForm()) return;
 
 setActiveProcess(true);
@@ -184,11 +191,14 @@ setActiveProcess(true);
     cartItems.map((item)=>{
       data.push(item.productId) ;
     });
-    console.log(data);
+
+    data=["5830330c-3b3e-4aa4-bdae-40996176ea7a","478c6ec0-dde1-4166-bc3b-4fd2ce610f9b","2c35a3e1-0b33-4163-af12-7eb4115aa635"]
     let res =await ApplyDiscount({
       "code": coupounRef.current.value,
       "productIds": data
     });
+    console.log("order",res);
+    
     setCart_Info_State();
   }
 
@@ -293,23 +303,26 @@ setActiveProcess(true);
           <TotalDetails total={2000} subTotal={3000} />
           <div className="payment-methods">
             <label>
-              <input type="radio" name="payment" />
+              <input type="radio" onClick={()=>{setPaymentMethod("OnBank")}}  name="payment" />
               Bank
               <span className="bank-icons">
                 <img src={banks} alt="Bank Cards" />
               </span>
             </label>
             <label>
-              <input type="radio" name="payment" defaultChecked />
+              <input type="radio" onClick={()=>{setPaymentMethod("Delivery")}} name="payment" defaultChecked />
               Cash on delivery
             </label>
           </div>
           <div className="coupoun coupon-row" >
-            <input type="text"  placeholder="Coupoun"  />
+            <input type="text" ref={coupounRef}  placeholder="Coupoun"  />
             <RedButton text="Apply Coupoun" btn_Function={applyDiscount}/>
           </div>
           <RedButton text="Place order"
-          className={`${activeProcess?"active":""}`}  btn_Function={processpayment}/>
+          className={`${activeProcess?"active":""}`}  btn_Function={paymentMethod=="OnBank" ?
+            processpayment_OnBank:
+            processpayment_Delivery
+            }/>
         </div>
       </div>
     </div>
