@@ -5,11 +5,11 @@ import { UserContext } from "../../context/userContext/userContext";
 
 export default function Account() {
 
-const {islogin}=useContext(UserContext);
+const {isLogin}=useContext(UserContext);
 const navigate=useNavigate(null);
 
 useEffect(()=>{
-  if(!islogin()) navigate("/sigunp");
+  if(!isLogin()) navigate("/sigunp");
   
 },[])
 

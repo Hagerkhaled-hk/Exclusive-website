@@ -10,27 +10,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext/userContext";
 import AddToOrder from "../../services/APIs/orders/addOrder";
 import ApplyDiscount from "../../services/APIs/discount/applyDiscount";
+import toast, { Toaster } from "react-hot-toast";
+import { PaymentContext } from "../../context/paymentContext/paymentContext";
 
 export default function Payment() {
 
-  const {cartItems,setCart_Info_State}=useContext(CartContext);
+  const {cartItems,setCart_Info_State,cartInfo}=useContext(CartContext);
   const {getToken} =useContext(UserContext);
+  const {form, setForm,set_Is_From_PaymentPage}=useContext(PaymentContext)
   const [activeProcess,setActiveProcess] =useState(false);
   const [paymentMethod,setPaymentMethod] =useState("Delivery");
   const navigate=useNavigate();
   const url=useLocation();
 const coupounRef=useRef(null)
-  // State for form fields
-  const [form, setForm] = useState({
-    firstName: "",
-    companyName: "",
-    streetAddress: "",
-    apartment: "",
-    city: "",
-    phone: "",
-    postalCode: "",
-    saveInfo: false
-  });
+
   // State for errors
   const [errors, setErrors] = useState({});
 
@@ -44,22 +37,7 @@ const coupounRef=useRef(null)
     }
     
   
-if (url.pathname=="/account/allOrders") {
-  (async()=>{
-
-    let token =getToken();
-    
-let user_Address_Payment =JSON.parse(localStorage.getItem("user_Address_Payment"));
-
-if(!user_Address_Payment) return;
-
-  let res= await AddToOrder({
-  "shippingAddress": user_Address_Payment["streetAddress"],
-  "shipPostalCode": user_Address_Payment["postalCode"]
-},token);
-} )()
-}
-  
+ 
   },[]);
 
   // Handle input change
@@ -135,8 +113,9 @@ if(!user_Address_Payment) return;
   async function processpayment_Delivery() {
     if (!validateForm()) return;
 setActiveProcess(true);
+set_Is_From_PaymentPage(true);
+    navigate("/order");
 
-    navigate("/account/allOrders");
 
   }
   async function processpayment_OnBank() {
@@ -145,11 +124,13 @@ setActiveProcess(true);
     if (!validateForm()) return;
 
 setActiveProcess(true);
-    /*   let data=[{"productNames":[],"unitAmounts":[],"quantities":[]}];
+       let data={"productNames":[],"unitAmounts":[],"quantities":[]};
     cartItems.map((item)=>{
-      data["productNames"].push(item.productName) ;
-      data["unitAmounts"].push(item.price*100) ;
-      data["quantities"].push(item.quantity) ;
+      console.log(item);
+      
+      data.productNames.push(item.productName) ;
+      data.unitAmounts.push(item.unitPrice*100) ;
+      data.quantities.push(item.quantity) ;
     });
     console.log(data);
     
@@ -160,14 +141,15 @@ setActiveProcess(true);
         "unitAmounts": data["unitAmounts"],
         "quantities": data["quantities"],
         "currency": "EGP",
-        "successUrl": "http://localhost:5173/account",
+        "successUrl": "http://localhost:5173/order",
         "cancelUrl": "http://localhost:5173/Payment"
       }
-    ); */
+    ); 
+console.log(res);
 
 //Temp
 
-    let res =await CheckoutSession({
+/*     let res =await CheckoutSession({
   "productNames": [
     "product1","product2","product3"
   ],
@@ -180,8 +162,10 @@ setActiveProcess(true);
   "currency": "EGP",
   "successUrl": "http://localhost:5173/success-payment",
   "cancelUrl": "http://localhost:5173/Payment"
-});  
+});  */ 
     if(res.data.url) {
+   set_Is_From_PaymentPage(true);
+   localStorage.setItem("is_From_PaymentPage",true);
        window.location.href=res.data.url;
      }
   }
@@ -192,18 +176,23 @@ setActiveProcess(true);
       data.push(item.productId) ;
     });
 
-    data=["5830330c-3b3e-4aa4-bdae-40996176ea7a","478c6ec0-dde1-4166-bc3b-4fd2ce610f9b","2c35a3e1-0b33-4163-af12-7eb4115aa635"]
     let res =await ApplyDiscount({
       "code": coupounRef.current.value,
       "productIds": data
     });
-    console.log("order",res);
+    console.log(res);
+    if(res.statusCode!=200) toast.error("unable to apply the discount");
+    else toast.success("Discount applied successfully");
     
     setCart_Info_State();
   }
 
   return (
     <div className="Payment">
+      <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
       <DynamicIndex page={["Account", "My Account","Product","View Cart","Payment"]} />
       <div className="payment-container">
         {/* Billing Details */}
@@ -300,7 +289,7 @@ setActiveProcess(true);
 
         {/* Order Summary */}
         <div className="order-summary">
-          <TotalDetails total={2000} subTotal={3000} />
+          <TotalDetails total={cartInfo.total} subTotal={cartInfo.subtotal} />
           <div className="payment-methods">
             <label>
               <input type="radio" onClick={()=>{setPaymentMethod("OnBank")}}  name="payment" />

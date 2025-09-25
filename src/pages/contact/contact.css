@@ -1,0 +1,153 @@
+:root{
+  --bg:#f7f7f7;
+  --card:#fff;
+  --accent:#d44d46;
+  --muted:#efefef;
+  --text:#333;
+  --shadow: 0 6px 18px rgba(18,18,18,0.06);
+  --gap:24px;
+  --max-width:1100px;
+}
+.contact
+{
+   padding: 20px 40px;
+     width: 100%;
+    
+}
+.contact-page{
+    width: 100%;
+  color:var(--black-color);
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px;
+ 
+}
+
+.contact-wrapper{
+  width:100%;
+  max-width:var(--max-width);
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:var(--gap);
+  align-items:start;
+}
+
+/* left cards */
+.contact-info .info-card{
+  background:var(--card);
+  padding:20px;
+  border-radius:6px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.info-card .icon{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--muted);
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.info-card h3{
+  margin:0 0 8px 0;
+  font-size:16px;
+}
+
+.info-card p{
+  margin:6px 0;
+  font-size:14px;
+  color:var(--text);
+}
+
+.info-card .phone{
+  margin-top:12px;
+  border-top:1px solid #eee;
+  padding-top:12px;
+  color:#444;
+}
+
+/* right form */
+.contact-form .form-card{
+  background:var(--card);
+  padding:22px;
+  border-radius:6px;
+  box-shadow:var(--shadow);
+}
+
+.inputs-row{
+  display:flex;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.inputs-row input{
+  flex:1;
+  height:44px;
+  padding:10px 12px;
+  border-radius:4px;
+  border:1px solid #e6e6e6;
+  background:var(--muted);
+  color:var(--text);
+  font-size:14px;
+}
+
+/* textarea */
+.contact-form textarea{
+  width:100%;
+  border-radius:4px;
+  border:1px solid #e6e6e6;
+  background:var(--muted);
+  padding:12px;
+  resize:none;
+  font-size:14px;
+  color:var(--text);
+  margin-bottom:16px;
+}
+
+/* Disabled/read-only state: ensure same appearance and non-interactive */
+.inputs-row input[disabled],
+.contact-form textarea[disabled]{
+  cursor:not-allowed;
+  opacity:1; /* keep same visual weight */
+  -webkit-text-fill-color: #333; /* ensure text visible on some browsers */
+}
+
+/* action area */
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+}
+
+.btn{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+  box-shadow:none;
+}
+
+/* disabled button style */
+.btn[disabled]{
+  opacity:0.7;
+  cursor:not-allowed;
+}
+
+/* responsive */
+@media (max-width:880px){
+  .contact-wrapper{
+    grid-template-columns:1fr;
+  }
+
+  .inputs-row{
+    flex-direction:column;
+  }
+}

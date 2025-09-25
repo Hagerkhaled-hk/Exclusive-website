@@ -4,6 +4,7 @@ import UpdateQunatityCart from "../../services/APIs/cart/update_Quantity_Cart";
 import ProductById from "../../services/APIs/products/get_Product_Id";
 import DeleteCart from "../../services/APIs/cart/deleteCart";
 import { UserContext } from "../userContext/userContext";
+import toast from "react-hot-toast";
 
 export const CartContext = createContext();
 
@@ -62,7 +63,7 @@ if(token){
    let stock=res.data.stock;
    
    let affected =false;
-   let before_Cart_Affect=cartItems;
+   const before_Cart_Affect=cartItems.map(item=>structuredClone(item) );
 
 
 
@@ -85,11 +86,19 @@ if(token){
 
     if(affected)
     {
+console.log(token);
+
       let res =await UpdateQunatityCart({
   "cartItemId":payload.cartItemId,
   "quantity":  payload.quantity+1
-,token});
+      },token);
+console.log(res);
 
+if (res==401){  
+  
+  toast.error("Couldn't update quantity - please try again!");
+  setCartItem([...before_Cart_Affect]);   console.log(before_Cart_Affect);
+}
   
 
     }

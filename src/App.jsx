@@ -25,7 +25,8 @@ const Payment = lazy(() => import("./pages/payment/payment.jsx"));
 const ProfilePart = lazy(() => import("./components/accountParts/profilePart.jsx"));
 const AllOrders = lazy(() => import("./components/accountParts/orderPart/AllOrders/allOrders.jsx"));
 const CurrentOrder = lazy(() => import("./components/accountParts/orderPart/currentOrder/currentOrder.jsx"));
-
+const Contact = lazy(()=>import("./pages/contact/contact.jsx"));
+const OrderState = lazy(()=>import("./pages/orderState/orderState.jsx"));
 export default function App() {
 
 
@@ -95,13 +96,24 @@ path: "resetPassword", element: (
 
         
       ) },
+
+
       { path: "about", element:(
                                    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
 <AboutUs />
         
         </Suspense>
 
-        ) },
+        ) }
+        ,
+        
+        { path: "contact", element:(
+                          <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
+<Contact />
+        
+        </Suspense>
+
+        ) }
        ,
       { path: "account",
          element:(
@@ -161,9 +173,9 @@ path: "resetPassword", element: (
     </Suspense>
 )}
 ,
-{ path: "success-payment", element: (
+{ path: "order", element: (
     <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
-        <Payment />
+        <OrderState />
     </Suspense>
 )},
 

@@ -1,6 +1,7 @@
 @charset "UTF-8";
 .Cart-container {
   /* style.css */
+  padding: 0px 30px;
   /* Specific alignment for columns */
   /* Quantity control styling remains the same */
 }
@@ -44,6 +45,17 @@
   font-size: var(--input-txt-size);
   padding: 8px 25px;
 }
+.Cart-container .product-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 .Cart-container .cart-table th:nth-child(2),
 .Cart-container .cart-table td.price-cell,
 .Cart-container .cart-table th:nth-child(3),
@@ -59,9 +71,12 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   gap: 15px;
 }
 .Cart-container .remove-icon {
@@ -92,7 +107,7 @@
   background-color: var(--grey-hover);
 }
 .Cart-container .product-image {
-  width: 50px;
+  width: 60px;
   height: 50px;
   -o-object-fit: contain;
      object-fit: contain;
@@ -229,7 +244,7 @@
 }
 .coupoun input {
   border: var(--border);
-  padding: 5px 10px;
+  padding: 7px 10px;
   width: 180px;
   border-radius: 2px;
   outline: none;

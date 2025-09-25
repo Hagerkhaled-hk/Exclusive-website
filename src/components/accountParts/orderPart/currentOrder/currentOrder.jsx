@@ -65,8 +65,8 @@ const navigate = useNavigate();
               <tr onClick={()=>{navigate(`/product/${order.productId}`)}} key={order.productId || idx}>
                 <td>{order.productName}</td>
                 <td>{order.quantity}</td>
-                <td>${order.unitPrice}</td>
-                <td>${order.subtotal}</td>
+                <td>{order.unitPrice} EGP</td>
+                <td>{order.subtotal} EGP</td>
               </tr>
             ))
           )}
@@ -74,7 +74,7 @@ const navigate = useNavigate();
       </table>
 <div className="order-summary">
 <p style={{fontFamily:"var(--Inter-regular)"}} >Order Summary</p>
-      <TotalDetails total={(orders.total/100).toFixed(1)} subTotal={(orders.subtotal/100).toFixed(1)} 
+      <TotalDetails total={(orders?.total)?.toFixed(1)} subTotal={(orders?.subtotal)?.toFixed(1)} 
       shipPostalCode={orders.shipPostalCode} shippingAddress={orders.shippingAddress} discountAmount={orders.discountAmount } createdAt={orders.createdAt}
 
       />

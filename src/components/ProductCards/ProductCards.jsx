@@ -27,18 +27,22 @@ export default function ProductCards({ products }) {
 
 
 
-async function addToCart(data)
+async function addToCart(data,name)
   {
+console.log(data);
 
          let token =getToken();
     if(token){
     
     let res =await AddTOCart(data,token);
+    console.log(res);
+
     if(res.succeeded) {toast.success('Successfully added to cart!')
 setCart_All_State();    
 }
-else  if(res.statusCode=400) toast.error(res?.message)
-  } 
+
+else  if(res.statusCode!=200) toast.error(`Unable  add ${name} to cart  `)
+} 
 
     
   }
@@ -51,7 +55,7 @@ else  if(res.statusCode=400) toast.error(res?.message)
     if(token){  
       let res =await AddToWishlist(data,token);
       if(res.succeeded) {toast.success('Successfully added to wishlist!');fetchWishlist();}
-      else  if(res.statusCode=400) toast.error(res?.message)
+else  if(res.statusCode!=200) toast.error(`Unable  add ${name} to wishlist  `)
        }
   }
 
@@ -62,7 +66,7 @@ else  if(res.statusCode=400) toast.error(res?.message)
     if(token){  
       let res =await RemoveWishlist({productId:id},token);
       if(res.succeeded) {toast.success('Successfully removed from wishlist!');fetchWishlist();}
-      else  if(res.statusCode=400) toast.error(res?.message)
+else  if(res.statusCode!=200) toast.error(`Unable  delete ${name}   `)
   }
   }
   
@@ -154,9 +158,9 @@ DeleteFromWishlist(product.productId)
             <button  onClick={()=>{ 
               isLogin()?
               addToCart({
-  "productId": product.id,
+  "productId": product.id || product.productId,
   "quantity": 1
-})
+}, product.name || product.productName)
 :
 Navigate("/signup")
 }} className="add-to-cart">Add to Cart</button>          

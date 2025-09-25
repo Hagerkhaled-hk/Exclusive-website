@@ -4,6 +4,8 @@ import UpdateAPi_Function from "../commonFunctions/updateFuntion.js";
 import { ReToken  } from "../commonFunctions/TokenFunction.js";
 export default async function UpdateQunatityCart(intialData,Token)
 {
+     console.log("Token" ,Token);
+     
 
      let res =await UpdateAPi_Function(import.meta.env.VITE_UPDATE_QUNTITY_CART_API,
           {"Content-Type":"application/json",

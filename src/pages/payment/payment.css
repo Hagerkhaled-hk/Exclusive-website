@@ -156,25 +156,33 @@ margin: 0px;
   vertical-align: middle;
 }
 
-.coupon-row {
+.Payment .coupon-row {
   display: flex;
   gap: 10px;
   margin-bottom: 18px;
+  justify-content: flex-start ;
   align-items: center;
+  
 }
 .coupon-row > *
 {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin: 0px;
 
 
 }
 
+.coupon-row .RedButton 
+{
+  width: fit-content !important;
+}
 .coupon-row .RedButton button 
 {
   font-size:8px;
+  width: fit-content;
+  
 }
 
 .coupon-row  input[type="text"] {

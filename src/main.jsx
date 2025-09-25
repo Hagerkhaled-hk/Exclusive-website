@@ -5,6 +5,7 @@ import CartProvider from './context/cartContext/cartContext.jsx'
 import UserProvider from './context/userContext/userContext.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import WishlistProvider from "./context/wishlistContext/wishlistContext.jsx"
+import PaymentProvider from './context/paymentContext/paymentContext.jsx'
 
 createRoot(document.getElementById('root')).render(
 
@@ -13,8 +14,11 @@ createRoot(document.getElementById('root')).render(
 <ProductProvider>
 <WishlistProvider>
     <CartProvider>
+        <PaymentProvider>
+
 
     <App />
+        </PaymentProvider>
     </CartProvider>
     </WishlistProvider>
 </ProductProvider>

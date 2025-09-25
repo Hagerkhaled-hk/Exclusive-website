@@ -13,7 +13,7 @@ export default async function UpdateAPi_Function (initialUrl,headers, intialData
     
 
 // Http  level error (status code) 
-  
+  if(!res.ok) return res.status;
 
 
 const contentType = res.headers.get("content-type");

@@ -108,7 +108,7 @@ export default function AllOrders() {
             <tr onClick={() => { navigate(`/account/order/${id + 1}/${order.id}`); }} key={order.id}>
               <td>{id + 1}</td>
               <td>{order.createdAt}</td>
-              <td>{(order.total / 100).toFixed(1)} EGP</td>
+              <td>{(order.total ).toFixed(1)} EGP</td>
               <td>
                 <span className={`status-badge ${getStatusClass(order.status)}`}>
                   {order.status}

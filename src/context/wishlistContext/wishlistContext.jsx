@@ -45,9 +45,12 @@ toast(
   {
     duration: 6000,
   }
-);        if (token) {
+);    
+console.log(wishlistItems);
+    if (token) {
             let AddedAll = 0;
             for (const item of wishlistItems) {
+                
                 let res = await AddTOCart({
                     "productId": item.productId,
                     "quantity": 1

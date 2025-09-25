@@ -11,23 +11,28 @@ import AddToOrder from "../../services/APIs/orders/addOrder";
 import ApplyDiscount from "../../services/APIs/discount/applyDiscount";
 import { UserContext } from "../../context/userContext/userContext";
 import LoadingModal from "../../Common/modal/modal";
+import { useNavigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 export default function Cart()
 {
   const {cartItems,cartInfo,setCart_Info_State } = useContext(CartContext);
 const{getToken} =useContext(UserContext);
 const coupounRef=useRef();
 const [loading,setLoading]=useState(true);
+const navigate = useNavigate();
 
   async function processOrder()
   {
-let token= getToken();
+/* let token= getToken();
 if(token){
 
   let res =await AddToOrder(cartItems,token);
 setCart_Info_State();
   console.log("order",res);
 }
-    
+     */
+
+navigate("/Payment");
 
   }
 
@@ -61,8 +66,10 @@ setTimeout(() => {
 
     return <div className="Cart-container "> 
     
-
-     <DynamicIndex page={["Home","Cart"]} />
+<Toaster
+  position="top-center"
+  reverseOrder={false}
+/>     <DynamicIndex page={["Home","Cart"]} />
      {
 !cartItems.length?
 <LoadingModal loading={loading} text={"Your cart is empty"} />

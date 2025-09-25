@@ -125,6 +125,8 @@ background-color: var(--grey-color);
 .product-info .price {
   color: var(--red-color);
   font-family: var(--poppines-bold) !important ;
+    font-size: var(--input-txt-size);
+
 
 }
 .sale

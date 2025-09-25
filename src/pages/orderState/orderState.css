@@ -1,0 +1,79 @@
+/* Card wrapper */
+.OrderState.card{
+  width: 330px;
+  height: 220px;
+  max-width: 92%;
+  margin: 3.5rem auto;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(12,20,40,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform .28s ease, box-shadow .28s ease;
+  transform-origin: center;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.04);
+  animation: card-pop .32s ease forwards;
+}
+
+/* inner layout */
+.OrderState .card-content{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* icon */
+.OrderState .icon{
+  font-size: 56px;
+  line-height: 1;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor; /* inherit color from state class */
+}
+
+/* message text */
+.OrderState .message{
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: rgba(10,12,14,0.9);
+}
+
+/* Success variant */
+.OrderState.success{
+  background: linear-gradient(180deg, rgba(235,255,242,0.9), rgba(245,255,249,0.9));
+  border: 1px solid rgba(34,197,94,0.18); /* green border */
+  color: var(--green-color, #16a34a);
+  box-shadow: 0 10px 30px rgba(20,150,80,0.06);
+}
+
+/* Failed variant */
+.OrderState.failed{
+  background: linear-gradient(180deg, rgba(255,242,242,0.95), rgba(255,248,248,0.95));
+  border: 1px solid rgba(239,68,68,0.12); /* red border */
+  color: var(--red-color, #dc2626);
+  box-shadow: 0 10px 30px rgba(220,40,40,0.05);
+}
+
+/* Small hover/active nudge */
+.OrderState.card:hover{ transform: translateY(-4px); box-shadow: 0 14px 40px rgba(12,20,40,0.12); }
+
+/* entrance animation */
+@keyframes card-pop{
+  from { transform: translateY(8px) scale(.995); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* responsive */
+@media (max-width: 420px){
+  .OrderState.card{ padding: 1rem; width: 94%; }
+  .OrderState .icon{ font-size: 48px; width: 48px; height: 48px; }
+  .OrderState .message{ font-size: 1rem; }
+}
