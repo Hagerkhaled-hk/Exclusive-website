@@ -41,7 +41,7 @@ console.log(data);
 setCart_All_State();    
 }
 
-else  if(res.statusCode!=200) toast.error(`Unable  add ${name} to cart  `)
+else  if(res.statusCode!=200) toast.error( res?.message ? res.message :  `Unable  add ${name} to cart  `)
 } 
 
     
@@ -152,6 +152,15 @@ DeleteFromWishlist(product.productId)
 
             <img src={product?.productImageUrl || product?.images[0] } alt={product.name} />
               </div>
+              {
+ !product?.stock?
+                     <div class="out-of-stock-overlay">
+    <span class="oos-text">OUT OF STOCK</span>
+  </div>
+  :
+  ""
+
+              }
 
             </div>
 
@@ -184,6 +193,8 @@ Navigate("/signup")
             </div>
          
           </div>
+
+     
         </motion.div>
 
 

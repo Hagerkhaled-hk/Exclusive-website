@@ -13,14 +13,16 @@ export default async function UpdateAPi_Function (initialUrl,headers, intialData
     
 
 // Http  level error (status code) 
-  if(!res.ok) return res.status;
+const {status , ok }= res;
+const resJson=await res.json();
+ if(!ok) return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
 
 
 const contentType = res.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
-            return await res.json();
+            return resJson;
         } else {
-            return await res.text();
+            return resJson;
         }       }
         catch(error)
         {

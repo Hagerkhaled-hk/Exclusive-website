@@ -23,14 +23,7 @@ const navigate = useNavigate();
 
   async function processOrder()
   {
-/* let token= getToken();
-if(token){
 
-  let res =await AddToOrder(cartItems,token);
-setCart_Info_State();
-  console.log("order",res);
-}
-     */
 
 navigate("/Payment");
 

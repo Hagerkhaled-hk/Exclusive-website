@@ -187,3 +187,42 @@ gap: 8px;
 {
 background-color: var(--black-hover);
 }
+
+
+
+
+
+/* 2. The Out of Stock Overlay Styles */
+.out-of-stock-overlay {
+  /* Positioning and Sizing */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10; /* Ensures it sits above the other card content */
+
+  /* Appearance */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  backdrop-filter: blur(2px); /* OPTIONAL: Adds a slight blur effect for a modern look */
+
+  /* Center the Text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 3. The Text Inside the Overlay */
+.oos-text {
+  /* Text Appearance */
+  color: white;
+  font-size: 1rem; /* Large, noticeable text */
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+
+  /* OPTIONAL: A standout background for the text itself */
+  background-color: #e74c3c; /* A striking red color */
+  border-radius: 5px;
+  transform: rotate(-10deg); /* OPTIONAL: Gives it a slight, eye-catching tilt */
+}

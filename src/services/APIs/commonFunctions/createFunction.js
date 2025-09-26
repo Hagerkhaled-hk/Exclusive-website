@@ -17,8 +17,9 @@ export default async function CreateAPi_Function (initialUrl,headersData,intialD
         headers:headersData
     })
     
-
-    if(!res.ok) return { statusCode: res.status};
+const {status , ok }= res;
+const resJson=await res.json();
+ if(!ok) return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
 
 // Http  level error (status code) 
             
@@ -27,9 +28,9 @@ export default async function CreateAPi_Function (initialUrl,headersData,intialD
 
 const contentType = res.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
-            return await res.json();
+            return resJson;
         } else {
-            return await res.text();
+            return await resJson;
         }
 
 

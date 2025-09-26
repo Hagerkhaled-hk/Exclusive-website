@@ -8,6 +8,7 @@ export default function CartProduct  ({ item , index })  {
     const handleShow = () => setShow(true);
 
     const  {Quantity_Function,Delete_From_Cart} = useContext(CartContext);
+    
 
     return (
         <tr >

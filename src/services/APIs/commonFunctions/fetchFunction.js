@@ -9,18 +9,16 @@ let res=await fetch(initialUrl,{
       headers:headersData
 
 });
+const {status,ok}= res;
+const resJson=await res.json();
+ if(!ok) return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
 
-if(!res.ok)
-{
-      throw new Error (`Fetch HTTP error!${res.status} `);
-}
 
-return await res.json();;
+return await resJson;
 
     }
     catch(error)
     {
- throw new Error (error.message);
-
+false
 }
 }

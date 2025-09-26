@@ -33,6 +33,8 @@ async function addToCart(data)
 
       let res =await AddTOCart(data,token);
       
+if (!products.stock) return;
+
       console.log(res);
       if(res.succeeded){ toast.success('Successfully added to cart!')
   setCart_All_State();}    
@@ -44,6 +46,8 @@ else {toast.error(res?.message)}
 
   async function AddTOWishlist(data)
   {     
+    if (!products.stock) return;
+
     let token =getToken();
     if(token){  
       let res =await AddToWishlist(data,token);
@@ -138,9 +142,18 @@ products.length!==0 ?
 
       <div className="image-section">
      
-
+ 
         <div className="image">
 
+{
+  !products.stock ?
+      <div class="out-of-stock-overlay">
+    <span class="oos-text">OUT OF STOCK</span>
+  </div>
+  :
+  ""
+
+}
         <img src={products.images[activeImageIndex]} alt={products.name} />
         </div>
       </div>
