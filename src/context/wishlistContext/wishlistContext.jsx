@@ -69,7 +69,32 @@ console.log(wishlistItems);
         }   
     }
 
-return  (  <WishlistContext.Provider value={{wishlistItems,fetchWishlist,add_Wishlit_To_Cart}}>
+
+
+    
+  async function AddTOWishlist(data,name)
+  {     
+    let token =getToken();
+    if(token){  
+      let res =await AddToWishlist(data,token);
+      if(res.succeeded) {toast.success('Successfully added to wishlist!');fetchWishlist();}
+else  if(res.statusCode!=200) toast.error(`Unable  add ${name} to wishlist  `)
+       }
+  }
+
+  async function DeleteFromWishlist(id,name)
+  {     
+    
+    let token =getToken();  
+    if(token){  
+      let res =await RemoveWishlist({productId:id},token);
+      if(res.succeeded) {toast.success('Successfully removed from wishlist!');fetchWishlist();}
+else  if(res.statusCode!=200) toast.error(`Unable  delete ${name}   `)
+  }
+  }
+  
+
+return  (  <WishlistContext.Provider value={{wishlistItems,fetchWishlist,add_Wishlit_To_Cart,DeleteFromWishlist,AddTOWishlist}}>
             {children}
         </WishlistContext.Provider>)
 }

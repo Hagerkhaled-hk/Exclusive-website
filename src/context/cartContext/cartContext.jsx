@@ -5,6 +5,7 @@ import ProductById from "../../services/APIs/products/get_Product_Id";
 import DeleteCart from "../../services/APIs/cart/deleteCart";
 import { UserContext } from "../userContext/userContext";
 import toast from "react-hot-toast";
+import AddTOCart from "../../services/APIs/cart/addToCart";
 
 export const CartContext = createContext();
 
@@ -53,6 +54,7 @@ if(token){
 async function Quantity_Function( {type,payload})
     {
 
+      console.log("okay");
       
 let token =getToken();
 
@@ -94,15 +96,20 @@ console.log(token);
       },token);
 console.log(res);
 
-if (res==401){  
+if (res.statusCode!==200){  
+  console.log('ff');
   
-  toast.error("Couldn't update quantity - please try again!");
+  toast.error( res.message || "Couldn't update quantity - please try again!");
   setCartItem([...before_Cart_Affect]);   console.log(before_Cart_Affect);
 }
-  
+else toast.success('Stocking up! Quantity updated successfully')
 
-    }
 
+
+
+}else toast.error( "No enough stock avaliable ");
+
+    
     }
 
   }
@@ -124,10 +131,41 @@ if(!res.succeeded) setCartItem(beforeSplice) ;
 }
     }
 
+//For Home Product Cards
+    async function addToCart(data,name)
+  {
+
+let productIndex =cartItems.findIndex((item)=>item.productId==data.productId);
+
+if(productIndex!==-1) {Quantity_Function({ type: "add", payload: { "quantity": cartItems[productIndex].quantity, "productId": cartItems[productIndex].productId, "index": productIndex, "cartItemId": cartItems[productIndex].cartItemId } });
+}
+else
+  {
+
+    let token =getToken();
+  if(token){
+  
+  let res =await AddTOCart(data,token);
+  console.log(res);
+  
+  if(res.succeeded) {toast.success('Successfully added to cart!')
+  setCart_All_State();    
+  }
+  
+  else  if(res.statusCode!=200) toast.error( res?.message ? res.message :  `Unable  add ${name} to cart  `);
+  } 
+  }
+
+  
+
+
+    
+  }
+
 
 
   return (
-    <CartContext.Provider value={{setCart_All_State,cartInfo, cartItems,Quantity_Function ,Delete_From_Cart,setCart_Info_State}}>
+    <CartContext.Provider value={{setCart_All_State,cartInfo, cartItems,Quantity_Function ,Delete_From_Cart,setCart_Info_State,addToCart}}>
       {children}
     </CartContext.Provider>
   );

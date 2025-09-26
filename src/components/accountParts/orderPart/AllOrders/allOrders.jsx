@@ -9,7 +9,7 @@ import DeleteOrder from "../../../../services/APIs/orders/deleteOrder";
 import { Link, useNavigate } from "react-router-dom";
 import { CiFilter } from "react-icons/ci";
 import LoadingModal from "../../../../Common/modal/modal";
-
+import NoOrdersModal from "../../../noOrdersModal/noOrdersModal";
 export default function AllOrders() {
   const [orders, setOrders] = useState([]);
   const { getToken } = useContext(UserContext);
@@ -17,6 +17,7 @@ export default function AllOrders() {
   const [loading, setLoading] = useState(true);
   const [modelINfo, setModelInfo] = useState({ selectedOrderId: "", actionType: "", id: null, show: false });
   const navigate = useNavigate();
+  
 
   const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
   const handleShow = (order, id, type) => { setModelInfo({ selectedOrderId: order, actionType: type, id: id, show: true }); };
@@ -84,9 +85,6 @@ export default function AllOrders() {
       {orders.length ==0?
        
       <LoadingModal loading={loading} text="No orders found" />
-
-    
-
       :
       <>  
       
@@ -121,7 +119,24 @@ export default function AllOrders() {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, id) => (
+
+
+          {
+          
+          
+          orders[0].id=="" ?
+          <tr className="no-orders-tr ">
+
+          <td colSpan={6}   >  <NoOrdersModal status={filter} /></td>
+
+          </tr>
+      :
+      
+          
+          
+          
+          
+          orders.map((order, id) => (
             <tr >
               <td>{id + 1}</td>
               <td onClick={() => { navigate(`/account/order/${id + 1}/${order.id}`); }} key={order.id}>{new Date(order.createdAt).toLocaleDateString()}</td>
@@ -173,6 +188,8 @@ export default function AllOrders() {
           </Modal>
         </tbody>
       </table>
+
+     
       </>
             }
     </div>

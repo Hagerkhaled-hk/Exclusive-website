@@ -6,11 +6,13 @@ import RedButton from "../../../Common/redButton/redButton";
 import { useNavigate } from "react-router-dom";
 
 import "./HomePart5.css"
+import LoadingModal from "../../../Common/modal/modal";
 export default function HomePart5()
 {
 
    const [products,setProducts] =  useState([]); 
    let navigate =useNavigate();
+   const[loading,setLoading]=useState(true);
    function navigatetoProduct()
    {
 navigate("/product")
@@ -25,6 +27,11 @@ navigate("/product")
        let res= await  ViewProducts();
   setProducts(res.data);
 })()    
+
+
+setTimeout(()=>{
+   setLoading(false)
+},5000)
    },[])
 
 
@@ -36,7 +43,9 @@ navigate("/product")
 ">
  <div className="products-container-home2">
 {
-products.length && <ProductCards products={products.splice(0,8)} />
+products.length ? <ProductCards products={products.splice(0,8)} />:
+
+<LoadingModal loading={loading}/>
 }
 </div> 
 

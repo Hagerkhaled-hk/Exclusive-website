@@ -19,57 +19,15 @@ export default function ProductCards({ products }) {
   
   const Navigate =useNavigate();
   const [loading,setLoading]=useState(true);
-  const {setCart_All_State}=useContext(CartContext);
-    const{getToken,isLogin} =useContext(UserContext);
-    const {fetchWishlist}=useContext(WishlistContext);
+  const {addToCart}=useContext(CartContext);
+    const{isLogin} =useContext(UserContext);
+    const {AddTOWishlist,DeleteFromWishlist}=useContext(WishlistContext);
 
 
 
 
 
-async function addToCart(data,name)
-  {
-console.log(data);
 
-         let token =getToken();
-    if(token){
-    
-    let res =await AddTOCart(data,token);
-    console.log(res);
-
-    if(res.succeeded) {toast.success('Successfully added to cart!')
-setCart_All_State();    
-}
-
-else  if(res.statusCode!=200) toast.error( res?.message ? res.message :  `Unable  add ${name} to cart  `)
-} 
-
-    
-  }
-
-
-
-  async function AddTOWishlist(data)
-  {     
-    let token =getToken();
-    if(token){  
-      let res =await AddToWishlist(data,token);
-      if(res.succeeded) {toast.success('Successfully added to wishlist!');fetchWishlist();}
-else  if(res.statusCode!=200) toast.error(`Unable  add ${name} to wishlist  `)
-       }
-  }
-
-  async function DeleteFromWishlist(id)
-  {     
-    
-    let token =getToken();  
-    if(token){  
-      let res =await RemoveWishlist({productId:id},token);
-      if(res.succeeded) {toast.success('Successfully removed from wishlist!');fetchWishlist();}
-else  if(res.statusCode!=200) toast.error(`Unable  delete ${name}   `)
-  }
-  }
-  
   useEffect(()=>{
 
     setTimeout(() => {
@@ -120,14 +78,15 @@ setLoading(false);
                 <button
                  onClick={()=>{
                   product?.productImageUrl ? 
-DeleteFromWishlist(product.productId)
+DeleteFromWishlist(product.productId,product.name || product.productName)
                   :
             (      isLogin()?
                   
                   AddTOWishlist(
                   {
   "productId": product.id || product.productId
-                  }
+                  },product.name || product.productName
+
                 )
               :
               Navigate("/signup"))
@@ -150,7 +109,7 @@ DeleteFromWishlist(product.productId)
             </div>
               <div className="image">
 
-            <img src={product?.productImageUrl || product?.images[0] } alt={product.name} />
+            <img src={product?.productImageUrl || product?.images[0] } alt={product.name || product.productName} />
               </div>
               {
  !product?.stock?
@@ -189,7 +148,7 @@ Navigate("/signup")
 
             <div className="stars">
               <RatingStars rating={5} />
-              <span className="reviews">(65)</span>
+              <span className="reviews">({product.stock})</span>
             </div>
          
           </div>
