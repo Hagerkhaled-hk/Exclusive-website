@@ -26,7 +26,22 @@ export default function AllOrders() {
     if (!token) return;
     let apiStatus = status === "all" ? "" : status;    
       let res = await viewOrders(token, { PageNumber: 1, Status: apiStatus });
-      setOrders(res?.data?.items || []);
+      console.log(res);
+      if(res.statusCode==200 && res?.data?.items?.length==0 ){
+        
+        setOrders([ {
+        "id": "",
+        "buyerName": "",
+        "createdAt": "",
+        "status": "",
+        "total":0
+      }]);}
+      else {
+
+        setOrders(res?.data?.items || []);
+      }
+
+      
       
   }
 
@@ -57,8 +72,8 @@ export default function AllOrders() {
   const getStatusClass = (status) => {
     switch (status) {
       case "Pending": return "status-pending";
-      case "In progress": return "status-inprogress";
-      case "Completed": return "status-completed";
+      case "Shipped,": return "status-inprogress";
+      case "Delivered": return "status-completed";
       case "Canceled": return "status-cancelled";
       default: return "";
     }
@@ -68,7 +83,7 @@ export default function AllOrders() {
     <div className="AllOrders">
       {orders.length ==0?
        
-      <LoadingModal loading={loading} text="orders" />
+      <LoadingModal loading={loading} text="No orders found" />
 
     
 
@@ -89,6 +104,8 @@ export default function AllOrders() {
             <option value="all">All</option>
             <option value="pending">Pending</option>
             <option value="canceled">Canceled</option>
+            <option value="Shipped"> Shipped</option>
+            <option value="Delivered"> Delivered</option>
           </select>
         </div>
       </div>
@@ -105,9 +122,10 @@ export default function AllOrders() {
         </thead>
         <tbody>
           {orders.map((order, id) => (
-            <tr onClick={() => { navigate(`/account/order/${id + 1}/${order.id}`); }} key={order.id}>
+            <tr >
               <td>{id + 1}</td>
-              <td>{order.createdAt}</td>
+              <td onClick={() => { navigate(`/account/order/${id + 1}/${order.id}`); }} key={order.id}>{new Date(order.createdAt).toLocaleDateString()}</td>
+
               <td>{(order.total ).toFixed(1)} EGP</td>
               <td>
                 <span className={`status-badge ${getStatusClass(order.status)}`}>
@@ -127,7 +145,7 @@ export default function AllOrders() {
                 <Button
                   className="btn cancel-icon"
                   variant="danger"
-                  disabled={order.status !== "Canceled"}
+                  disabled={order.status!="Canceled"}
                   onClick={() => { handleShow(order.id, id, "delete"); }}
                 >
                   Delete
