@@ -132,7 +132,6 @@ setActiveProcess(true);
       data.unitAmounts.push(item.unitPrice*100) ;
       data.quantities.push(item.quantity) ;
     });
-    console.log(data);
     
 
     let res =await CheckoutSession( 
@@ -145,7 +144,6 @@ setActiveProcess(true);
         "cancelUrl": "http://localhost:5173/Payment"
       }
     ); 
-console.log(res);
 
 //Temp
 

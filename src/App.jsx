@@ -148,7 +148,7 @@ path: "resetPassword", element: (
           )
       }
       ,
-{ path: "order/:order_num/:id", element: (
+{ path: "order/:id", element: (
     <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
         <CurrentOrder />
     </Suspense>

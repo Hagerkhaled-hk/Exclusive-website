@@ -20,6 +20,7 @@ section{
   margin-top: 20px;
   background: #fff;
   font-size: var(--sec-text-size);
+  height: max-content;
 }
 
 .order-table tr:hover {
@@ -30,10 +31,13 @@ section{
 .order-table th,
 .order-table td {
   padding: 16px 12px;
+  
   text-align: left;
   border-bottom: 1px solid #f0f0f0;
   font-size: var(--text-size);
 }
+
+
 
 .order-table th {
   font-weight: 600;

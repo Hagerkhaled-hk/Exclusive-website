@@ -7,15 +7,21 @@
     padding: 20px;
     min-height: 100%;
     background-color: transparent;
+        cursor: default !important;
+
+}
+
+.no-orders-wrapper * 
+{
+    cursor: default !important;
 }
 
 /* Table styles */
 .no-orders-table {
     width:300px;
     border-collapse: collapse;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    overflow: hidden;
+    overflow: hidden;    
     text-align: center;
     margin: auto;
     background: transparent;
@@ -28,6 +34,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 width: 100% !important;
+
 }
 .no-orders-table thead tr:hover
 {
@@ -44,12 +51,14 @@ width: 100% !important;
             align-items: center;
             flex-direction: column;
 
+
 }
 
 /* Body row */
 .no-orders-table tbody tr  {
     color: #333;
         background-color: white;
+
 
 }
 
@@ -62,6 +71,7 @@ width: 100% !important;
     font-size: 1em;
     line-height: 1.6;
     background-color: white;
+
 }
 
 /* Icon */

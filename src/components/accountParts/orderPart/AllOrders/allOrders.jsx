@@ -1,66 +1,57 @@
 import { useContext, useEffect, useState } from "react";
 import "./allOrders.css";
-import viewOrders from "../../../../services/APIs/orders/viewOrders";
-import { UserContext } from "../../../../context/userContext/userContext";
 import toast, { Toaster } from "react-hot-toast";
-import CancelOrder from "../../../../services/APIs/orders/cancelOrder";
-import { Button, Modal, Spinner } from "react-bootstrap";
-import DeleteOrder from "../../../../services/APIs/orders/deleteOrder";
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import {  useNavigate } from "react-router-dom";
 import { CiFilter } from "react-icons/ci";
 import LoadingModal from "../../../../Common/modal/modal";
 import NoOrdersModal from "../../../noOrdersModal/noOrdersModal";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import { OrderContext } from "../../../../context/orderContext/orderContext";
 export default function AllOrders() {
-  const [orders, setOrders] = useState([]);
-  const { getToken } = useContext(UserContext);
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
-  const [modelINfo, setModelInfo] = useState({ selectedOrderId: "", actionType: "", id: null, show: false });
+  const [modelINfo, setModelInfo] = useState(
+    { selectedOrderId: "", actionType: "", id: null, show: false });
+  const {View_Orders,Delete_Order,Cancel_Order,orders,totalPages,pageSize,page,setPage,set_Current_Order_index}=useContext(OrderContext);
+
+    const handleChange = (event,value) => {
+    setPage(value);
+  }; 
   const navigate = useNavigate();
   
 
   const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
   const handleShow = (order, id, type) => { setModelInfo({ selectedOrderId: order, actionType: type, id: id, show: true }); };
 
-  async function View_Orders(status = "all") {
-    let token = getToken();
-    if (!token) return;
-    let apiStatus = status === "all" ? "" : status;    
-      let res = await viewOrders(token, { PageNumber: 1, Status: apiStatus });
-      console.log(res);
-      if(res.statusCode==200 && res?.data?.items?.length==0 ){
-        
-        setOrders([ {
-        "id": "",
-        "buyerName": "",
-        "createdAt": "",
-        "status": "",
-        "total":0
-      }]);}
-      else {
 
-        setOrders(res?.data?.items || []);
+
+  function getOrderIndex(index)
+  {
+    
+    let last_Prev_Index=((page-1)*pageSize)+1;
+    return (index+last_Prev_Index);
+
+  }
+
+  
+    const getStatusClass = (status) => {
+      switch (status) {
+        case "Pending": return "status-pending";
+        case "Shipped,": return "status-inprogress";
+        case "Delivered": return "status-completed";
+        case "Canceled": return "status-cancelled";
+        default: return "";
       }
+    };
 
-      
-      
-  }
 
-  async function Cancel_Order(id) {
-    let token = getToken();
-    if (!token) return;
-    let res = await CancelOrder(id, token);
-    if (res.succeeded) { toast.success("Order Cancelled"); View_Orders(filter); }
-    else toast.error(res?.message || "Error Occured");
-  }
 
-  async function Delete_Order(id) {
-    let token = getToken();
-    if (!token) return;
-    let res = await DeleteOrder(id, token);
-    if (res.succeeded) { toast.success("Order Deleted"); View_Orders(filter); }
-    else toast.error(res?.message || "Error Occured");
-  }
+    function navigte_to_current_order(id , order_id)  { 
+      let index= getOrderIndex(id);
+      set_Current_Order_index(index);
+       navigate(`/account/order/${order_id}`); }
 
   useEffect(() => {
     View_Orders(filter);
@@ -68,17 +59,10 @@ export default function AllOrders() {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, [filter]);
+  }, [filter,page]);
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "Pending": return "status-pending";
-      case "Shipped,": return "status-inprogress";
-      case "Delivered": return "status-completed";
-      case "Canceled": return "status-cancelled";
-      default: return "";
-    }
-  };
+
+
 
   return (
     <div className="AllOrders">
@@ -123,31 +107,25 @@ export default function AllOrders() {
 
           {
           
-          
           orders[0].id=="" ?
           <tr className="no-orders-tr ">
 
           <td colSpan={6}   >  <NoOrdersModal status={filter} /></td>
 
-          </tr>
+          </tr> 
       :
-      
-          
-          
-          
           
           orders.map((order, id) => (
-            <tr >
-              <td>{id + 1}</td>
-              <td onClick={() => { navigate(`/account/order/${id + 1}/${order.id}`); }} key={order.id}>{new Date(order.createdAt).toLocaleDateString()}</td>
-
-              <td>{(order.total ).toFixed(1)} EGP</td>
+            <tr   onClick={() => {navigte_to_current_order(id , order.id) }} key={id}  >
+              <td >{getOrderIndex(id)}</td>
+              <td   >{new Date(order.createdAt).toLocaleDateString()}</td>
+              <td  >{(order.total ).toFixed(1)} EGP</td>
               <td>
                 <span className={`status-badge ${getStatusClass(order.status)}`}>
                   {order.status}
                 </span>
               </td>
-              <td>
+              <td onClick={(e)=>e.stopPropagation()} >
                 <Button
                   className="btn cancel-icon"
                   disabled={order.status !== "Pending"}
@@ -156,7 +134,7 @@ export default function AllOrders() {
                   Cancel
                 </Button>
               </td>
-              <td>
+              <td onClick={(e)=>e.stopPropagation()}>
                 <Button
                   className="btn cancel-icon"
                   variant="danger"
@@ -188,10 +166,11 @@ export default function AllOrders() {
           </Modal>
         </tbody>
       </table>
-
-     
       </>
             }
+         <Stack spacing={2} style={{display:"flex" ,justifyContent:"center" ,alignItems:"center", marginTop:"20px" }}>
+<Pagination count={totalPages}   onChange={handleChange}  />
+     </Stack>
     </div>
 
 

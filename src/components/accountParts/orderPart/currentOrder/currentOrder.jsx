@@ -1,46 +1,41 @@
 import { useContext, useEffect, useState } from "react";
-import GetAnOrder from "../../../../services/APIs/orders/getOrder";
 import "./currentOrder.css";
-import { UserContext } from "../../../../context/userContext/userContext";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingModal from "../../../../Common/modal/modal";
 import TotalDetails from "../../../../Common/totalDetails/totalDetails";
+import { OrderContext } from "../../../../context/orderContext/orderContext";
 
 export default function CurrentOrder() {
-  const { getToken } = useContext(UserContext);
-  const [orders, setOrders] = useState({});
 
   const [loading, setLoading] = useState(true);
-  const { id,order_num } = useParams();
+  const { id } = useParams();
+  const{current_Order_index,get_order,currentOrder,getIndexOfOrder}=useContext(OrderContext);
 const navigate = useNavigate();
 
-  async function get_order() {
-    let token = getToken();
-    if (!token) return;
-    let res = await GetAnOrder(id, token);
-    setOrders(res?.data || {});
-          console.log(res);
 
-  }
 
   useEffect(() => {
-    get_order();
+  
+ get_order(id);
+ getIndexOfOrder(id);
 
     setTimeout(() => {
      setLoading(false);
     }, 2000);
+
+
   }, [id]);
 
   return (
     <div className="currentOrder-container">
 
 {
-      orders?.items?.length ==0?
+      currentOrder?.items?.length ==0?
       
     <LoadingModal loading={loading} text={"order"} />
     :
       <>
-  <h2>Order {order_num} </h2>
+  <h2>Order { current_Order_index} </h2>
 
        <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to see more information.</small>
        <section>
@@ -54,14 +49,14 @@ const navigate = useNavigate();
           </tr>
         </thead>
         <tbody>
-          {orders?.items?.length === 0 ? (
+          {currentOrder?.items?.length === 0 ? (
             <tr>
               <td colSpan="5" className="no-orders">
                 No orders found.
               </td>
             </tr>
           ) : (
-            orders?.items?.map((order, idx) => (
+            currentOrder?.items?.map((order, idx) => (
               <tr onClick={()=>{navigate(`/product/${order.productId}`)}} key={order.productId || idx}>
                 <td>{order.productName}</td>
                 <td>{order.quantity}</td>
@@ -74,8 +69,8 @@ const navigate = useNavigate();
       </table>
 <div className="order-summary">
 <p style={{fontFamily:"var(--Inter-regular)"}} >Order Summary</p>
-      <TotalDetails total={(orders?.total)?.toFixed(1)} subTotal={(orders?.subtotal)?.toFixed(1)} 
-      shipPostalCode={orders.shipPostalCode} shippingAddress={orders.shippingAddress} discountAmount={orders.discountAmount } createdAt={orders.createdAt}
+      <TotalDetails total={(currentOrder?.total)?.toFixed(1)} subTotal={(currentOrder?.subtotal)?.toFixed(1)} 
+      shipPostalCode={currentOrder.shipPostalCode} shippingAddress={currentOrder.shippingAddress} discountAmount={currentOrder.discountAmount } createdAt={currentOrder.createdAt}
 
       />
 </div>
