@@ -14,10 +14,8 @@ if (!Token) return [];
 
 
      
-     console.log("ViewCart Api",res   );
      
      if(res.statusCode===401){
-          console.log("viewCart Retoken");
           
 let retoken= await ReToken();
 if (!retoken) return [];

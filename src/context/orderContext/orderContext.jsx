@@ -13,7 +13,6 @@ export default function OrderProvider({ children }) {
   const [totalPages,setTotalPages]=useState(1);
     const [page,setPage]=useState(1);
   const pageSize=10;
-
   const [current_Order_index,set_Current_Order_index]=useState(0);
     const [currentOrder, setCurrentOrder] = useState({});
 
@@ -73,12 +72,17 @@ let data = res?.data;
 
 
  async function  getIndexOfOrder (id) {
+console.log("call");
+console.log("totalPages",totalPages);
 
     let index=-1;
     let pageNumber =0 ;
     let pageSize=100;
     let token =getToken();
-      while(index==-1){
+    console.log(id );
+
+
+      while(index==-1 && ( pageNumber < Math.ceil(totalPages/10))){
                  pageNumber++;
 
           let res = await viewOrders(token, { "PageNumber": pageNumber, "Status": "" ,"PageSize":pageSize });
@@ -92,17 +96,26 @@ let data = res?.data;
          console.log("pageNumber" , pageNumber);
          
       }
-  let orderIndex= ((pageNumber-1)*pageSize)+index+1; 
+      if(index!==-1){
 
-set_Current_Order_index(orderIndex);    
+        let orderIndex= ((pageNumber-1)*pageSize)+index+1; 
+      set_Current_Order_index(orderIndex);    
+      }
   }
+
+
 
   
   async function get_order(id) {
+
     let token = getToken();
     if (!token) return;
     let res = await GetAnOrder(id, token);
     setCurrentOrder(res?.data || {});
+    console.log(res);
+    
+  if (res?.statusCode!=200) return false;
+ return true;
 
   }
 

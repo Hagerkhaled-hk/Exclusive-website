@@ -9,16 +9,19 @@ export default function CurrentOrder() {
 
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const{current_Order_index,get_order,currentOrder,getIndexOfOrder}=useContext(OrderContext);
+  const{current_Order_index,get_order,currentOrder,getIndexOfOrder,totalPages,orders,View_Orders}=useContext(OrderContext);
 const navigate = useNavigate();
 
+async function Get_order(id) {
+  if(orders.length==0) await View_Orders();  
+  let res =await get_order(id);
+      if(res) getIndexOfOrder(id);
+}
 
 
   useEffect(() => {
   
- get_order(id);
- getIndexOfOrder(id);
-
+Get_order(id);
     setTimeout(() => {
      setLoading(false);
     }, 2000);

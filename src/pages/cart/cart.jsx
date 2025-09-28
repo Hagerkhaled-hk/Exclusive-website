@@ -105,11 +105,11 @@ index={index}
         </table>
         <div className="buttons">
 
-<BlackButton text={"Return to shop"}/>
+<BlackButton text={"Return to shop"} btn_Function={()=>{navigate("/")}}/>
 
 
     </div>
-
+                
     </div>
     
     <div className="right">
@@ -120,10 +120,7 @@ index={index}
 <RedButton text="Processed to check"  btn_Function={processOrder}/>
     </div>
 
-    <div className="coupoun">
-        <input type="text" ref={coupounRef} placeholder="Coupoun"  />
-        <RedButton text="Apply Coupoun" btn_Function={applyDiscount}/>
-    </div>
+   
     </div>
 
         </div>

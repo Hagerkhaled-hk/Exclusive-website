@@ -120,12 +120,14 @@ else toast.success('Stocking up! Quantity updated successfully')
 let token =getToken();
 
 if(token){
-      let beforeSplice=cartItems;
+      let beforeSplice=structuredClone(cartItems) ;
+      
  cartItems.splice(index,1);
   setCartItem([...cartItems]);
+  
 
 let res = await DeleteCart(cartId,token);
-if(!res.succeeded) setCartItem(beforeSplice) ;
+if(!res.statusCode!=200) setCartItem(beforeSplice) ;
 
 
 }
@@ -164,8 +166,28 @@ else
 
 
 
+ async  function deleteAllCart() {
+let token =getToken();
+
+if(!token)return;
+
+  let dataCart = await ViewCart(token);
+  const all =  await Promise.all(
+
+      dataCart.data.items.map( async(item,index)=>{
+        console.log(item);
+        
+        
+ await Delete_From_Cart(index,item.cartItemId  );
+  return "sucess";
+      })
+    )
+setCart_All_State();
+    
+  }
+
   return (
-    <CartContext.Provider value={{setCart_All_State,cartInfo, cartItems,Quantity_Function ,Delete_From_Cart,setCart_Info_State,addToCart}}>
+    <CartContext.Provider value={{setCart_All_State,cartInfo, cartItems,Quantity_Function ,Delete_From_Cart,setCart_Info_State,addToCart,deleteAllCart}}>
       {children}
     </CartContext.Provider>
   );

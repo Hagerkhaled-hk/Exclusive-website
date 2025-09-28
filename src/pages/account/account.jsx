@@ -35,6 +35,13 @@ useEffect(()=>{
             </li>
         
           </ul>
+          <h3>My Discounts</h3>
+          <ul>
+            <li>
+              <NavLink to="discount">Discounts</NavLink>
+            </li>
+        
+          </ul>
 
           <h3>My cart</h3>
               <ul>

@@ -3,9 +3,7 @@ import { data } from "react-router-dom";
 
 export default async function CreateAPi_Function (initialUrl,headersData,intialData){
  
-    console.log(initialUrl);
-    console.log(headersData);
-    console.log(intialData);
+    
     
     
  try {
@@ -30,7 +28,7 @@ const contentType = res.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
             return resJson;
         } else {
-            return await resJson;
+            return await res.text();
         }
 
 

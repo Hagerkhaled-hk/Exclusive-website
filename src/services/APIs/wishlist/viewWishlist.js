@@ -14,7 +14,6 @@ if (!Token) return [];
 
 
      
-     console.log("Viewwishlist Api",res   );
      
      if(res.statusCode===401){
           console.log("viewCart Retoken");

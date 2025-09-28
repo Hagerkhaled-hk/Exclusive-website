@@ -20,6 +20,8 @@ export default function Payment() {
   const {form, setForm,set_Is_From_PaymentPage}=useContext(PaymentContext)
   const [activeProcess,setActiveProcess] =useState(false);
   const [paymentMethod,setPaymentMethod] =useState("Delivery");
+  const discountRef=useRef();
+  const [discount,setDiscount]=useState(0);
   const navigate=useNavigate();
   const url=useLocation();
 const coupounRef=useRef(null)
@@ -180,9 +182,12 @@ setActiveProcess(true);
     });
     console.log(res);
     if(res.statusCode!=200) toast.error("unable to apply the discount");
-    else toast.success("Discount applied successfully");
-    
-    setCart_Info_State();
+    else{ toast.success("Discount applied successfully");
+      console.log(discountRef);
+      
+  discountRef.current.style.display='flex';
+  setDiscount(res.data.newTotal);
+    setCart_Info_State();}
   }
 
   return (
@@ -301,9 +306,17 @@ setActiveProcess(true);
               Cash on delivery
             </label>
           </div>
-          <div className="coupoun coupon-row" >
+            <div style={{display:"flex",flexDirection:"column"}}>
+          <div className="coupoun coupon-row" style={{marginBottom:"0px"}} >
             <input type="text" ref={coupounRef}  placeholder="Coupoun"  />
+
             <RedButton text="Apply Coupoun" btn_Function={applyDiscount}/>
+        
+            </div>
+             <div className="TotalDetails " style={{display:"block"}}>
+
+            <p ref={discountRef} style={{display:"none",justifyContent:"spaceBetween","alignItems":"center"}}>New Total : <span> {discount}</span></p>
+            </div>  
           </div>
           <RedButton text="Place order"
           className={`${activeProcess?"active":""}`}  btn_Function={paymentMethod=="OnBank" ?

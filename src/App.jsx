@@ -27,6 +27,8 @@ const AllOrders = lazy(() => import("./components/accountParts/orderPart/AllOrde
 const CurrentOrder = lazy(() => import("./components/accountParts/orderPart/currentOrder/currentOrder.jsx"));
 const Contact = lazy(()=>import("./pages/contact/contact.jsx"));
 const OrderState = lazy(()=>import("./pages/orderState/orderState.jsx"));
+const DiscountPart = lazy(()=>import("./components/accountParts/discountPart/discountPart.jsx"));
+const DiscountProducts = lazy(()=>import("./components/accountParts/discountPart/discountProducts.jsx"));
 export default function App() {
 
 
@@ -153,6 +155,18 @@ path: "resetPassword", element: (
         <CurrentOrder />
     </Suspense>
 )},
+{ path: "discount", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <DiscountPart />
+    </Suspense>
+)},
+{ path: "discountProducts", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <DiscountProducts />
+    </Suspense>
+)},
+
+
       
       
       ]

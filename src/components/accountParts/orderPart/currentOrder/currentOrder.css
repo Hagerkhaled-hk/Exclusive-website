@@ -66,6 +66,22 @@ section{
   height: fit-content;
 }
 
+    .discountProduct{
+      padding: 5px;
+            border-radius: 5px;
+      height: 40px;
+      text-align: start;
+      vertical-align:middle;
+            width: 100%;
+
+
+    }
+    .discountProduct:hover{
+      background-color: var(--grey-hover);
+    }
+
+
+
 @media (max-width: 600px) {
   .order-table th,
   .order-table td {
