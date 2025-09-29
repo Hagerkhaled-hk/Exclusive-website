@@ -2,8 +2,6 @@
   padding: var(--pages-padding);
 }
 .HomePart2 .navigation-arrows {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   gap: 10px;
 }
@@ -12,17 +10,10 @@
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
   color: var(--black-color);
 }
@@ -39,52 +30,32 @@
 }
 
 .HomePart2 .categories-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 20px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
   font-size: var(--input-txt-size);
   color: var(--black-color);
   text-transform: capitalize;
 }
 .HomePart2 .category-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 125px;
   height: 120px;
   border: var(--sec-border);
   border-radius: 8px;
   text-align: center;
-  -webkit-transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
-  transition: -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, -webkit-transform 0.3s ease, -webkit-box-shadow 0.3s ease;
   cursor: pointer;
-  -webkit-box-shadow: var(--box-shadow);
-          box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow);
   font-size: var(--input-txt-size);
 }
 .HomePart2 .category-item:hover {
-  -webkit-transform: translateY(-5px);
-          transform: translateY(-5px);
-  -webkit-box-shadow: var(--box-shadow);
-          box-shadow: var(--box-shadow);
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow);
 }
 .HomePart2 .category-item.active {
   background-color: var(--red-color);
@@ -118,42 +89,33 @@
   overflow: hidden;
 }
 .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container {
-  -ms-grid-columns: auto 50px auto 50px auto 50px auto !important;
   grid-template-columns: repeat(4, auto) !important;
-  -webkit-box-pack: center !important;
-      -ms-flex-pack: center !important;
-          justify-content: center !important;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center !important;
+  align-items: center;
   gap: 50px;
   margin-top: 50px;
+  margin-left: 75px;
 }
 .HomePart2 .products-container > *, .HomePart5 .products-container > *, .ProductsPage .products-container > * {
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
 }
 
 @media (max-width: 1030px) {
   .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container {
-    -ms-grid-columns: (auto)[3] !important;
     grid-template-columns: repeat(3, auto) !important;
     margin-left: 0px;
   }
 }
 @media (max-width: 880px) {
   .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container {
-    -ms-grid-columns: (auto)[2] !important;
     grid-template-columns: repeat(2, auto) !important;
   }
 }
 @media (max-width: 572px) {
   .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container {
-    -ms-grid-columns: (auto)[1] !important;
     grid-template-columns: repeat(1, auto) !important;
   }
 }
@@ -198,13 +160,11 @@
 }
 @media (max-width: 760px) {
   .products-container {
-    -ms-grid-columns: (auto)[2] !important;
     grid-template-columns: repeat(2, auto) !important;
   }
 }
 @media (max-width: 573px) {
   .products-container {
-    -ms-grid-columns: (auto)[1] !important;
     grid-template-columns: repeat(1, auto) !important;
   }
 }
@@ -242,4 +202,4 @@
   .products-container-home2 .products-container .card {
     width: 160px !important;
   }
-}
+}/*# sourceMappingURL=homePart2.css.map */

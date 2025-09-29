@@ -191,22 +191,6 @@ p{
 }
     }
 }
-
-@media (min-width: 992px) {
-  .HomePart4  .container, .HomePart4 .container-lg, .HomePart4 .container-md, .HomePart4 .container-sm {
-         max-width: 720px !important; 
-    }
-    }
-
-
-
-
-    @media (min-width: 100px) {
-   .HomePart4   .container,  .HomePart4  .container-sm {
-                 max-width: 720px !important; 
-    }
-    }
-
 @media (max-width:1500px) {
     .HomePart3 .title
     {
@@ -236,6 +220,23 @@ p{
     }
 }
 
+@media (min-width: 992px) {
+  .HomePart4  .container, .HomePart4 .container-lg, .HomePart4 .container-md, .HomePart4 .container-sm {
+         max-width: 720px !important; 
+    }
+    }
+
+
+
+
+    @media (min-width: 100px) {
+   .HomePart4   .container,  .HomePart4  .container-sm {
+                 max-width: 720px !important; 
+    }
+    }
+
+
+
 @media (max-width:601px) {
     .HomePart3 .title
     {
@@ -262,36 +263,38 @@ p{
             --pages-padding:100px 10px ;
 
     }
+ .HomePart3 .container
+ {
+    height: 400px !important;
+    flex-direction: row !important;
+ }
  .HomePart3 .title
     {
-        font-size: 15px;
+        font-size: 15px !important;
     }
     .HomePart3 .buy-button a
     {
-        padding: 10px 30px;
-        font-size: 8px;
+        padding: 10px 30px !important;
+        font-size: 8px !important;
     }
     .HomePart3 .countdown-item 
     {
-        width: 32px;
-        height: 32px;
+        width: 32px !important;
+        height: 32px !important;
         *{
 
-            font-size: 8px;
+            font-size: 8px !important;
         }
         
     }
     .HomePart3 .countdown-label{
-        font-size: 5px;
+        font-size: 5px !important;
     }
  
-.HomePart3 .container
-    {
-        height: 300px;
-    }
+
     .HomePart3 .countdown-container
     {
-        display: grid;
+        display: grid !important;
         grid-template-columns: auto auto;
         justify-content: flex-start;
         align-items: center;
@@ -330,6 +333,16 @@ p{
     .HomePart3 .countdown-label{
         font-size: 5px;
     }
+        .HomePart4 .container 
+        {
+
+            .left ,.right > * {
+    height: fit-content !important;
+        }
+        }
+
+         
+
 }
 
 
@@ -357,7 +370,6 @@ p{
         font-size: 2px;
     }
 }
-
 
 @media (max-width:1500px ) {
 

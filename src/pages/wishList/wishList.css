@@ -47,3 +47,54 @@ grid-template-columns: repeat(4,auto) ;
 gap: 40px;
 }
 
+@media (max-width:1030px) {
+.Wishlist .products-container  {
+    grid-template-columns: repeat(3,auto);
+  }
+}
+
+
+
+ @media (max-width:800px) {
+  .Wishlist .products-container
+{
+    gap: 10px;
+}
+
+ }
+ @media (max-width:742px) {
+  .Wishlist .products-container
+  {
+    grid-template-columns: repeat(2,auto);
+    gap: 50px;
+  }
+  .DynamicIndex
+  {
+    padding: 0px 0px 0px 20px;
+    
+}
+.BlackButton button
+{
+    padding: 8px 4px;
+
+}
+
+  
+} 
+ @media (max-width:560px) {
+  .Wishlist .products-container
+  {
+    gap: 20px;
+  }
+
+  
+} 
+ @media (max-width:526px) {
+  .Wishlist .products-container
+  {
+    grid-template-columns: repeat(1,auto);
+    gap: 20px;
+  }
+
+  
+} 

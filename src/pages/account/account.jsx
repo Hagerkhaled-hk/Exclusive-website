@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import "./account.css";
 import {  NavLink, Outlet, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext/userContext";
+import { IoMdArrowDropright } from "react-icons/io";
+import { IoMdArrowDropleft } from "react-icons/io";
 
 export default function Account() {
 
 const {isLogin}=useContext(UserContext);
 const navigate=useNavigate(null);
-
+const [SideBar,setSideBar]=useState(false);
 useEffect(()=>{
   if(!isLogin()) navigate("/sigunp");
   
@@ -16,7 +18,17 @@ useEffect(()=>{
 
   return (
     <div className="account-container">
-      <aside className="account-sidebar">
+      <aside className={`account-sidebar ${SideBar?"active":""} `}>
+        <div  onClick={()=>{setSideBar(!SideBar)}} className={`arrow ${SideBar?"active":""}`}>
+          {
+            SideBar ?
+            
+            <IoMdArrowDropleft/>
+            :
+          <IoMdArrowDropright/>
+          }
+
+        </div>
         <div>
           <h3>Manage My Account</h3>
           <ul>

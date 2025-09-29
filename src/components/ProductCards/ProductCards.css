@@ -226,3 +226,16 @@ background-color: var(--black-hover);
   border-radius: 5px;
   transform: rotate(-10deg); /* OPTIONAL: Gives it a slight, eye-catching tilt */
 }
+
+ @media (max-width:272px) {
+        .products-container .card
+        {
+            width: 190px !important;
+        }
+    }
+    @media (max-width:240px) {
+        .products-container .card
+        {
+            width: 160px !important;
+        }
+    }

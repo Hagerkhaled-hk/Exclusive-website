@@ -49,6 +49,28 @@
   font-size: var(--sec-text-size);
   font-family: var(--Inter_18pt-Regular);
 }
+
+.arrow
+{
+  position: absolute;
+  right: -30px;
+  top: 0px;
+  background-color: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.103);
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    cursor: pointer;
+}
+
+.arrow:hover
+{
+  background-color: var(--grey-color);
+}
 .profile-form {
   margin-top: 20px;
   display: flex;
@@ -166,15 +188,36 @@ input:hover {
 @media (max-width: 768px) {
   .account-container {
     grid-template-columns: 1fr;
+    width: 100%;
+    padding:30px 0px;
+
   }
 
   .account-sidebar {
-    width: 100%;
+    width: fit-content;
     display: flex;
     justify-content: center;
+    position: absolute;
+    padding: 10px 20px;
+    border-radius: 5px;
+    height: 80vh;
+    top: 20%;
+    left: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.103);
+    transition: 0.5s ease-in-out;
+    transform: translateX(-190px);
   }
   .account-content{
         padding: 20px 15px;
+  }
+  .account-sidebar.active
+  {
+    transform: translateX(0px);
+  }
+  .arrow
+  {
+    display: flex;
   }
 
   .form-grid {
@@ -187,5 +230,29 @@ input:hover {
 
   .form-actions button {
     width: 100%;
+  }
+}
+@media (max-width: 600px) {
+     th,  td {
+padding: 10px 20px !important;
+text-align: center !important;
+vertical-align: middle !important;
+    }}
+
+@media (max-width:552px) {
+  
+  .account-container > div 
+  {
+    overflow-x: scroll;
+        padding: 5px 1rem;
+  }
+}
+
+@media (max-width:302px) {
+  
+  .account-container > div  div:nth-of-type(2)
+  {
+    flex-direction: column !important;
+    align-items: flex-start !important;
   }
 }

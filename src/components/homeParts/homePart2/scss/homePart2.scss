@@ -109,6 +109,8 @@ font-size: 27px;
         
         margin-top: 50px;
         padding: 10px 0px;
+            margin-left: 30px;
+
     }
 }
 
@@ -142,6 +144,28 @@ margin-top: 50px;
 }
 
 
+@media (max-width:1030px) {
+    .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container
+    {
+            grid-template-columns: repeat(3, auto) !important;
+            margin-left: 0px;
+    }
+}
+
+
+@media (max-width:880px) {
+    .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container
+    {
+            grid-template-columns: repeat(2, auto) !important;
+    }
+}
+
+@media (max-width:572px) {
+    .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container
+    {
+            grid-template-columns: repeat(1, auto) !important;
+    }
+}
 
 
 
@@ -151,12 +175,33 @@ margin-top: 50px;
 
 
 
+
+
+
+
+@media (max-width:590px) {
+
+     .HomePart2 .swiper
+    {
+        margin-left: 0px;
+    }
+}
 @media (max-width:578px) {
     
     .HomeHeader .title-text h2
     {
     --header-size:20px;
     }
+    .HomePart2 .swiper
+    {
+        margin-left: 10px;
+    }
+    .HomePart2 .swiper-wrapper
+    {padding: 0px;}
+}
+@media (max-width:465px)
+{ .HomePart2 .swiper-wrapper
+    {padding: 0px 15px;}
 }
 
 @media (max-width:384px) {
@@ -190,6 +235,7 @@ margin-top: 50px;
 
 
 
+
 @media (max-width:760px) {
     .products-container
 {
@@ -197,6 +243,7 @@ margin-top: 50px;
 
 }
 }
+
 
 
 @media (max-width:573px) {
@@ -214,3 +261,37 @@ margin-top: 50px;
 
 }
 }
+
+@media (max-width: 333px) {
+    .HomePart2 .swiper {
+margin-left: 20%;
+    }}
+@media (max-width: 285px) {
+    .HomePart2 .swiper {
+margin-left: 15%;
+    }}
+
+    
+@media (max-width: 216px) {
+    .HomePart2 .swiper {
+margin-left: 5%;
+    }}
+@media (max-width: 195px) {
+    .HomePart2 .swiper {
+margin-left: 0%;
+    }}
+
+
+
+    @media (max-width:272px) {
+       .products-container-home2  .products-container .card
+        {
+            width: 190px !important;
+        }
+    }
+    @media (max-width:240px) {
+     .products-container-home2    .products-container .card
+        {
+            width: 160px !important;
+        }
+    }

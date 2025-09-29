@@ -170,7 +170,10 @@ border: 1.5px solid var(--white-color);
     }
 }
 
-
+@media (min-width: 500px) {
+    .container, .container-lg, .container-md, .container-sm {
+        max-width: 960px !important;
+    }}
 
 @media (max-width:1035px) {
     .HomePart1 .left
@@ -181,6 +184,7 @@ border: 1.5px solid var(--white-color);
     {
         width:100% ;
     }
+
 }
 
 
@@ -204,6 +208,14 @@ border: 1.5px solid var(--white-color);
     height: 30px !important;
 }
 
+}
+
+@media (max-width:700px) {
+    .HomePart1 .right .container
+    {
+        padding: 0px 50px 0px 50px;
+
+    }
 }
 
 @media (max-width:516px) {

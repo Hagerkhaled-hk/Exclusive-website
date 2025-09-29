@@ -2,7 +2,7 @@
 .HomePart5 
 {
     width: 100% !important;
-
+padding: var(--pages-padding);
 
 }
 
@@ -11,12 +11,16 @@
 
 display: flex;
 flex-direction: column !important;
-justify-content: center;
+justify-content:center;
 align-items: center;
 gap: 20px;
+padding: 0px;
+}
+.HomePart5 .products-container
+{
+  margin-left: 0px;
 
 }
-
 
 
 .HomePart5     .RedButton

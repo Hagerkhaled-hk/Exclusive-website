@@ -142,7 +142,7 @@ margin-top: 20px;
 }
 
 /* responsive */
-@media (max-width:880px){
+@media (max-width:1030px){
   .contact-wrapper{
     grid-template-columns:1fr;
   }

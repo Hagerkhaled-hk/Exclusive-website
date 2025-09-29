@@ -74,13 +74,13 @@ Getproducts(res.data[4].name);
    slidesPerView={6}
    breakpoints={{
 
-    "200":{
+    "0":{
         slidesPerView:1
     },
-    "455":{
+    "335":{
         slidesPerView:2
     },
-    "600":{
+    "466":{
         slidesPerView:3
     },
     "762":{

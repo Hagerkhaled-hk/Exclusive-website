@@ -105,7 +105,7 @@ index={index}
         </table>
         <div className="buttons">
 
-<BlackButton text={"Return to shop"} btn_Function={()=>{navigate("/")}}/>
+<BlackButton text={"Return to shop"} btn_Function={()=>{navigate("/product")}}/>
 
 
     </div>

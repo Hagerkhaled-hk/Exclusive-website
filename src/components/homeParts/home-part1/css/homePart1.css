@@ -190,6 +190,11 @@
   border: 1.5px solid var(--white-color);
 }
 
+@media (min-width: 500px) {
+  .container, .container-lg, .container-md, .container-sm {
+    max-width: 960px !important;
+  }
+}
 @media (max-width: 1035px) {
   .HomePart1 .left {
     display: none !important;
@@ -208,6 +213,11 @@
   .HomePart1 .right .container .logo {
     width: 30px !important;
     height: 30px !important;
+  }
+}
+@media (max-width: 700px) {
+  .HomePart1 .right .container {
+    padding: 0px 50px 0px 50px;
   }
 }
 @media (max-width: 516px) {
@@ -244,9 +254,4 @@
     width: 20px !important;
     height: 20px !important;
   }
-}
-
-.HomePart5
-{
-  padding: var(--pages-padding);
 }

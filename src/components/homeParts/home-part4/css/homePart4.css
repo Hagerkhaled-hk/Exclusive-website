@@ -181,16 +181,6 @@
   font-size: 12px;
 }
 
-@media (min-width: 992px) {
-  .HomePart4 .container, .HomePart4 .container-lg, .HomePart4 .container-md, .HomePart4 .container-sm {
-    max-width: 720px !important;
-  }
-}
-@media (min-width: 100px) {
-  .HomePart4 .container, .HomePart4 .container-sm {
-    max-width: 720px !important;
-  }
-}
 @media (max-width: 1500px) {
   .HomePart3 .title {
     font-size: 25px;
@@ -213,6 +203,16 @@
     height: 350px;
   }
 }
+@media (min-width: 992px) {
+  .HomePart4 .container, .HomePart4 .container-lg, .HomePart4 .container-md, .HomePart4 .container-sm {
+    max-width: 720px !important;
+  }
+}
+@media (min-width: 100px) {
+  .HomePart4 .container, .HomePart4 .container-sm {
+    max-width: 720px !important;
+  }
+}
 @media (max-width: 601px) {
   .HomePart3 .title {
     font-size: 20px;
@@ -232,29 +232,33 @@
   :root {
     --pages-padding:100px 10px ;
   }
+  .HomePart3 .container {
+    height: 400px !important;
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: row !important;
+            flex-direction: row !important;
+  }
   .HomePart3 .title {
-    font-size: 15px;
+    font-size: 15px !important;
   }
   .HomePart3 .buy-button a {
-    padding: 10px 30px;
-    font-size: 8px;
+    padding: 10px 30px !important;
+    font-size: 8px !important;
   }
   .HomePart3 .countdown-item {
-    width: 32px;
-    height: 32px;
+    width: 32px !important;
+    height: 32px !important;
   }
   .HomePart3 .countdown-item * {
-    font-size: 8px;
+    font-size: 8px !important;
   }
   .HomePart3 .countdown-label {
-    font-size: 5px;
-  }
-  .HomePart3 .container {
-    height: 300px;
+    font-size: 5px !important;
   }
   .HomePart3 .countdown-container {
-    display: -ms-grid;
-    display: grid;
+    display: -ms-grid !important;
+    display: grid !important;
     -ms-grid-columns: auto 10px auto;
     grid-template-columns: auto auto;
     -webkit-box-pack: start;
@@ -289,6 +293,11 @@
   }
   .HomePart3 .countdown-label {
     font-size: 5px;
+  }
+  .HomePart4 .container .left, .HomePart4 .container .right > * {
+    height: -webkit-fit-content !important;
+    height: -moz-fit-content !important;
+    height: fit-content !important;
   }
 }
 @media (max-width: 296px) {
