@@ -61,7 +61,7 @@ else {toast.error(res?.message)}
     (async()=>{
       let res =await ProductById(id)
 
-setProducts(res.data);
+   setProducts(res.data);
     })()
 
     setTimeout(() => {
@@ -81,7 +81,10 @@ setProducts(res.data);
 
 
   if (!products) {
-    return <h2>Product not found</h2>;
+    console.log(products);
+    
+    return       <LoadingModal loading={false}  text="product Not Found"/>
+;
   }
 
   return (

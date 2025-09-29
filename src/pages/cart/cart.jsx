@@ -29,23 +29,7 @@ navigate("/Payment");
 
   }
 
-  async function applyDiscount()
-  {let data=[];
-    cartItems.map((item,index)=>{
 
-         data.push(item.productId) ;
-    });
-    console.log(data);
-    
-    let res =await ApplyDiscount({
-  "code": coupounRef.current.value,
-  "productIds": data
-});
-setCart_Info_State();
-    console.log("order",res);
-    
-
-  }
 
   useEffect(()=>{
 setTimeout(() => {
@@ -64,14 +48,14 @@ setTimeout(() => {
   reverseOrder={false}
 />     <DynamicIndex page={["Home","Cart"]} />
      {
-!cartItems.length?
+!cartItems?.length?
 <LoadingModal loading={loading} text={"Your cart is empty"} />
 
 :
 
 <div className="container cart-container ">
 <div className="cart-wrapper">
-        <table className="cart-table">
+        <table className="cart-table" id="Table">
             <thead>
                 <tr>
                     <th>Product</th>

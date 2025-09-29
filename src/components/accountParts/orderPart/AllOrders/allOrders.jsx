@@ -70,7 +70,7 @@ export default function AllOrders() {
           <Toaster position="top-center" reverseOrder={false} />
       <h2>All Orders</h2>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
-        <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an order to see more information.</small>
+  <p>      <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an order to see more information.</small></p>
         <div className="filter-select">
           <CiFilter />
           <select
@@ -112,10 +112,36 @@ export default function AllOrders() {
           
           orders.map((order, id) => (
             <tr   onClick={() => {   navigate(`/account/order/${order.id}`); }} key={id}  >
-              <td >{getOrderIndex(id)}</td>
-              <td   >{new Date(order.createdAt).toLocaleDateString()}</td>
-              <td  >{(order.total ).toFixed(1)} EGP</td>
-              <td>
+              <td data-label="ID: "  >{getOrderIndex(id)}</td>
+              <td  data-label="Start Date: " >{new Date(order.createdAt).toLocaleDateString()}</td>
+              <td data-label="Total: " >{(order.total ).toFixed(1)} EGP</td>
+              <div className="row">
+                  <td >
+                <span className={`status-badge ${getStatusClass(order.status)}`}>
+                  {order.status}
+                </span>
+              </td>
+              <td onClick={(e)=>e.stopPropagation()} >
+                <Button
+                  className="btn cancel-icon"
+                  disabled={order.status !== "Pending"}
+                  onClick={() => { handleShow(order.id, id, "cancel"); }}
+                >
+                  Cancel
+                </Button>
+              </td>
+              <td onClick={(e)=>e.stopPropagation()}>
+                <Button
+                  className="btn cancel-icon"
+                  variant="danger"
+                  disabled={order.status!="Canceled"}
+                  onClick={() => { handleShow(order.id, id, "delete"); }}
+                >
+                  Delete
+                </Button>
+              </td>
+              </div>
+              <td >
                 <span className={`status-badge ${getStatusClass(order.status)}`}>
                   {order.status}
                 </span>

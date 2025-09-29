@@ -185,7 +185,18 @@ input:hover {
   font-family: var(--poppines-regular);
   font-size: var(--text-size);
 }
-@media (max-width: 768px) {
+
+.account-container .AllOrders .row
+{
+  display: none;
+}
+
+.DiscountCategory p
+{
+margin: 0px;
+font-size: var(--text-size);
+}
+@media (max-width: 1010px) {
   .account-container {
     grid-template-columns: 1fr;
     width: 100%;
@@ -198,6 +209,7 @@ input:hover {
     display: flex;
     justify-content: center;
     position: absolute;
+    z-index: 100;
     padding: 10px 20px;
     border-radius: 5px;
     height: 80vh;
@@ -207,6 +219,7 @@ input:hover {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.103);
     transition: 0.5s ease-in-out;
     transform: translateX(-190px);
+
   }
   .account-content{
         padding: 20px 15px;
@@ -232,14 +245,140 @@ input:hover {
     width: 100%;
   }
 }
-@media (max-width: 600px) {
-     th,  td {
-padding: 10px 20px !important;
-text-align: center !important;
-vertical-align: middle !important;
-    }}
 
-@media (max-width:552px) {
+@media (max-width: 606px) {
+
+.account-container table thead
+{
+  display: none;
+}
+
+ .account-container table tbody 
+{
+  display: block;
+  width: 100%;
+  font-size: var(--text-size);
+  box-shadow: none;
+
+}
+ .account-container table tr {
+
+  background-color: transparent;
+    display: flex;
+    flex-direction: column;
+        gap: 5px;
+    justify-content: flex-start;
+    align-items: flex-start;
+      margin-bottom: 60px ;
+  width: 100%;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.057);
+      padding: 10px;
+
+
+ }
+.account-container table  td 
+{
+display: flex;
+        text-align: left; /* Align text to the left */
+        border: none;
+        padding: 5px 0;
+        justify-content: flex-start;
+        align-items: center ;
+        width: 100% !important;
+padding: 8px;
+      font-size: var(--text-size) ;
+      gap: 5px;
+
+}
+
+.account-container table td * 
+{
+    width: 100%;
+}
+
+
+.account-container table td:last-child
+{
+justify-content: center;
+}
+
+
+.account-container table td::before
+{
+  content: attr(data-label) ; /* Get the label from HTML */
+        float: left; 
+      font-weight: bold;
+
+}
+.account-container .AllOrders table  td:nth-child(5), 
+.account-container .AllOrders table  td:nth-child(6), 
+.account-container .AllOrders table  td:nth-child(7)
+{
+  display: none;
+} 
+
+.account-container .AllOrders table  .row
+{
+  display: flex;
+  margin: 0px;
+  width: 100%;
+  justify-content: end;
+  align-items: flex-start;
+}
+.account-container table .row td 
+{
+  width: fit-content !important;
+}
+.account-container table .row td *
+{
+width: fit-content ;
+}
+
+.account-container   .currentOrder-container  table td:last-child
+{
+  justify-content: flex-start;
+}
+
+
+}
+
+@media (max-width: 405px) {
+  .account-container table thead tr, .account-container table td,.DiscountCategory p
+
+{
+    font-size: 9px;
+  }
+ /*  .account-container table td:last-child button {
+    width: 5px;
+    height: 5px;
+  } */
+   
+.account-container h2 
+{
+  font-size: var(--sec-text-size);
+}.account-container small
+{
+  font-size: var(--input-txt-size) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+}
+
+  .container, .container-sm {
+    max-width: 100% !important;
+  }
+
+}
+@media (max-width: 274px) {
+
+ .account-container table td {
+gap: 1px;
+}
+ 
+}
+
+/* @media (max-width:552px) {
   
   .account-container > div 
   {
@@ -256,3 +395,4 @@ vertical-align: middle !important;
     align-items: flex-start !important;
   }
 }
+ */

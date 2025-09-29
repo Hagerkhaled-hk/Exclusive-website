@@ -30,7 +30,7 @@ setCode(parsingData?.code);
           parsingData.IDs.map(async(id)=>{
        let res =await ProductById(id);
    
-    if(res.statusCode==200) return {"name":res.data.name,"id":res.data.id};
+    if(res.statusCode==200) return {"name":res.data.name,"category":res.data.categoryName ,"id":res.data.id};
 
 })
 
@@ -56,27 +56,56 @@ setTimeout(()=>{
     <div className="currentOrder-container" style={{width:"100%"}}>
 
 
+
 {
       data.length ==0?
       
-    <LoadingModal loading={loading} text={"order"} />
+    <LoadingModal loading={loading} text={"Discounts"} />
     :
       <>
-  <h2>Code {code}</h2>
+  <h2>Discount Code: <span style={{  color: "var(--red-color)" }}>{code}
+    </span> </h2>
+        <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to see more information.</small>
 
      
-       <section style={{display:"flex",justifyContent:"flex-start",alignItems:"flex-start",flexDirection:"column" , marginTop:"70px"}}>
-     
-{data.map((item,index)=>{
-    return <p className="discountProduct" style={{cursor:"pointer"}}  onClick={()=>{navigate(`/product/${item.id}`)}}  key={index}>{item.name}</p>
+       <section>
+      <table className="order-table" style={{width:"100%"}}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>product Name</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan="5" className="no-orders">
+                No discounts found.
+              </td>
+            </tr>
+          ) : (
+            data?.map((item, idx) => (
 
-})}
+              <tr onClick={()=>{navigate(`/product/${item.id}`)}} id={idx}>
+                <td data-label="ID:">{idx+1}</td>
+                <td data-label="Product:">{item.name} </td>
+                
+                <td data-label="Category:">{ item.category } </td> 
+                
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+
 </section>
 
       </>
 }
-
-
     </div>
+
+
+
   );
 }

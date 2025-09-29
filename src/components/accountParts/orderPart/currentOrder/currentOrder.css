@@ -80,7 +80,20 @@ section{
       background-color: var(--grey-hover);
     }
 
+@media (max-width:1030px) {
+ .account-container section
+ {
+  flex-direction: column;
+  width: 100%;
+ }
 
+  .account-container section > * ,
+  .order-summary *
+  {
+    max-width: 100%;
+    width: 100%;
+  }
+}
 
 @media (max-width: 600px) {
   .order-table th,

@@ -56,6 +56,7 @@ setTimeout(()=>{
       <table className="order-table" style={{width:"100%"}}>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Categories</th>
             <th>startDate</th>
             <th>Value</th>
@@ -71,12 +72,14 @@ setTimeout(()=>{
             </tr>
           ) : (
             discount?.map((item, idx) => (
-              <tr onClick={()=>{GoToProducts(item.code,item.guidProductIds)}} id={idx}>
-                <td><DiscountCategory IDs={item.guidCategoryIds}/> </td>
+
+              <tr  onClick={()=>{GoToProducts(item.code,item.guidProductIds)}} id={idx}>
+                <td data-label="ID:">{idx+1}</td>
+                <td data-label="Category: "><DiscountCategory IDs={item.guidCategoryIds}/> </td>
                 
-                <td>{ new Date(item.endDate).toLocaleDateString() } </td> 
-                <td>{item.value} {item.type} </td>
-             <td>{item.code}</td>
+                <td data-label="Start Date:">{ new Date(item.endDate).toLocaleDateString() } </td> 
+                <td data-label="Value:">{item.value} {item.type} </td>
+             <td data-label="Code:">{item.code}</td>
                 
               </tr>
             ))

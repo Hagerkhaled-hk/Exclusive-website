@@ -16,8 +16,19 @@ export default async function CreateAPi_Function (initialUrl,headersData,intialD
     })
     
 const {status , ok }= res;
+
+ if(!ok)
+    {
+        try{
 const resJson=await res.json();
- if(!ok) return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
+            return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
+        }
+        catch(error)
+        {
+            return ({ statusCode: status  ,message:'There is a problem in connection , please login again'});
+
+        }
+    } 
 
 // Http  level error (status code) 
             
@@ -26,14 +37,14 @@ const resJson=await res.json();
 
 const contentType = res.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
-            return resJson;
+            return await res.json();
         } else {
             return await res.text();
         }
 
 
     } catch(error) {
-        return false;
+return  { statusCode:0  ,message:error} ;
         /*  throw new Error (error.message);
         */
     }

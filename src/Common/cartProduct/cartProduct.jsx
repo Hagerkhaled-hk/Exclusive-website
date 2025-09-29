@@ -18,8 +18,8 @@ export default function CartProduct  ({ item , index })  {
                     <span className="product-name">{item.productName}</span>
                 </div>
             </td>
-            <td className="price-cell">{item.unitPrice}</td>
-            <td className="quantity-cell">
+            <td data-label="price:" className="price-cell">{item.unitPrice} EGP</td>
+            <td data-label="quantity:" className="quantity-cell">
                 <div className="quantity-control">
                     <input type="text" value={item.quantity} className="quantity-input" readOnly />
                     <div className="quantity-arrows">
@@ -28,7 +28,7 @@ export default function CartProduct  ({ item , index })  {
                     </div>
                 </div>
             </td>
-            <td className="subtotal-cell">{(item.subtotal * item.quantity).toFixed(2)}</td>
+            <td data-label="subTotal:" className="subtotal-cell">{(item.subtotal * item.quantity).toFixed(2)} EGP</td>
             <td>
                 <Button variant="primary" className="btn remove-icon" onClick={handleShow}>
                     ✖

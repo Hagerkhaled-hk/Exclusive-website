@@ -25,7 +25,7 @@ style={{marginTop:"50px", width:"100%" , display:"flex",justifyContent:"center",
     
 {mainText ? mainText : 
       <span>
-        {text}.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.`    
+        {text}.<Link style={{color:"var(--red-color)"}} to={"/product"}> Browse </Link>our best sellers to get started.   
 
         </span>     
 }

@@ -1,6 +1,8 @@
 .Payment {
   background: #fff;
   font-family: 'Inter', Arial, sans-serif;
+  padding: var(--pages-padding);
+padding-top: 0px;
   
 }
 
@@ -8,8 +10,6 @@
   display: flex;
   max-width: 1100px;
   margin: 0 auto;
-padding: var(--pages-padding);
-padding-left: 0px;
 padding-top:20px ;
   gap: 48px;
 }
@@ -215,3 +215,52 @@ font-size: var(--text-size);
  
   display: block;
 } 
+
+
+@media (max-width:1030px) {
+  .Payment .DynamicIndex
+  {
+padding: 0px;
+  }
+  .payment-container
+  {
+    flex-direction: column;
+  }
+  .order-summary , .order-summary .TotalDetails , .TotalDetails p ,.Payment .coupon-row *
+  {
+width: 100% !important;
+max-width: 100%;
+  }
+}
+
+@media (max-width:478px) {
+.Payment 
+  {
+padding-left:20px;
+  }
+  .billing-details .form label
+{
+    font-size: var(--text-size);
+  
+}
+.billing-details h2
+{
+  font-size: var(--sec-text-size);
+}
+
+.billing-details input[type="text"], .billing-details input[type="email"]
+{
+      padding: 5px 8px;
+}
+.payment-methods label
+{
+flex-direction: column;
+align-items: flex-start;
+}
+.bank-icons img
+{
+  margin: 0px;
+  width: 100%;
+  object-fit: contain;
+}
+}

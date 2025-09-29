@@ -40,7 +40,7 @@ Get_order(id);
       <>
   <h2>Order { current_Order_index} </h2>
 
-       <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to see more information.</small>
+   <p>    <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to see more information.</small></p>
        <section>
       <table className="order-table">
         <thead>
@@ -61,10 +61,10 @@ Get_order(id);
           ) : (
             currentOrder?.items?.map((order, idx) => (
               <tr onClick={()=>{navigate(`/product/${order.productId}`)}} key={order.productId || idx}>
-                <td>{order.productName}</td>
-                <td>{order.quantity}</td>
-                <td>{order.unitPrice} EGP</td>
-                <td>{order.subtotal} EGP</td>
+                <td data-label="product:">{order.productName}</td>
+                <td data-label="Quantity: ">{order.quantity}</td>
+                <td data-label="Price:">{order.unitPrice} EGP</td>
+                <td data-label="SubTotal:">{order.subtotal} EGP</td>
               </tr>
             ))
           )}

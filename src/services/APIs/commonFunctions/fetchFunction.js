@@ -11,18 +11,34 @@ let res=await fetch(initialUrl,{
 
 });
 const {status,ok}= res;
+
+
+
+
+console.log(ok ,status);
+
+
+ if(!ok)
+    {
+        try{
 const resJson=await res.json();
+            return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
+        }
+        catch(error)
+        {
+            return ({ statusCode: status  ,message:'There is a problem in connection , please login again'});
+
+        }
+    } 
 
 
-
- if(!ok) return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
-
-
-return  resJson;
+return await res.json();
 
     }
     catch(error)
     {
-false
+        console.log(error);
+        
+return  { statusCode:0  ,message:error} ;
 }
 }
