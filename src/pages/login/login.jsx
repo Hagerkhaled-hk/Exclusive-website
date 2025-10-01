@@ -9,6 +9,8 @@ import ErrorMessage from "../../Common/errorComponents/errorComponents";
 import { useGoogleLogin } from '@react-oauth/google';
 import {UserContext} from "../../context/userContext/userContext";
 import Google_Login_Api from "../../services/APIs/Auth/googleLogin";
+import { FcGoogle } from "react-icons/fc";
+
 export default function Login()
 {
     const {UserDataSetting} =useContext(UserContext);
@@ -86,9 +88,10 @@ else{
                 className="create-account-btn">Login</button>
 
                 <button
+                disabled={true}
                 
                 onClick={()=>{google_login()}}
-                className="create-account-btn">Login with google</button>
+                className=" google-btn"><span><FcGoogle/></span> Login with google</button>
 
 
 

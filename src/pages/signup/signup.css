@@ -135,17 +135,27 @@ input::placeholder
     font-size: var(--text-size);
     color: var(--sec-grey-color) !important;
 }
-@media (max-width: 960px) {
+
+
+@media (max-width:1030px) {
+    .form-section
+    {
+        padding: 60px 50px;
+    }
+      .image-section
+  {
+    width: 60%;
+  }
+  
+}
+@media (max-width: 1016px) {
 
  .form-section h2 {
         font-size: 25px; /* يقلل حجم العنوان ليلائم الشاشات الصغيرة */
     }
 
-    .image-section {
 
-height:400px ;
-    }
-
+    
 
 }
 @media (max-width: 960px) {
@@ -189,6 +199,10 @@ height:400px ;
 .form-section p    {
         font-size: 11px;
     }
-
+.create-account-btn,.google-btn
+{
+    padding: 8px;
+    font-size: var(--input-txt-size);
+}
 
 }

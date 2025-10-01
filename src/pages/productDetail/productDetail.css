@@ -136,6 +136,7 @@ font-size: var(--text-size);
 
 .description {
   color: var(--black-hover);
+  text-align: left;
 
 }
 
@@ -261,6 +262,7 @@ align-items: center;
 
 .altImages .swiper {
   height: 100% !important;
+  width: 100% !important;
 }
 .altImages .vertical-nav {
   position: absolute;
@@ -284,6 +286,7 @@ align-items: center;
 
 .altImages .swiper-button-next.vertical-nav {
   top:97%;
+
 }
 
 /* Optional: Add arrow icons using CSS */
@@ -304,16 +307,67 @@ align-items: center;
 }
 
 
-.product-detail .out-of-stock-overlay
-{
+.out-of-stock-overlay {
+  /* Positioning and Sizing */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10; /* Ensures it sits above the other card content */
+
+  /* Appearance */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  backdrop-filter: blur(2px); /* OPTIONAL: Adds a slight blur effect for a modern look */
+
+  /* Center the Text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* 3. The Text Inside the Overlay */
+.oos-text {
+  /* Text Appearance */
+  color: white;
+  font-size: 1rem; /* Large, noticeable text */
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+
+  /* OPTIONAL: A standout background for the text itself */
+  background-color: #e74c3c; /* A striking red color */
+  border-radius: 5px;
+  transform: rotate(-10deg); /* OPTIONAL: Gives it a slight, eye-catching tilt */
+}
 /* ========= Responsive ========= */
- @media (max-width: 1024px) {
+
+ 
+ @media (max-width: 1030px) {
+
+  .product-detail .down
+  {
+    flex-direction: column;
+    height: max-content;
+width: 100%;
+gap: 50px;
+  }  
+  .product-detail .down .images
+  {
+    width: 100%;
+    height: 500px;
+  }
+  .image-section,.info-section,.actions,.buy-btn
+  {
+    width: 100%;
+  }
+}
+/*  @media (max-width: 1030px) {
   .product-detail {
     gap: 60px;
     padding: 40px;
   }
+ 
 .image-section
 {
   display: flex !important;
@@ -329,8 +383,9 @@ align-items: center;
     justify-content: space-evenly;
   }
   
-} 
+}  */
  @media (max-width: 768px) {
+
   .product-detail {
     
     flex-direction: column;
@@ -363,6 +418,90 @@ align-items: center;
     max-width: 300px;
   }
 }
+
+ @media (max-width: 681px) {
+     .DynamicIndex
+  {
+    padding: 0px;
+  }
+ 
+  .product-detail .down
+  {
+    padding:50px 5px 0px 5px;
+    
+  }
+.product-detail .down .images
+{
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+}
+.product-detail .down .images .altImages
+{
+  width:92%;
+  flex-direction: row;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.altImages .swiper-button-prev.vertical-nav
+{
+  top: 65%;
+
+  left:1px;
+  transform: rotate(-90deg) ;
+}
+.altImages .swiper-button-next.vertical-nav
+{ top: 65%;
+
+  left: 95%;
+
+  transform: rotate(-90deg) ;
+
+}
+ }
+
+
+
+ @media (max-width:524px) {
+  .product-detail .down .images .altImages
+{
+  width:72%;
+
+ }
+}
+ @media (max-width:455px) {
+  .product-detail .down .images 
+  {
+  align-items: flex-start;
+
+  }
+  .product-detail .down .images .altImages
+{
+  width:100%;
+ }
+}
+ @media (max-width:336px)
+ {
+  .product-detail .down .images 
+  {
+  align-items: center;
+
+  }
+    .product-detail .down .images .altImages
+{
+  width:60%;
+ }
+ .altImages .swiper-button-next.vertical-nav
+{ 
+
+  left: 70%;
+
+}
+ }
 
 @media (max-width: 480px) {
   .product-detail {
@@ -400,6 +539,22 @@ align-items: center;
   .heart {
     padding: 6px 8px;
     font-size: 15px;
-  }
+  } 
+
 }
- 
+ @media (max-width:294px) {
+    .product-detail .down .images 
+  {
+  align-items: flex-start;
+
+  }
+    .product-detail .down .images .altImages
+{
+  width:100%;
+ }
+    .sizes
+  {
+      display: grid;
+      grid-template-columns: repeat(2,auto);
+  }
+ }

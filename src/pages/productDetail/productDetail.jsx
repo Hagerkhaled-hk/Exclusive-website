@@ -28,12 +28,12 @@ const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 async function addToCart(data)
   {
+    if (!products.stock) return;
     let token =getToken();
     if(token){
 
       let res =await AddTOCart(data,token);
       
-if (!products.stock) return;
 
       console.log(res);
       if(res.succeeded){ toast.success('Successfully added to cart!')
@@ -67,6 +67,7 @@ else {toast.error(res?.message)}
     setTimeout(() => {
       setLoading(false);
     }, 2000);
+   
 
    },[id])
  
@@ -90,7 +91,7 @@ else {toast.error(res?.message)}
   return (
     <div className="product-detail">
       {
-products.length!==0 ?
+products?.length!==0 ?
 <>
      <Toaster
   position="top-center"
@@ -117,10 +118,30 @@ products.length!==0 ?
           prevEl: '.swiper-button-prev',
         }}
         modules={[Navigation]}
+        breakpoints={
+{
+0:{
+slidesPerView:1,
+ direction:'horizontal',
+},
+336:{
+slidesPerView:2,
+ direction:'horizontal',
+}
+,
+  526:{
+     direction:'horizontal',
+             slidesPerView:3
+  },
+  681:{
+    direction:'vertical'  }
+}
+        }
       >
         {
-        
-        products.images.length==0 ?
+       
+      
+        products?.images?.length==1 ?
  <SwiperSlide >
             <div className={`image active`} onClick={() => setActiveImageIndex(index)}>
               <img src={products.images[0]} alt={products.name} />
@@ -128,7 +149,7 @@ products.length!==0 ?
           </SwiperSlide>
         :
         
-        products.images.map((_, index) => (
+        products?.images?.map((_, index) => (
           <SwiperSlide key={index}>
             <div className={`image ${activeImageIndex===index?"active":""}`} onClick={() => setActiveImageIndex(index)}>
               <img src={products.images[index]} alt={products.name} />
@@ -164,7 +185,7 @@ products.length!==0 ?
  
 
       <div className="info-section">
-        <h2>{products.name} <span>{products.categoryName}</span></h2>
+        <h2>{products.name} <span style={{fontWeight:"bold" , textTransform:"capitalize"}}>{products.categoryName}</span></h2>
 
         <div className="stars-container">
           <RatingStars rating={4.5} />
@@ -209,11 +230,11 @@ products.length!==0 ?
 
         <div className="actions">
           <div className="qty">
-            <button onClick={handleDecrease}>-</button>
+            <button disabled={!products.stock} onClick={handleDecrease}>-</button>
             <span>{quantity}</span>
-            <button onClick={handleIncrease}>+</button>
+            <button disabled={!products.stock} onClick={handleIncrease}>+</button>
           </div>
-          <button onClick={()=>{
+          <button  disabled={!products.stock}  onClick={()=>{
             !isLogin()?
             navigate("/signup")
             :
@@ -222,7 +243,7 @@ products.length!==0 ?
   "quantity": quantity
 })
           }} className="buy-btn">Add to cart</button>
-          <button onClick={()=>{
+          <button disabled={!products.stock} onClick={()=>{
 isLogin()?
 AddTOWishlist(
                   {

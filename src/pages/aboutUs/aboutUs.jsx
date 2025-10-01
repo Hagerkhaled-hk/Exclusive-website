@@ -15,6 +15,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./AboutUs.css";
+import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
 
 export default function AboutUs() {
   const stats = [
@@ -98,8 +99,10 @@ export default function AboutUs() {
 
   return (
     <div className="about-container">
+      <DynamicIndex page={["Home","Contact"]} />
       <div className="story-section">
         <div className="story-text">
+          
           <h2>Our Story</h2>
           <p>
             Launced in 2015, Exclusive is South Asia’s premier online shopping
@@ -115,7 +118,7 @@ export default function AboutUs() {
           </p>
         </div>
         <div className="story-img">
-          <img src="/aboutimg1.jpg" alt="shopping" />
+          <img src="/aboutimg1.jpeg" alt="shopping" />
         </div>
       </div>
 
@@ -132,7 +135,7 @@ export default function AboutUs() {
         ))}
       </div>
 
-      <div className="team-section">
+      {/* <div className="team-section">
         <Slider {...sliderSettings}>
           {team.map((member, i) => (
             <div key={i} className="team-card">
@@ -153,7 +156,7 @@ export default function AboutUs() {
             </div>
           ))}
         </Slider>
-      </div>
+      </div> */}
 
       <div className="features-container">
       {features.map((f, i) => (

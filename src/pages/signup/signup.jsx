@@ -105,7 +105,7 @@ else{
                 onClick={()=>{register(),setErrorData({messsage1:"",message2:""  ,Opacity:0}
                 )}}
                 className="create-account-btn">Create Account</button>
-                <button  className="google-btn"> <span><FcGoogle/></span>  Sign up with Google</button>
+                <button  disabled={true} className="google-btn"> <span><FcGoogle/></span>  Sign up with Google</button>
             </div>
             <p className="login-link">Already have an account? <Link style={{textDecoration:"underline", color:"var(--red-color)"}} to={"/login"}>Log in</Link></p>
 
