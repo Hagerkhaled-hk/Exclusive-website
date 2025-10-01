@@ -1,0 +1,20 @@
+.Part3-Dashboard
+{
+    background:url("aboutimg1.jpeg") no-repeat center  ;
+    background-size: contain;
+    width:450px;
+    height:300px;
+    border-radius: 25px;
+display: flex;
+justify-content: flex-start;
+align-items: end;
+padding: 40px;
+
+    .text
+    {
+        color: white;
+        p{
+            width: 320px;
+        }
+    }
+}

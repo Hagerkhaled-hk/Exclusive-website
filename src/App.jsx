@@ -18,7 +18,7 @@ const Signup = lazy(() => import('./pages/signup/signup.jsx'));
 const Login = lazy(() => import('./pages/login/login.jsx'));
 const ProductsPage = lazy(() => import("./pages/products/product.jsx"));
 const ProductDetail = lazy(() => import("./pages/productDetail/productDetail.jsx"));
-const AboutUs = lazy(() => import("./pages/aboutUs/AboutUs"));
+const AboutUs = lazy(() => import("./pages/aboutUs/aboutUs.jsx"));
 const Account = lazy(() => import("./pages/account/account.jsx"));
 const Wishlist = lazy(() => import("./pages/wishList/wishList.jsx"));
 const Payment = lazy(() => import("./pages/payment/payment.jsx"));
@@ -29,6 +29,11 @@ const Contact = lazy(()=>import("./pages/contact/contact.jsx"));
 const OrderState = lazy(()=>import("./pages/orderState/orderState.jsx"));
 const DiscountPart = lazy(()=>import("./components/accountParts/discountPart/discountPart.jsx"));
 const DiscountProducts = lazy(()=>import("./components/accountParts/discountPart/discountProducts.jsx"));
+
+
+
+const DashboardLayout =lazy(()=>import("./components/layout/dashboard-layout.jsx"));
+const Dashboard =lazy(()=>import("./dashboard/dashboardPage.jsx"));
 export default function App() {
 
 
@@ -205,6 +210,22 @@ path: "resetPassword", element: (
 
     ]
     },
+
+    {
+          path:"/dashboard",
+          element:<DashboardLayout/>,
+          children: [
+    {
+      path:"",
+      element :<Dashboard/>,
+    
+    }
+    
+          ]
+          
+          
+    
+        }
 
   
     ,

@@ -1,0 +1,92 @@
+.fixed-bg {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0px;
+  height: 100vh;
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+}
+.fixed-bg .DashboardPage {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  height: 90%;
+  padding: 20px;
+}
+.fixed-bg .DashboardPage > * {
+  margin: 0px;
+  margin-bottom: 50px;
+}
+.fixed-bg .DashboardPage .container-Dashboard {
+  height: 404px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 25px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  overflow: hidden;
+}
+.fixed-bg .DashboardPage::-webkit-scrollbar {
+  width: 9px;
+  background-color: transparent;
+  visibility: hidden;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+.fixed-bg .DashboardPage::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.3);
+  border-radius: 10px;
+  visibility: hidden;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+.fixed-bg .DashboardPage:hover::-webkit-scrollbar, .fixed-bg .DashboardPage:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.Layout, .Dasboard-layout {
+  background: url("images/bg_4.jpg") no-repeat center;
+  padding: 0px;
+  margin: 0px;
+  overflow-x: hidden;
+}
+
+.Layout {
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  overflow-x: hidden;
+}
+
+.Dasboard-layout {
+  height: 100vh;
+  background: none;
+  background-color: rgb(253, 251, 251);
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  overflow-x: hidden;
+}
+
+.Dasboard-layout > * {
+  -webkit-box-shadow: 0px 0px solid black;
+          box-shadow: 0px 0px solid black;
+}
