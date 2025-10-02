@@ -1,0 +1,176 @@
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+           /* Adjust max-width as needed */
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 15px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .form-group label.required::after {
+            content: '*';
+            color: #d9534f; /* Red for required fields */
+            margin-left: 4px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group input[type="file"] {
+            width: calc(100% - 24px); /* Account for padding */
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group textarea:focus,
+        .form-group input[type="file"]:focus {
+            border-color: #007bff; /* Focus color */
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 100px; /* For description field */
+            resize: vertical;
+        }
+
+        /* Specific styling for file input to look more like the reference */
+        .form-group input[type="file"] {
+            border: none; /* Remove default border */
+            padding: 0; /* Remove default padding */
+            height: auto; /* Allow height to adjust */
+        }
+        .form-group .file-input-wrapper {
+            display: block;
+            width: calc(100% - 2px); /* Adjust for wrapper border */
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #fdfdfd;
+            cursor: pointer;
+            overflow: hidden; /* Hide default input styling */
+            position: relative;
+        }
+        .form-group .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0; /* Hide actual input */
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .form-group .file-input-wrapper span {
+            display: block;
+            font-size: 16px;
+            color: #555;
+            padding: 5px 0;
+        }
+        .form-group .file-input-wrapper:hover {
+            border-color: #007bff;
+        }
+
+        /* Optional: Style for a submit button */
+        .form-group button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 15px;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .custom-select-trigger {
+                    width: calc(100% - 24px); /* Account for padding */
+                    padding: 12px;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    color: #333;
+                    box-sizing: border-box; 
+                    cursor: pointer;
+                    background-color: #ffffff;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+                }
+
+                .custom-select-trigger:hover,
+                .custom-select-trigger.focused {
+                    border-color: #007bff; /* Focus color */
+                    box-shadow: 0 0 0 1px #007bff;
+                    outline: none;
+                }
+
+                .dropdown-arrow {
+                    font-size: 0.7em;
+                    margin-left: 10px;
+                    color: #555;
+                }
+
+                .custom-select-options {
+                    position: absolute;
+                    width: 100%; /* Match parent width */
+                    max-height: 200px;
+                    overflow-y: auto;
+                    border: 1px solid #e0e0e0;
+                    border-top: none;
+                    border-radius: 0 0 4px 4px;
+                    background-color: #ffffff;
+                    z-index: 10;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    /* Adjust left/top to align perfectly with trigger */
+                    top: 100%; 
+                    left: 0;
+                }
+
+                .custom-select-option {
+                    padding: 10px 12px;
+                    cursor: pointer;
+                    transition: background-color 0.1s;
+                    font-size: 16px;
+                }
+
+                .custom-select-option:hover {
+                    background-color: #f0f8ff;
+                }
+
+                .custom-select-option.selected {
+                    background-color: #e6f0ff;
+                    font-weight: 500;
+                    color: #007bff;
+                }

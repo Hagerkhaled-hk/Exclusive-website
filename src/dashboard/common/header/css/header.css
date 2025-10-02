@@ -10,6 +10,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-bottom: 20px;
 }
 .Header .left span {
   opacity: 0.6;
@@ -33,4 +34,19 @@
   border-radius: 5px;
   padding: 6px;
   border: none;
+}
+
+.Header .menu-toggle {
+  display: none;
+}
+
+@media (max-width: 1145px) {
+  .Header .menu-toggle {
+    display: block;
+  }
+}
+@media (min-width: 1200px) {
+  .Header .menu-toggle {
+    display: none;
+  }
 }

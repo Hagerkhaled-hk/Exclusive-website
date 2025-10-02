@@ -1,3 +1,7 @@
+body {
+  overflow-y: hidden;
+}
+
 .fixed-bg {
   width: 100vw;
   position: fixed;
@@ -18,7 +22,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
-  height: 90%;
+  height: 90vh;
   padding: 20px;
 }
 .fixed-bg .DashboardPage > * {
@@ -89,4 +93,23 @@
 .Dasboard-layout > * {
   -webkit-box-shadow: 0px 0px solid black;
           box-shadow: 0px 0px solid black;
+}
+
+.Dasboard-layout > div:nth-last-of-type(2) {
+  width: 100vw;
+}
+
+.fixed-bg > .DashboardPage {
+  overflow-y: hidden;
+}
+.fixed-bg > .DashboardPage > * {
+  margin: 0px;
+}
+
+.fixed-bg .DashboardPage .Header {
+  margin-bottom: 50px;
+}
+
+.fixed-bg .Dashboard-content {
+  width: 80vw;
 }

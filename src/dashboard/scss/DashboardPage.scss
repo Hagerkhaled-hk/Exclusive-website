@@ -1,7 +1,10 @@
 @use "../../assets/common_scss/commonScss.scss"as *;
 
 
-
+body
+{
+    overflow-y: hidden;
+}
    .fixed-bg
     {
         width: 100vw;
@@ -20,7 +23,7 @@
 overflow-y: auto;
 overflow-x: hidden;
           min-height: 0;
-          height: 90%;
+          height: 90vh;
         padding: 20px;
 
         >*
@@ -118,7 +121,28 @@ background-color:rgb(253, 251, 251);
     box-shadow: 0px 0px solid black;
 }
 
+.Dasboard-layout > div:nth-last-of-type(2)
+{
+    width: 100vw;
+}
 
 
 
 
+.fixed-bg  >  .DashboardPage 
+{
+    overflow-y: hidden;
+     > *{
+margin: 0px;
+    }
+}
+
+.fixed-bg .DashboardPage  .Header 
+{
+    margin-bottom: 50px;
+}
+
+.fixed-bg .Dashboard-content
+{
+    width: 80vw;
+}

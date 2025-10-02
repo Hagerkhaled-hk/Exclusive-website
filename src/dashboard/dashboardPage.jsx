@@ -10,10 +10,8 @@ import Footer from './common/footer/footer';
 import Nav from './common/Nav/Nav';
 export default function Dashboard()
 {
-    const [navOpen, setNavOpen] = useState(true);
 
     return <div className="DashboardPage">
-<Header navOpen={navOpen} setNavOpen={setNavOpen} />
 
     <Part2/>
     <div className="container-Dashboard">

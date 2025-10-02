@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import "./css/Nav.css"
 import { FaTv } from "react-icons/fa6";
 import { CiCircleList } from "react-icons/ci";
@@ -11,29 +11,37 @@ import { FaUserFriends } from "react-icons/fa";
 import { CiDatabase } from "react-icons/ci";
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
+import { DashboardContext } from '../../context/dashboardContext';
 
-export default function Nav({ navOpen = true, setNavOpen = () => {} }) {
+export default function Nav() {
+    const {navOpen, setNavOpen} = useContext(DashboardContext);
 
     const [isPageOpen, setIsPageOpen] = useState(false);
 
     return (
-        <div className={`Nav-dashboard ${navOpen ? 'open' : 'closed'}`} aria-hidden={!navOpen}>
-            <button className="nav-close" aria-label="Close navigation" onClick={() => setNavOpen(false)}>✕</button>
-
+        <div className={`Nav-dashboard ${navOpen ? '' : 'closed'}`} aria-hidden={!navOpen}>
+           
+ <button className="nav-close btn" aria-label="Close navigation" onClick={() => {console.log("clicked");
+             setNavOpen(false)} }>✕</button>
         <div className="container">
 
 
-<div className="header">
+<div className="header ">
+    
             <h6><span className="logo">
  <MdOutlineDashboard/>
             </span>
                  Admin Dashboard</h6>
+                 
+                 
+
 
 </div>
+
             <ul className='main-container'>
 
                 <li>
-                    <NavLink to={"/dashboard"}>
+                    <NavLink to={"/dashboard    "}>
                         <div className="logo">
                             <FaTv  style={{color:"rgb(94 114 228)"}} />
                         </div>
@@ -74,7 +82,7 @@ export default function Nav({ navOpen = true, setNavOpen = () => {} }) {
                                  <NavLink to={"/users"}>
                                     <span className='logo' style={{color:"rgb(200 99 100)"}}> <FaUserFriends/></span>
                                       Users</NavLink></li>
-                            <li > <NavLink to={"/productss"}>  
+                            <li > <NavLink to={"products"}>  
                                 <span className='logo'><CiDatabase  style={{color:"rgb(180 99 100)"}}/></span>
                                 products </NavLink></li>
                         </ul>

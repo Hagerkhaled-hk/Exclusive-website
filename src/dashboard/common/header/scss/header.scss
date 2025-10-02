@@ -5,6 +5,7 @@
     color: black;
     background: transparent;
 @include between-center;
+margin-bottom: 20px;
 .left
 {
     span{
@@ -27,4 +28,29 @@
         border: none;
     }
 }
+}
+
+
+
+                .Header .menu-toggle 
+                {
+                    display: none;
+                }
+
+                
+@media (max-width: 1145px) {
+    
+                        .Header .menu-toggle 
+                {
+                    display: block;
+                }
+
+}
+
+
+@media (min-width: 1200px) {
+  .Header .menu-toggle 
+                {
+                    display: none;
+                }
 }

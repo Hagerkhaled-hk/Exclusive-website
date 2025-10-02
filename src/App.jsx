@@ -34,6 +34,9 @@ const DiscountProducts = lazy(()=>import("./components/accountParts/discountPart
 
 const DashboardLayout =lazy(()=>import("./components/layout/dashboard-layout.jsx"));
 const Dashboard =lazy(()=>import("./dashboard/dashboardPage.jsx"));
+const ViewProducts= lazy(()=>import("./dashboard/components/productParts/viewProducts.jsx/viewProducts.jsx"))
+const EditProduct= lazy(()=>import("./dashboard/components/productParts/editProducts/editProducts.jsx"))
+
 export default function App() {
 
 
@@ -218,8 +221,19 @@ path: "resetPassword", element: (
     {
       path:"",
       element :<Dashboard/>,
+
     
-    }
+    },
+     {
+      path:"products",
+      element :<ViewProducts/>,
+
+    
+     },
+     {
+      path:"product/:id"
+      ,element : <EditProduct/>
+     }
     
           ]
           
