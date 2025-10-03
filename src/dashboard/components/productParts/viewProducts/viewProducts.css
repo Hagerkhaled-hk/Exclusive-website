@@ -115,6 +115,11 @@ p
 {
               width: 150px;
 }
+.viewCategories td
+{
+  height: 50px ;
+  width: 60px;
+}
 @media (max-width: 600px) {
 .viewProducts  .orders-table th,
  .viewProducts .orders-table td {

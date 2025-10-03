@@ -5,12 +5,14 @@ import DashboardProvider from '../../dashboard/context/dashboardContext';
 import ProductDashboard_Provider from '../../dashboard/context/productContext';
 import "../../dashboard/css/DashboardPage.css"
 import Header from '../../dashboard/common/header/header.jsx';
+import CategoryDashboard_Provider from '../../dashboard/context/categoryContext.jsx';
 
 export default function DashboardLayout()
 {
 
     return <DashboardProvider >
         <ProductDashboard_Provider>
+            <CategoryDashboard_Provider>
     <div className="Dasboard-layout" >
          <div className="fixed-bg">
  <Nav/>
@@ -22,6 +24,7 @@ export default function DashboardLayout()
 
  </div>
     </div>  
+    </CategoryDashboard_Provider>
 </ProductDashboard_Provider>
     </DashboardProvider>
  ;

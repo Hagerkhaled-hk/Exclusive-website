@@ -85,6 +85,9 @@ export default function Nav() {
                             <li > <NavLink to={"products"}>  
                                 <span className='logo'><CiDatabase  style={{color:"rgb(180 99 100)"}}/></span>
                                 products </NavLink></li>
+                            <li > <NavLink to={"categories"}>  
+                                <span className='logo'><CiDatabase  style={{color:"rgb(180 99 100)"}}/></span>
+                                categories </NavLink></li>
                         </ul>
                     </motion.div>
 
@@ -121,7 +124,7 @@ export default function Nav() {
                             
                             <li>
 
-                                <NavLink to={"/sign in"} >
+                                <NavLink to={"/signin"} >
                                     <span className="logo">
                                         <MdOutlineAssignmentInd style={{color:"rgb(251 99 64)"}} />
                                     </span>
@@ -129,7 +132,7 @@ export default function Nav() {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to={"/sign up"} >
+                                <NavLink to={"/signup"} >
                                     <span className="logo">
                                         <SiGnuprivacyguard style={{color:"rgb(17 205 239)"}} />
                                     </span>
