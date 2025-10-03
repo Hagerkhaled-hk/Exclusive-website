@@ -11,6 +11,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { CiDatabase } from "react-icons/ci";
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
+import { MdCategory } from "react-icons/md";
 import { DashboardContext } from '../../context/dashboardContext';
 
 export default function Nav() {
@@ -86,7 +87,7 @@ export default function Nav() {
                                 <span className='logo'><CiDatabase  style={{color:"rgb(180 99 100)"}}/></span>
                                 products </NavLink></li>
                             <li > <NavLink to={"categories"}>  
-                                <span className='logo'><CiDatabase  style={{color:"rgb(180 99 100)"}}/></span>
+                                <span className='logo'><MdCategory  style={{color:"rgb(180 99 100)"}}/></span>
                                 categories </NavLink></li>
                         </ul>
                     </motion.div>

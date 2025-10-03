@@ -131,6 +131,11 @@ for (const item of data.entries()) {
             if (value.trim().length > 500) {
                 error = "Description cannot exceed 500 characters.";
             }
+             else if(value.trim().length <10) 
+           {
+                            error = "Description must be longer than 10 characters.";
+
+           }
         }
          if(Name=="UploadImages")
          {

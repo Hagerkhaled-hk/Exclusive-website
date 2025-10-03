@@ -38,6 +38,9 @@ const ViewProducts= lazy(()=>import("./dashboard/components/productParts/viewPro
 const EditProduct= lazy(()=>import("./dashboard/components/productParts/editProducts/editProducts.jsx"))
 const AddProduct= lazy(()=>import("./dashboard/components/productParts/addProducts/addProduct.jsx"))
 const ViewCategories= lazy(()=>import("./dashboard/components/categoryPart/viewCategory/viewCategory.jsx"))
+const EditCategory= lazy(()=>import("./dashboard/components/categoryPart/editCategory/editCategory.jsx"))
+const AddCategory= lazy(()=>import("./dashboard/components/categoryPart/addCategory/addCategory.jsx"))
+
 
 export default function App() {
 
@@ -246,6 +249,16 @@ path: "resetPassword", element: (
      {
       path:"categories"
       ,element : <ViewCategories/>
+     }
+     ,
+     {
+      path:"category/:id"
+      ,element : <EditCategory/>
+     }
+     ,
+     {
+      path:"addcategory"
+      ,element : <AddCategory/>
      }
     
           ]
