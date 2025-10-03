@@ -1,13 +1,15 @@
 
 
-export default async function UpdateAPi_Function (initialUrl,headers, intialData){
+export default async function UpdateAPi_Function (initialUrl,headers, intialData,stringfyData=true){
 
+    console.log("intial Api funtction" ,intialData);
+    
  try {
 
     let res = await  fetch(initialUrl,{
 
         method:"PUT",
-        body:JSON.stringify(intialData),
+     body: stringfyData? JSON.stringify(intialData): intialData,
         headers:headers
     })
     

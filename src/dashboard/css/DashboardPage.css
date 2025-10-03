@@ -112,4 +112,7 @@ body {
 
 .fixed-bg .Dashboard-content {
   width: 80vw;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }

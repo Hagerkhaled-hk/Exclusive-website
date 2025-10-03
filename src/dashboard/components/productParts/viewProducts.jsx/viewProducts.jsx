@@ -5,17 +5,21 @@ import { ProductDashboard_Context } from "../../../context/productContext";
 import LoadingModal from "../../../../Common/modal/modal";
 import { Button, Modal } from "react-bootstrap";
 import Header from "../../../common/header/header";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import RedButton from "../../../../Common/redButton/redButton";
+import Viewateg from "../../../../services/APIs/category/ViewCateg";
+import { CiFilter } from "react-icons/ci";
 
 
 export default function viewProducts()
 {
 const {products,Delete_product} =useContext(ProductDashboard_Context);
   const [loading, setLoading] = useState(true);
+  const [filter,setFilter]=useState([])
   const [modelINfo, setModelInfo] = useState(  { selectedProductId: "",name:"" ,id: null, show: false });
   const navigate= useNavigate();
-
+const [categories,setCategories]=useState([]);
   const handleClose = (product_id) => { setModelInfo({ selectedProductId: product_id, name:"", id: null, show: false }); };
   const handleShow = (product_id,name ,id  ) => { 
     console.log(product_id,name ,id );
@@ -23,12 +27,38 @@ const {products,Delete_product} =useContext(ProductDashboard_Context);
     setModelInfo({ selectedProductId: product_id,name:name, id: id, show: true }); };
 
 
+
+    async function getCategories() {
+          let res =await Viewateg();
+          console.log(res);
+          
+          if(res.statusCode==200)setCategories(res?.data);
+          else console.log(res.message);
+                
+    }
   
+function handleChange(e)
+{
+  let category =e.target.value;
+/*   console.log(category);
+ */  
+if(category=="All"){setFilter(products); return}
 
+  let filterProducts = products.filter((product)=>product?.categoryName==category );
+      if(filterProducts.length==0)setFilter([{count:0}]);
+     else setFilter(filterProducts);
 
+console.log(filterProducts);
+ 
+ 
+}
+useEffect(()=>{
+     setFilter([...products]);
+
+},[products])
 
   useEffect(() => {
-    
+   getCategories();
 
     setTimeout(() => {
       setLoading(false);
@@ -37,16 +67,36 @@ const {products,Delete_product} =useContext(ProductDashboard_Context);
 
     return(
        <div className="viewProducts DashboardPage">
-          {products.length ==0?
+          {filter?.length ==0?
            
-          <LoadingModal loading={loading} text="No products found" />
+          <LoadingModal loading={loading} mainText="No products found" />
           :
           <>  
                     <Toaster position="top-center" reverseOrder={false} />
 
-              <h2 >All products</h2>
+              <h2 >Products</h2>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+                <div className="left">
                 <p style={{marginTop:"0px"  }}><small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to Edit. </small></p>
-       
+<RedButton text={"Add product"}  btn_Function={()=>{navigate("/dashboard/addproduct")}}/>
+
+                </div>
+  <div className="filter-select">
+          <CiFilter />
+          <select
+            className="custom-filter-select"
+            onChange={handleChange}
+           
+          >
+            <option value={"none"}>All</option>
+           {
+            categories?.map((category, id)=><option value={category.name} id={id}>{category.name}</option>
+
+            )
+           }
+          </select>
+        </div>
+              </div>
           <table className="orders-table">
             <thead>
               <tr>
@@ -63,8 +113,18 @@ const {products,Delete_product} =useContext(ProductDashboard_Context);
     
     
            
-{              
-              products.map((product, id) => (
+{         
+
+(filter?.length==1&&filter[0]?.count==0)?
+<tr  >
+<td colSpan={6} >
+<LoadingModal loading={false} mainText="No Product Found in this categroy"/>
+
+</td>
+</tr>
+
+:
+              filter?.map((product, id) => (
                 <tr   onClick={() => {   navigate(`/dashboard/product/${product.id}`); }} key={id}  >
                   <td data-label="ID: "  >{id+1}</td>
                   <td className="img-table" >

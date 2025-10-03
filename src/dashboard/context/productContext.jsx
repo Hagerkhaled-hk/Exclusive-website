@@ -46,7 +46,7 @@ export default  function ProductDashboard_Provider({children})
 
 
     return (
-        <ProductDashboard_Context.Provider  value={{products,Delete_product,Get_Product_By_id}} >
+        <ProductDashboard_Context.Provider  value={{products,Delete_product,Get_Product_By_id,View_Products}} >
 {children}
         </ProductDashboard_Context.Provider>
     )

@@ -1,91 +1,49 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductDashboard_Context } from "../../../context/productContext";
-import "./editProducts.css";
 import ProductById from "../../../../services/APIs/products/get_Product_Id";
 import LoadingModal from "../../../../Common/modal/modal";
 import { Toaster, toast } from "react-hot-toast";
-import UpdateProduct from "../../../../services/APIs/products/update_product";
-import Viewateg from "../../../../services/APIs/category/ViewCateg";
 import RedButton from "../../../../Common/redButton/redButton";
+import Viewateg from "../../../../services/APIs/category/ViewCateg";
+import Add_Product from "../../../../services/APIs/products/add_product";
+import"../editProducts/editProducts.css"
+import viewProducts from "../viewProducts.jsx/viewProducts";
 
 // Initial state for form data, matching the product structure
-const initialFormData = {
+
+export default function  AddProduct() {
+    // State to hold and manage form input values
+    const [formData, setFormData] = useState({
     Name: "",
     Description: "",
     Price: 0,
     Stock: 0,
     CategoryId:"", 
-    
-    UploadImages:[]  // Default value for hidden input
+   UploadImages:[]  // Default value for hidden input
     // Note: 'images' will be handled separately and not initialized with fetched URLs here
-};
-
-// Initial state for validation errors
-const initialValidation = { 
-    Name: "",
-    Description: "",
-    Price: 0,
-    Stock: 0,
-    UploadImages:[]
-};
-
-export default function EditProduct() {
-    const [product, setProduct] = useState({});
-    // State to hold and manage form input values
-    const [formData, setFormData] = useState(initialFormData);
-    const [validationErrors, setValidationErrors] = useState(initialValidation);
+});
+    const [validationErrors, setValidationErrors] = useState([]);
     const [loading, setLoading] = useState(true);
-    const[categoryOptions,setCategoryOptions]=useState([]);
+    const[categoryOptions,setCategoryOptions]=useState([{categID:"" ,name:""}]);
     const [isCategorySelectOpen, setIsCategorySelectOpen] = useState(false);
     const [ selectedCategory ,setSelectedCategory]=useState("")
     const{View_Products}=useContext(ProductDashboard_Context);
+
     useEffect(()=>{
-console.log(categoryOptions);
+console.log(formData);
 
-
-        const Category = categoryOptions.find(option => option.categID === formData.CategoryId) || { Name: "Select Category", value: "" };  
+        const Category = categoryOptions.find(option => option.categID === formData.CategoryId) || { categName: "Select Category", value: "" };  
         console.log(Category);
+        
         setSelectedCategory(Category);
-        console.log("formData" ,formData);
         
 
     },[formData,categoryOptions]);      
     // Determine if we should show the "No products found" message
 
-    const { id } = useParams();
-
-async function  update_product() {
-toast(
-  "Updating your changes....",
-  {
-    duration: 1000,
-  }
-);
-    //FormData is a built-in interface in the browser's JavaScript environment (Web API). u can use it if the api not requiring objects + not stringfy object in body  
-    const data = new FormData();
-    console.log("Data",data);
-    data.append('Name',formData.Name);
-    data.append('Price',formData.Price);
-    data.append('Stock',formData.Stock);
-    data.append('Description',formData.Description);
-    data.append('CategoryId',formData.CategoryId);
-    //How to add imgs files in formData (accept blob (binary large object) per file)
-    console.log("dd", formData);
-[...formData?.UploadImages]?.map((file)=>{ 
-    
-    data.append('UploadImages',file,file.name); // api takes an array of imgs files 
-
-}) 
-
-     let res = await UpdateProduct(data,id)    
-    if(res.statusCode==200){toast.success("Product updated successfully");fetchProduct();
-View_Products();
-
-    }
-else toast.error( res.message || "Unable to update this product."); 
-    
-}
+useEffect(()=>{getCategNames();
+},[])
 
 async function getCategNames() {
     let res =await Viewateg();
@@ -97,42 +55,50 @@ async function getCategNames() {
 }
 }
 
-async function fetchProduct() {
-            try {
-                let res = await ProductById(id);
-                if (res.statusCode === 200) {
-                    const fetchedProduct = res?.data;
-                    setProduct(fetchedProduct);
+async function add_product() {
+    toast(
+  "Adding Product....",
+  {
+    duration: 1500,
+  }
+);
+    //FormData is a built-in interface in the browser's JavaScript environment (Web API). u can use it if the api not requiring objects + not stringfy object in body  
+    const data = new FormData();
+    data.append('Name',formData.Name);
+    data.append('Price',formData.Price);
+    data.append('Stock',formData.Stock);
+    data.append('Description',formData.Description);
+    data.append('CategoryId',formData.CategoryId);
+    //How to add imgs files in formData (accept blob (binary large object) per file)
+[...formData?.UploadImages]?.map((file)=>{ 
+    
+    data.append('UploadImages',file,file.name); // api takes an array of imgs files 
 
-                    setFormData({
-                        "Name": fetchedProduct.name || "",
-                        "Description": fetchedProduct.description || "",
-                        "Price": fetchedProduct.price || 0,
-                        "Stock": fetchedProduct.stock || 0,
-                        "CategoryId": fetchedProduct.categoryId || "DEFAULT_ID",
-                       "UploadImages":[]
-                    });
-                    getCategNames();
-                } else {
-                    toast.error("Failed to fetch product data.");
-                }
-            } catch (error) {
-                toast.error("An error occurred while fetching product.");
-            } finally {
-                // Remove the unnecessary setTimeout. Set loading to false here.
-                setLoading(false);
-            }
+})
+
+for (const item of data.entries()) {
+    console.log('item', item);
 }
 
-    useEffect(() => {
+    let res = await Add_Product(data) ;
+    if(res.statusCode==200){toast.success(" product added Successfully ")
+        setFormData({
+    Name: "",
+    Description: "",
+    Price: 0,
+    Stock: 0,
+    CategoryId:"", 
+   UploadImages:[] 
+});
+        View_Products();}
+    else toast.error("Unable to add product,Try again or Ensure if you set all required data");
+    
+}
 
-        fetchProduct();
-        
-    }, [id]); 
 
     const validateField = (Name, value) => {
         let error = "";
-        console.log(Name === "Stock");
+        console.log(Name , value);
         
         // --- Name Validation ---
         if (Name === "Name") {
@@ -154,11 +120,10 @@ async function fetchProduct() {
         // --- Stock Validation ---
         if (Name === "Stock") {
             const numValue = parseInt(value);
-            console.log("val",numValue);
-            
             if (isNaN(numValue) || numValue <= 0) {
-                error = "Stock must be a  positive number.";
+                error = "Stock must be a postive number.";
             }
+
         }   
 
         // --- Description Validation ---
@@ -167,8 +132,13 @@ async function fetchProduct() {
                 error = "Description cannot exceed 500 characters.";
             }
         }
-
-            if(Name=="CategoryId")
+         if(Name=="UploadImages")
+         {
+            console.log("object length",Object.keys(value).length);
+            
+   if(Object.keys(value).length==0 ) error="At least one photo for the product";
+         }
+         if(Name=="CategoryId")
          {
             console.log("object length",Object.keys(value).length);
             
@@ -180,7 +150,8 @@ else{
    
 
 }         }
-       
+console.log("validation ERROrs ===================",validationErrors);
+
         setValidationErrors(prev => ({ ...prev, [Name]: error }));
         return error.length === 0; // Return true if valid
     };
@@ -206,10 +177,10 @@ else{
             ...prev,
             [name]: newValue
         }));
-        
+        console.log("value||files",value||files);
         
         // Run validation immediately on change
-        validateField(name, value);
+        validateField(name, value||files);
     };
 
     // --------------------------------------------------------
@@ -223,17 +194,21 @@ else{
         const isStockValid = validateField('Stock', formData.Stock);
         const isDescriptionValid = validateField('Description', formData.Description);
         const isCategoryId= validateField('CategoryId', formData.CategoryId);
+        const isUploadImagesValid = validateField('UploadImages', formData.UploadImages);
 
-        if (isNameValid && isPriceValid && isStockValid && isDescriptionValid&&isCategoryId) {
+        if (isNameValid && isPriceValid && isStockValid && isDescriptionValid &&isUploadImagesValid&&isCategoryId) {
             // Logic for API call to update product
             console.log("Form is valid. Submitting data:", formData);
             // Example: updateProductApi(formData);
-            update_product();
-        } else {
+ add_product();
+         } else {
             toast.error("Please fix the validation errors before submitting.");
-        }
+        }   
     }
+
     const handleCategorySelect = (value) => {
+        console.log( "value",value);
+        
         // Manually create the synthetic event object for consistency with handleChange
         handleChange({ target: { name:"CategoryId","value":value.categID , type: 'text' } });
         setIsCategorySelectOpen(false);
@@ -243,12 +218,9 @@ else{
     
    
     return (
-        <div className="EditProduct DashboardPage">
+        <div className="EditProduct DashboardPage AddProduct ">
             <Toaster position="top-center" reverseOrder={false} />
 
-            {Object.keys(product).length === 0 ? (
-                <LoadingModal loading={loading} mainText="No product found with this ID." />
-            ) : (
                 <div className="form-container">
                     <h2>Edit Product Details</h2>
 
@@ -324,6 +296,7 @@ else{
 />
                                 <span>{formData.UploadImages?.length?[...formData.UploadImages].map((file)=>file.name):"Click to select images or drag & drop here" }</span>
                             </div>
+                                 {validationErrors.UploadImages && <p className="error-message">{validationErrors.UploadImages}</p>}
                         </div>
                         <div className="form-group" style={{position:"relative"}}>
 
@@ -352,6 +325,7 @@ else{
                                     ))}
                                 </div>
                             )}
+                                 {validationErrors.CategoryId && <p className="error-message">{validationErrors.CategoryId}</p>}
                         </div>
  </div>
                         {/* Hidden Input for Category ID */}
@@ -361,14 +335,13 @@ else{
                             Name="CategoryId"
                             value={formData.CategoryId}
                         />
-                          {validationErrors.CategoryId && <p className="error-message">{validationErrors.CategoryId}</p>}
 
                         <div className="form-group">
-                            <RedButton text={"Update Product"}  btn_Function={()=>{handleSubmit()}}/>
+                            <RedButton text={"Add Product"}  btn_Function={()=>{handleSubmit()}}/>
                             
                         </div>
                     </div>
-            )}
+            
             
             {/* Minimal CSS for error message to be effective */}
             <style jsx>{`

@@ -1,7 +1,7 @@
 import { data } from "react-router-dom";
 
 
-export default async function CreateAPi_Function (initialUrl,headersData,intialData){
+export default async function CreateAPi_Function (initialUrl,headersData,intialData,stringfyData=true){
  
     
     
@@ -11,7 +11,7 @@ export default async function CreateAPi_Function (initialUrl,headersData,intialD
     let res = await  fetch(initialUrl,{
 
         method:"POST",
-        body:JSON.stringify(intialData),
+        body:stringfyData ?JSON.stringify(intialData):intialData,
         headers:headersData
     })
     
@@ -19,8 +19,11 @@ const {status , ok }= res;
 
  if(!ok)
     {
+        
         try{
 const resJson=await res.json();
+console.log("responce",resJson);
+
             return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});
         }
         catch(error)
