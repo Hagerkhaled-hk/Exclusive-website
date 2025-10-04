@@ -8,7 +8,6 @@ import RedButton from "../../../../Common/redButton/redButton";
 import Viewateg from "../../../../services/APIs/category/ViewCateg";
 import Add_Product from "../../../../services/APIs/products/add_product";
 import"../editProducts/editProducts.css"
-import viewProducts from "../viewProducts.jsx/viewProducts";
 
 // Initial state for form data, matching the product structure
 
@@ -129,7 +128,7 @@ for (const item of data.entries()) {
         // --- Description Validation ---
         if (Name === "Description") {
             if (value.trim().length > 500) {
-                error = "Description cannot exceed 500 characters.";
+                error = "Descriptixon cannot exceed 500 characters.";
             }
              else if(value.trim().length <10) 
            {

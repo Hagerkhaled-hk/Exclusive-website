@@ -116,3 +116,8 @@ body {
   height: -moz-fit-content;
   height: fit-content;
 }
+
+.fixed-bg .Dashboard-content td {
+  height: 50px;
+  width: 60px;
+}

@@ -174,3 +174,117 @@
                     font-weight: 500;
                     color: #007bff;
                 }
+
+                /* Discount Form Styles */
+
+
+
+/* Input Fields Base Style */
+.EditProduct input[type="datetime-local"],
+.EditProduct select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.EditProduct input[type="datetime-local"]:focus,
+.EditProduct select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.EditProduct .form-group div
+{
+    font-size: var(--text-size);
+}
+
+
+/* Discount Type Select Specific */
+.EditProduct select[name="type"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.EditProduct select[name="type"]:hover {
+  border-color: #adb5bd;
+}
+
+/* Date Input Specific */
+.EditProduct input[type="datetime-local"] {
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  position: relative;
+}
+
+.EditProduct input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding: 8px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.EditProduct input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Selected Products Display */
+
+ 
+
+/* Small helper text */
+.EditProduct small {
+  display: block;
+  margin-top: 6px;
+  color: #6c757d;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .EditProduct .form-container {
+    padding: 15px;
+  }
+  
+  
+  .EditProduct select {
+    padding: 10px 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Hover States */
+.EditProduct input[type="datetime-local"]:hover,
+.EditProduct select:hover {
+  border-color: #adb5bd;
+}
+
+/* Disabled State */
+.EditProduct input:disabled,
+.EditProduct select:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Focus states for accessibility */
+.EditProduct input:focus-visible,
+.EditProduct select:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}

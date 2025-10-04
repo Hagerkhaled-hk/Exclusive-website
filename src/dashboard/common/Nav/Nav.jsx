@@ -42,7 +42,7 @@ export default function Nav() {
             <ul className='main-container'>
 
                 <li>
-                    <NavLink to={"/dashboard    "}>
+                    <NavLink to={"/dashboard"}>
                         <div className="logo">
                             <FaTv  style={{color:"rgb(94 114 228)"}} />
                         </div>
@@ -89,6 +89,9 @@ export default function Nav() {
                             <li > <NavLink to={"categories"}>  
                                 <span className='logo'><MdCategory  style={{color:"rgb(180 99 100)"}}/></span>
                                 categories </NavLink></li>
+                            <li > <NavLink to={"discounts"}>  
+                                <span className='logo'><MdCategory  style={{color:"rgb(180 99 100)"}}/></span>
+                                discounts </NavLink></li>
                         </ul>
                     </motion.div>
 

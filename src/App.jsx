@@ -40,6 +40,10 @@ const AddProduct= lazy(()=>import("./dashboard/components/productParts/addProduc
 const ViewCategories= lazy(()=>import("./dashboard/components/categoryPart/viewCategory/viewCategory.jsx"))
 const EditCategory= lazy(()=>import("./dashboard/components/categoryPart/editCategory/editCategory.jsx"))
 const AddCategory= lazy(()=>import("./dashboard/components/categoryPart/addCategory/addCategory.jsx"))
+const ViewDiscounts= lazy(()=>import("./dashboard/components/discountPart/viewDiscount.jsx"))
+const SelectDiscountProduct= lazy(()=>import( "./dashboard/components/discountPart/selectDiscountProduct.jsx"))
+const AddDiscount= lazy(()=>import( "./dashboard/components/discountPart/addDiscount.jsx"))
+
 
 
 export default function App() {
@@ -259,6 +263,21 @@ path: "resetPassword", element: (
      {
       path:"addcategory"
       ,element : <AddCategory/>
+     }
+     ,
+     {
+      path:"discounts"
+      ,element : <ViewDiscounts/>
+     }
+     ,
+     {
+      path:"discounts/Applyproducts"
+      ,element : <SelectDiscountProduct/>
+     }
+     ,
+     {
+      path:"discounts/Applydiscounts"
+      ,element : <AddDiscount/>
      }
     
           ]
