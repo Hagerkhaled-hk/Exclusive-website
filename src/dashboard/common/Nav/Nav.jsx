@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "./css/Nav.css"
 import { FaTv } from "react-icons/fa6";
 import { CiCircleList } from "react-icons/ci";
@@ -10,15 +10,23 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { CiDatabase } from "react-icons/ci";
 import { motion } from 'framer-motion';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { MdCategory } from "react-icons/md";
 import { DashboardContext } from '../../context/dashboardContext';
 import { MdOutlineDiscount } from "react-icons/md";
 
 export default function Nav() {
     const {navOpen, setNavOpen} = useContext(DashboardContext);
+const{isAdminLogin}=useContext(DashboardContext);
+const [isPageOpen, setIsPageOpen] = useState(false);
+const navigate=useNavigate();
+/* 
 
-    const [isPageOpen, setIsPageOpen] = useState(false);
+useEffect(()=>{
+    console.log(isAdminLogin());
+    
+!isAdminLogin()?navigate("/login"):"";
+},[]) */
 
     return (
         <div className={`Nav-dashboard ${navOpen ? '' : 'closed'}`} aria-hidden={!navOpen}>
@@ -129,7 +137,7 @@ export default function Nav() {
                             
                             <li>
 
-                                <NavLink to={"/signin"} >
+                                <NavLink to={"/login"} >
                                     <span className="logo">
                                         <MdOutlineAssignmentInd style={{color:"rgb(251 99 64)"}} />
                                     </span>

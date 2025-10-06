@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import "./emailComponent.css";
-import ForgetPasword from "../../services/APIs/forgetPassword";
+import ForgetPasword from "../../services/APIs/Auth/forgetPassword";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../Common/errorComponents/errorComponents";
 

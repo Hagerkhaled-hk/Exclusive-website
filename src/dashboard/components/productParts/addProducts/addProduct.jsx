@@ -45,7 +45,7 @@ useEffect(()=>{getCategNames();
 },[])
 
 async function getCategNames() {
-    let res =await Viewateg();
+    let res =await Viewateg(true);
  if(res.statusCode==200){const categories=  res?.data.map((item)=>({"categName":item.name,"categID":item.id}) );
 
  setCategoryOptions(categories);

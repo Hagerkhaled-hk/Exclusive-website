@@ -1,16 +1,30 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
  import Nav from '../../dashboard/common/Nav/Nav.jsx';
 import DashboardProvider from '../../dashboard/context/dashboardContext';
 import ProductDashboard_Provider from '../../dashboard/context/productContext';
 import "../../dashboard/css/DashboardPage.css"
 import Header from '../../dashboard/common/header/header.jsx';
 import CategoryDashboard_Provider from '../../dashboard/context/categoryContext.jsx';
+import ErrorPage from '../../Common/errorPage/errorPage.jsx';
+import LoadingModal from '../../Common/modal/modal.jsx';
 
 export default function DashboardLayout()
 {
+    const[isLogin,setIsLogin]=useState(undefined);
 
-    return <DashboardProvider >
+    useEffect(()=>{
+        let data = localStorage.getItem("adminData");
+        if(data)setIsLogin(true) ;
+        else setIsLogin(false) 
+    },[])
+    return <>
+    {
+         isLogin==undefined?<LoadingModal loading={true}/>:
+        !isLogin?<ErrorPage/>
+        :
+
+    <DashboardProvider >
         <ProductDashboard_Provider>
             <CategoryDashboard_Provider>
     <div className="Dasboard-layout" >
@@ -27,5 +41,14 @@ export default function DashboardLayout()
     </CategoryDashboard_Provider>
 </ProductDashboard_Provider>
     </DashboardProvider>
+    }
+
+
+
+        
+    </>
+    
+    
+
  ;
 }

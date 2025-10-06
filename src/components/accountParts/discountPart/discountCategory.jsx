@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import CategId from "../../../services/APIs/category/categ_id";
+import LoadingModal from "../../../Common/modal/modal";
 
 export default function DiscountCategory({IDs=[]}) {
 const [names,setNames]=useState([]);
-
 async function getIdCateg(id) {
   
   let res = await CategId(id);
@@ -35,15 +35,12 @@ console.log(names);
     }
 )()
 
-setTimeout(()=>{
-    setLoading(false)
-},2000)
+
 
 },[])
 
   return (
     <div className="DiscountCategory">
-
 {
    names.map((name ,id)=>{
 

@@ -53,7 +53,7 @@ else toast.error( res.message || "Unable to update this category.");
 
     useEffect(() => {
 (async()=>{
-    let res = await CategId(id);
+    let res = await CategId(id,true,true);
 
     console.log(res);
     

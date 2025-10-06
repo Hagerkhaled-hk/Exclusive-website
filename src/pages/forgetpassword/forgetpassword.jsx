@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import "./forgetPassword.css";
-import RestPassword from "../../services/APIs/resetPassword";
+import RestPassword from "../../services/APIs/Auth/resetPassword";
 import ErrorMessage from "../../Common/errorComponents/errorComponents";
 import { useNavigate } from "react-router-dom";
 

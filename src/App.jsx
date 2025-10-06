@@ -81,6 +81,12 @@ export default function App() {
                       <Login/>
 </Suspense>
       )},
+      ,
+      {path:"ADMIN__LOGINDASHBOARD",element:(
+                     <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
+                      <Login/>
+</Suspense>
+      )},
       { path: "product", element: (
                            <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>
                             <ProductsPage />

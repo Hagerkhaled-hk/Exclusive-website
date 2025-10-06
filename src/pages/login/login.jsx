@@ -4,7 +4,7 @@ import "../signup/signup.css";
 import register_img from "../../assets/images/register-img.png";
 import { useContext, useRef, useState } from "react";
 import GenerateToken from "../../services/APIs/Auth/generateToken";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../Common/errorComponents/errorComponents";
 import { useGoogleLogin } from '@react-oauth/google';
 import {UserContext} from "../../context/userContext/userContext";
@@ -17,6 +17,9 @@ export default function Login()
     const inputRef=useRef([]);
 const navigate=useNavigate(null);
 const [errorData,setErrorData] =useState({message1:"" ,messsage2:"" ,Opacity:0})
+const path = useLocation();
+console.log(path);
+
 
 
  const google_login = useGoogleLogin({
@@ -44,13 +47,25 @@ async   function TokenGeneration()
 let res = await GenerateToken (inputData);
 
 if(res.succeeded){
-localStorage.setItem("userData",JSON.stringify(res.data) );
-window.dispatchEvent(new Event('localStorageChange'));
-  navigate("/"); }
+console.log(res);
+
+if(path.pathname=="/ADMIN__LOGINDASHBOARD"&&res.data.role=="Admin")
+{
+    localStorage.setItem("adminData",JSON.stringify(res.data) );
+    navigate("/dashboard");
+
+}
+else if(path.pathname!="/ADMIN__LOGINDASHBOARD"&&res.data.role!="Admin")
+{
+    localStorage.setItem("userData",JSON.stringify(res.data) );
+    window.dispatchEvent(new Event('localStorageChange'));
+      navigate("/"); }
+else    {setErrorData({message1:`Oops!`,message2:"Either email or phone number is incorrect " ,Opacity:1});}
+}
 else if(res.statusCode == 500 ){setErrorData({message1:`Oops! Something went wrong on our end.`,
     message2:`We're having trouble loading this page right now. Please try refreshing the page or try again in a few minutes.`  ,Opacity:1})}
 else{
-        setErrorData({message1:`Oops!`,message2:"Either email or phone number is required" ,Opacity:1});
+        setErrorData({message1:`Oops!`,message2:"Either email or phone number is incorrect " ,Opacity:1});
 }
 
 
