@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import Viewateg from "../../services/APIs/category/ViewCateg";
 import DeleteCategory from "../../services/APIs/category/delete_categ";
 import toast from "react-hot-toast";
+import UpdateProduct from "../../services/APIs/products/update_product";
+import UpdateCategory from "../../services/APIs/category/update_categ";
 
 
 
@@ -15,7 +17,7 @@ const [categories,setCategories]=useState([]);
 
 
     async function getCategories() {
-          let res =await Viewateg();
+          let res =await Viewateg(false);
           console.log(res);
           
           if(res.statusCode==200)setCategories(res?.data);
@@ -25,12 +27,20 @@ const [categories,setCategories]=useState([]);
 
                   
 
-    async function Delete_category(id , name) {
-        let res = await DeleteCategory(id);
-        console.log(res);
+    async function Delete_category(id ,name ,description) {
+let newName="";
+        if(name.includes("##ARCHIVE"))newName=name.split("##ARCHIVE")[0];
+        else newName=name+"##ARCHIVE"
         
+let res = await UpdateCategory({"name":newName,  "description": description},id);
+console.log(res);
+
+       /*  let res = await DeleteCategory(id);
+        console.log(res);
+         */
         if(res.statusCode!=200)toast.error(res.message);
-        else toast.success("deleted sucssesfully");
+        else {toast.success("Done sucssesfully");
+        getCategories();}
     }
     return (
         <CategoryDashboard_Context.Provider  value={{getCategories,categories,Delete_category}} >

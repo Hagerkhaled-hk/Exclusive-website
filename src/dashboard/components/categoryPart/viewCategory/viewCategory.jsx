@@ -11,15 +11,15 @@ import "../../productParts/viewProducts/viewProducts.css"
 export default function ViewCategories()
 {
  const [loading, setLoading] = useState(true);
-  const [modelINfo, setModelInfo] = useState(  { selectedCategoryId: "",name:"" ,id: null, show: false });
+  const [modelINfo, setModelInfo] = useState(  { selectedCategoryId: "",name:"",description:"" ,id: null, show: false });
   const navigate= useNavigate();
 const {categories,getCategories,Delete_category}=useContext(CategoryDashboard_Context);
 
-  const handleClose = (category_id) => { setModelInfo({ selectedCategoryId: category_id, name:"", id: null, show: false }); };
-  const handleShow = (category_id,name ,id  ) => { 
+  const handleClose = (category_id) => { setModelInfo({ selectedCategoryId: category_id, name:"", id: null,description:"", show: false }); };
+  const handleShow = (category_id,name,description ,id  ) => { 
     console.log(category_id,name ,id );
     
-    setModelInfo({ selectedProductId: category_id,name:name, id: id, show: true }); };
+    setModelInfo({ selectedProductId: category_id,name:name, id: id,description:description, show: true }); };
 
   
 
@@ -68,7 +68,7 @@ const {categories,getCategories,Delete_category}=useContext(CategoryDashboard_Co
                 <tr   onClick={() => {   navigate(`/dashboard/category/${category.id}`); }} key={id}  >
                   <td data-label="ID: "  >{id+1}</td>
                  
-                  <td  data-label="Name: " >{category.name}</td>
+                  <td  data-label="Name: " >{category.name.split("##ARCHIVE")[0]}</td>
                   <td data-label="description: "  style={{overflowY:"auto" , overflowX:"hidden"}}>
                     <p >
    {category.description}
@@ -79,29 +79,44 @@ const {categories,getCategories,Delete_category}=useContext(CategoryDashboard_Co
                   <td onClick={(e)=>e.stopPropagation()}>
                     <Button
                       className="btn cancel-icon"
-                      variant="danger"
+                      variant={`${category.name.includes("##ARCHIVE")?"primary":"danger"}`}
                       onClick={() => { 
-                       handleShow(id,category.name, category.id); }}
+                       handleShow(id,category.name,category.description, category.id); }}
                     >
-                      Delete
+                      {
+                        category.name.includes("##ARCHIVE") ? 
+                        "Restore":
+                        "Archive"
+
+                      }
                     </Button>
                   </td>
                 </tr>
               ))}
               <Modal show={modelINfo.show} onHide={() => { handleClose(null); }}>
                 <Modal.Header closeButton>
-                  <Modal.Title style={{ fontSize: "22px" }}>{modelINfo.name} </Modal.Title>
+                  <Modal.Title style={{ fontSize: "22px" }}>{modelINfo.name.split("##ARCHIVE")[0]} </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ fontSize: "12px" }}>
-                  Do u want to delete <span style={{ fontWeight: "bold" }}>  {modelINfo.name} </span>
+                  Do u want to {
+                        modelINfo.name.includes("##ARCHIVE") ? 
+                        "Restore":
+                        "Archive"
+
+                      } <span style={{ fontWeight: "bold" }}>  {modelINfo.name.split("##ARCHIVE")[0]} </span>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button style={{ fontSize: "10px" }} variant="danger" onClick={() => {
                  
-                  Delete_category(modelINfo.id , modelINfo.name)
+                  Delete_category(modelINfo.id , modelINfo.name,modelINfo.description)
                     handleClose(modelINfo.selectedcategoryId );
                   }}>
-                    Delete 
+                    {
+                        modelINfo.name.includes("##ARCHIVE") ? 
+                        "Restore":
+                        "Archive"
+
+                      }
                   </Button>
                 </Modal.Footer>
               </Modal>

@@ -16,7 +16,7 @@ let res= await  ViewProducts();
 setProducts(res.data);
 
     })()
-  })
+  },[])
  
   return (
     <div className="ProductsPage">

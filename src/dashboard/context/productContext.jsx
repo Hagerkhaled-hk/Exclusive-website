@@ -15,7 +15,7 @@ export default  function ProductDashboard_Provider({children})
 
     async function View_Products() {
         
-        let res = await ViewProducts();
+        let res = await ViewProducts(false);
         console.log(res);
         
         if(res.statusCode===200) setProducts(res?.data);
