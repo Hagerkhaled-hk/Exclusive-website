@@ -48,6 +48,21 @@ export default function ViewDiscounts()
 setActiveOnly(e.target.value);
     }
 
+
+    function editFunction(selectedProducts,id)
+    {
+    localStorage.setItem("editSelectedDiscount",JSON.stringify(selectedProducts));
+
+
+    navigate(`/dashboard/discounts/Applyproducts/${id}`); 
+    }
+
+    function addDiscountBtn()
+    {
+localStorage.removeItem("selectedProducts");
+      navigate("Applyproducts")
+    }
+
 useEffect(()=>{
    getDiscounts();
 
@@ -73,7 +88,7 @@ useEffect(()=>{
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
                 <div className="left">
                 <p style={{marginTop:"0px"  }}><small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to Edit. </small></p>
-<RedButton text={"Add dicount"}  btn_Function={()=>{navigate("Applyproducts")}}/>
+<RedButton text={"Add discount"}  btn_Function={()=>{addDiscountBtn()}}/>
 
                 </div>
   <div className="filter-select">
@@ -117,7 +132,7 @@ useEffect(()=>{
 
 :
               discounts?.map((discount, id) => (
-                <tr   onClick={() => {   navigate(`/dashboard/discount/${discount.id}`); }} key={id}  >
+                <tr   onClick={() => { editFunction(discount.guidProductIds,discount.id)  }} key={id}  >
                   <td data-label="ID: "  >{id+1}</td>
                   
                   <td  data-label="Code: " >{discount.code}</td>

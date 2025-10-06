@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "../productParts/viewProducts/viewProducts.css"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CiFilter } from "react-icons/ci";
 import { ProductDashboard_Context } from "../../context/productContext";
 import LoadingModal from "../../../Common/modal/modal";
@@ -14,7 +14,8 @@ export default function SelectDiscountProduct() {
   const [filter, setFilter] = useState([]);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]); // State to store selected product IDs
+  const [selectedProducts, setSelectedProducts] = useState([]); 
+  const{id} = useParams()// State to store selected product IDs
 
  
 
@@ -25,19 +26,27 @@ export default function SelectDiscountProduct() {
         
       if (prev.find((item)=>item.productId==productId) ) {
         // If already selected, remove it
+        console.log("removee");
+
+        
         return prev.filter(item => item.productId !== productId);
       } else {
         // If not selected, add it
         return [...prev, {"productId":productId,"categoryID":categoryID}];
       }
     });
+
+
+
   };
 
 
 function Next()
 {
-    localStorage.setItem("selectedProducts",JSON.stringify(selectedProducts));
-    navigate("/dashboard/discounts/Applydiscounts")
+  
+  if(id)navigate(`/dashboard/discounts/Applydiscounts/${id}`)
+   
+  else  navigate("/dashboard/discounts/Applydiscounts");
 }
   async function getCategories() {
     let res = await Viewateg();
@@ -58,17 +67,68 @@ function Next()
     console.log(filterProducts);
   }
 
+  function get_Selected_localstorage()
+  {
+   const editSelectedDiscount = localStorage.getItem("editSelectedDiscount");
+   let SelectedProducts_local = localStorage.getItem("selectedProducts");
+   console.log("editSelectedDiscount",editSelectedDiscount);
+   console.log("products",products);
+   
+ if(editSelectedDiscount)
+{
+  let editSelectedDiscount_parsed= JSON.parse(editSelectedDiscount);
+editSelectedDiscount_parsed.map((productId)=>{
+  console.log("productId",productId);
+  
+let product= products.find((item)=>item.id==productId);
+console.log(product);
+
+if(product){   localStorage.removeItem("editSelectedDiscount");
+   selectDiscountProduct(product.id,product.categoryId)}
+})
+  
+}else if(SelectedProducts_local)
+  {
+     SelectedProducts_local=JSON.parse(SelectedProducts_local);
+     setSelectedProducts(SelectedProducts_local);
+
+  } 
+
+
+  }
+
+
+
+
+  function selectAll(e)
+  {
+if(e.target.checked){
+  let allData=[];
+  filter.map((item)=>{ 
+  allData.push({"productId":item.id,"categoryID":item.categoryId})   
+  })
+
+     setSelectedProducts(allData)
+}
+else setSelectedProducts([]);
+   }
   useEffect(() => {
     setFilter([...products]);
-  }, [products])
+get_Selected_localstorage();  }, [products])
 
-  useEffect(() => {
+  useEffect(() => { 
     getCategories();
-
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
+
+  useEffect(()=>{
+    console.log("selected products ddddd");
+    
+           localStorage.setItem("selectedProducts",JSON.stringify(selectedProducts));
+
+  },[selectedProducts])
 
   return (
     <div className="viewProducts DashboardPage">
@@ -82,12 +142,20 @@ function Next()
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
             <div className="left">
               <p style={{ marginTop: "0px" }}><small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to Edit. </small></p>
+
               <RedButton text={"Next"} btn_Function={() => { Next() }} />
-                <small style={{fontSize:"13px", display:"flex",justifyContent:"start",gap:"5px",alignItems:"center"}}><span style={{background:"var(--red-color)", color:"white",borderRadius:"50%",display:"flex",width:"25px",height:"25px",justifyContent:"center",alignItems:"center" }}>
+
+    
+ <small style={{fontSize:"13px", display:"flex",justifyContent:"start",gap:"5px",alignItems:"center"}}><span style={{background:"var(--red-color)", color:"white",borderRadius:"50%",display:"flex",width:"25px",height:"25px",justifyContent:"center",alignItems:"center" }}>
                     
-                    {selectedProducts?.length}</span> Selected </small>
+                    {selectedProducts?.length}</span> Selected </small>           
+
+
 
             </div>
+            <div className="right">
+
+
             <div className="filter-select">
               <CiFilter />
               <select
@@ -100,7 +168,19 @@ function Next()
                 }
               </select>
             </div>
+
+
+
+
+            </div>
+
           </div>
+
+<div style={{  fontSize:"13px"}} className="form-input d-flex justify-content-start align-items-center mt-3 ms-1 mb-0">
+<input value="selectAll" onChange={selectAll} id="selectAll" type="checkbox" />
+<label htmlFor="selectAll" className="m-0 ms-1 ">select All</label>
+
+</div>
           <table className="orders-table">
             <thead>
               <tr>
@@ -126,8 +206,7 @@ function Next()
                     <td data-label="Select: " onClick={(e) => e.stopPropagation()}>
                       <input
                         type="checkbox"
-                        checked={selectedProducts.some((item)=> {console.log(item?.productId===product.id)
-                       return (item?.productId===product.id)})   }
+                        checked={selectedProducts.some((item)=>(item?.productId===product.id))   }
                         onChange={() => selectDiscountProduct(product.id,product.categoryId)}
                       />
                     </td>

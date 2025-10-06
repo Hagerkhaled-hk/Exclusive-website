@@ -43,6 +43,6 @@ const contentType = res.headers.get("content-type");
         catch(error)
         {
 
-return  { statusCode:0  ,message:error} ;
+return  { statusCode:0  ,message:error.message} ;
         }
 }

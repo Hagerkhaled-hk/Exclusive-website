@@ -181,7 +181,7 @@ setActiveProcess(true);
       "productIds": data
     });
     console.log(res);
-    if(res.statusCode!=200) toast.error("unable to apply the discount");
+    if(res.statusCode!=200) toast.error(res?.message||"unable to apply the discount");
     else{ toast.success("Discount applied successfully");
       console.log(discountRef);
       

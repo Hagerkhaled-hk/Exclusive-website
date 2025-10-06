@@ -39,6 +39,6 @@ return await res.json();
     {
         console.log(error);
         
-return  { statusCode:0  ,message:error} ;
+return  { statusCode:0  ,message:error.message} ;
 }
 }

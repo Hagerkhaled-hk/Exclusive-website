@@ -1,7 +1,6 @@
 import RatingStars from "../RatingStars/RatingStars";
 import {Link, useNavigate} from "react-router-dom"
 import "./ProductCards.css";
-import AddTOCart from "../../services/APIs/cart/addToCart";
 import { useContext, useEffect, useRef, useState } from "react";
 import { CartContext } from "../../context/cartContext/cartContext";
 import toast, { Toaster } from "react-hot-toast";

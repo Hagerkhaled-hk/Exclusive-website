@@ -7,17 +7,12 @@ import TotalDetails from "../../Common/totalDetails/totalDetails";
 import RedButton from "../../Common/redButton/redButton";
 
 import CartProduct from "../../Common/cartProduct/cartProduct";
-import AddToOrder from "../../services/APIs/orders/addOrder";
-import ApplyDiscount from "../../services/APIs/discount/applyDiscount";
-import { UserContext } from "../../context/userContext/userContext";
 import LoadingModal from "../../Common/modal/modal";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 export default function Cart()
 {
-  const {cartItems,cartInfo,setCart_Info_State } = useContext(CartContext);
-const{getToken} =useContext(UserContext);
-const coupounRef=useRef();
+  const {cartItems,cartInfo } = useContext(CartContext);
 const [loading,setLoading]=useState(true);
 const navigate = useNavigate();
 

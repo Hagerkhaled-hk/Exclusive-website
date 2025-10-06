@@ -81,6 +81,10 @@
       -ms-flex-align: center;
           align-items: center;
   gap: 15px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 .Cart-container .remove-icon {
   color: var(--red-color) !important;

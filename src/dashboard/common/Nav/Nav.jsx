@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import { MdCategory } from "react-icons/md";
 import { DashboardContext } from '../../context/dashboardContext';
+import { MdOutlineDiscount } from "react-icons/md";
 
 export default function Nav() {
     const {navOpen, setNavOpen} = useContext(DashboardContext);
@@ -90,7 +91,7 @@ export default function Nav() {
                                 <span className='logo'><MdCategory  style={{color:"rgb(180 99 100)"}}/></span>
                                 categories </NavLink></li>
                             <li > <NavLink to={"discounts"}>  
-                                <span className='logo'><MdCategory  style={{color:"rgb(180 99 100)"}}/></span>
+                                <span className='logo'><MdOutlineDiscount  style={{color:"rgb(180 99 100)"}}/></span>
                                 discounts </NavLink></li>
                         </ul>
                     </motion.div>

@@ -4,17 +4,19 @@ import "../productParts/editProducts/editProducts.css";
 import { Toaster, toast } from "react-hot-toast";
 import RedButton from "../../../Common/redButton/redButton";
 import Add_Disconut from "../../../services/APIs/discount/addDiscount";
+import getDiscountId from "../../../services/APIs/discount/getDiscount_id";
+import UpdateDiscount from "../../../services/APIs/discount/editDiscount";
 
 // Initial state for form data
 const initialFormData = {
     code: "",
     type: "",
     value: 0,
-    startDate: new Date().toISOString().slice(0, 16),
+    startDate: "",
     endDate: "",
     productIds: [],
     categoryIds: [],
-};
+    isActive:true};
 
 // Initial state for validation errors
 const initialValidation = { 
@@ -24,48 +26,48 @@ const initialValidation = {
     endDate: "",
     productIds: "",
     categoryIds: "",
+    isActive:true
 };
 
-export default function AddDiscount() {
+export default function EditDiscountForm() {
     // State to hold and manage form input values
     const [formData, setFormData] = useState(initialFormData);
     const [validationErrors, setValidationErrors] = useState(initialValidation);
-    
+    const {id}=useParams();
+    async function getDiscount() {
+
+        console.log("ddd");
+     const selectedProducts = JSON.parse(localStorage.getItem("selectedProducts") || "[]");
+                                // Extract productIds and categoryIds from the selected products
+        const productIds = selectedProducts.map(item => item.productId).filter(id => id);
+        const categoryIds = selectedProducts.map(item => item.categoryID).filter(id => id);
+                
+
+        let res =await getDiscountId(id);
+        console.log(res);
+if(!res.statusCode==200) return;
+let {data}=res;
+    setFormData( {
+    code: data.code,
+    type: data.type,
+    value: data.value,
+    startDate:data.startDate ,
+    endDate: data.endDate,
+    productIds: productIds,
+    categoryIds: [...new Set(categoryIds)],
+    isActive:data.isActive })
+    }
     // Load selected products from localStorage on component mount
     useEffect(() => {
-        const loadSelectedProducts = () => {
-            try {
-                const selectedProducts = JSON.parse(localStorage.getItem("selectedProducts") || "[]");
-                
-                // Extract productIds and categoryIds from the selected products
-                const productIds = selectedProducts.map(item => item.productId).filter(id => id);
-                const categoryIds = selectedProducts.map(item => item.categoryID).filter(id => id);
-                
-                setFormData(prev => ({
-                    ...prev,
-                    productIds: productIds,
-                    categoryIds: [...new Set(categoryIds)] 
-                }));
-                
-                console.log("Loaded selected products:", selectedProducts);
-                console.log("Product IDs:", productIds);
-                console.log("Category IDs:", categoryIds);
-                
-            } catch (error) {
-                console.error("Error parsing selected products from localStorage:", error);
-                toast.error("Error loading selected products");
-            }
-        };
-        
-        loadSelectedProducts();
+        getDiscount();
+
     }, []);
 
-    async function addDiscount() {
-        toast("Creating discount...", { duration: 1000 });
-        console.log(formData);
+    async function updateDiscount() {
+        toast("Updating discount...", { duration: 1000 });
         
         // Prepare data for API call
-        const discountData = {
+             const discountData = {
             code: formData.code,
             type: formData.type,
             value: Number(formData.value),
@@ -73,23 +75,25 @@ export default function AddDiscount() {
             endDate: formData.endDate,
             productIds: formData.productIds,
             categoryIds:  formData.categoryIds,
+            isActive:formData.isActive!="false"?true : false ,
 
         };
         
-        console.log("Sending discount data:", discountData);
+        console.log(typeof(discountData.isActive) ,discountData.isActive);
         
-         let res = await Add_Disconut(discountData);
+        
+        
+         let res = await UpdateDiscount(discountData,id);
         console.log(res);
         
-        if (res.statusCode === 201) {
-            toast.success(res.message || "Discount created successfully");
+        if (res.statusCode === 200) {
+            toast.success(res.message || "Discount updated successfully");
             setTimeout(() => {
-                setFormData(initialFormData);
                 // Clear localStorage after successful creation
-                localStorage.removeItem("selectedProducts");
+                getDiscount();
             }, 500);
         } else {
-            toast.error(res.message || "Unable to create this discount.");
+            toast.error(res.message || "Unable to update this discount.");
         } 
     }
 
@@ -176,7 +180,7 @@ else{
      {
         if(typeof(value)=="boolen") error="choose tha Activation  from avalliable options "
      }        
-         
+     
         setValidationErrors(prev => ({ ...prev, [name]: error }));
         return error.length === 0; // Return true if valid
     };
@@ -199,10 +203,12 @@ else{
         const isTypeValid = validateField('type', formData.type);
         const isValueValid = validateField('value', formData.value);
         const isEndDateValid = validateField('endDate', formData.endDate);
-
-        if (isCodeValid && isTypeValid && isValueValid && isEndDateValid && isProductIdsValid) {
+        const isProductIdsValid = validateField('productIds', formData.productIds);
+        const isActiveValid = validateField('isActive', formData.isActive);
+   
+        if (isCodeValid && isTypeValid && isValueValid && isEndDateValid && isProductIdsValid&&isActiveValid) {
             console.log("Form is valid. Submitting data:", formData);
-            addDiscount();
+            updateDiscount();
         } else {
             toast.error("Please fix the validation errors before submitting.");
         }
@@ -213,7 +219,7 @@ else{
             <Toaster position="top-center" reverseOrder={false} />
 
             <div className="form-container">
-                <h2>Create Discount</h2>
+                <h2>Edit Discount</h2>
 
                 <div>
                     <div className="form-group">
@@ -240,8 +246,8 @@ else{
                             required
                         >
                             <option value="">Select discount type</option>
-                            <option value="percentage">Percentage</option>
-                            <option value="fixedAmount">Fixed Amount</option>
+                            <option value="Percentage">Percentage</option>
+                            <option value="FixedAmount">Fixed Amount</option>
                         </select>
                         {validationErrors.type && <p className="error-message">{validationErrors.type}</p>}
                     </div>
@@ -275,7 +281,7 @@ else{
                             type="datetime-local"
                             id="startDate"
                             name="startDate"
-                            value={formData.startDate}
+value={formData?.startDate}
                             onChange={handleChange}
                             required
                         />
@@ -287,13 +293,28 @@ else{
                             type="datetime-local"
                             id="endDate"
                             name="endDate"
-                            value={formData.endDate}
+                            value={ formData.endDate}
                             onChange={handleChange}
                             required
                         />
                         {validationErrors.endDate && <p className="error-message">{validationErrors.endDate}</p>}
                     </div>
-                
+                     <div className="form-group">
+                        <label htmlFor="isActive" className="required">Activation</label>
+                        <select
+                            id="isActive"
+                            name="isActive"
+                            value={formData.isActive}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Activation type</option>
+                            <option value={true}>Active</option>
+                            <option value={false}>Un Active</option>
+                        </select>
+                        {validationErrors.isActive && <p className="error-message">{validationErrors.isActive}</p>}
+                    </div>
+                  
 
                     <div className="form-group">
                         <label>Selected Products & Categories</label>
@@ -309,7 +330,7 @@ else{
                 </div>
 
                 <div className="form-group">
-                    <RedButton text={"Create Discount"} btn_Function={handleSubmit} />
+                    <RedButton text={"Update Discount"} btn_Function={handleSubmit} />
                 </div>
             </div>
 

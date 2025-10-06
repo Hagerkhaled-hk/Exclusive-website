@@ -43,6 +43,7 @@ const AddCategory= lazy(()=>import("./dashboard/components/categoryPart/addCateg
 const ViewDiscounts= lazy(()=>import("./dashboard/components/discountPart/viewDiscount.jsx"))
 const SelectDiscountProduct= lazy(()=>import( "./dashboard/components/discountPart/selectDiscountProduct.jsx"))
 const AddDiscount= lazy(()=>import( "./dashboard/components/discountPart/addDiscount.jsx"))
+const EditDiscountForm= lazy(()=>import( "./dashboard/components/discountPart/editDiscountForm.jsx"))
 
 
 
@@ -278,6 +279,18 @@ path: "resetPassword", element: (
      {
       path:"discounts/Applydiscounts"
       ,element : <AddDiscount/>
+     }
+    
+     ,
+     {
+      path:"discounts/Applyproducts/:id"
+      ,element : <SelectDiscountProduct/>
+     }
+    
+     ,
+     {
+      path:"discounts/Applydiscounts/:id"
+      ,element : <EditDiscountForm/>
      }
     
           ]

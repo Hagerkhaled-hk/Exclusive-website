@@ -61,6 +61,7 @@ setTimeout(()=>{
             <th>startDate</th>
             <th>Value</th>
             <th>Code</th>
+            <th>Active</th>
           </tr>
         </thead>
         <tbody>
@@ -80,6 +81,7 @@ setTimeout(()=>{
                 <td data-label="Start Date:">{ new Date(item.endDate).toLocaleDateString() } </td> 
                 <td data-label="Value:">{item.value} {item.type} </td>
              <td data-label="Code:">{item.code}</td>
+             <td data-label="Active:">{item.isActive?"yes":"No"}</td>
                 
               </tr>
             ))
