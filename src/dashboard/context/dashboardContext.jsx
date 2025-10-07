@@ -60,7 +60,7 @@ function isAdminLogin()
 
 
 
-function getToken()
+function getAdminToken()
 {   
 
          if( localStorage.getItem("adminData")!=null ||localStorage.getItem("adminData")!=undefined)
@@ -77,7 +77,7 @@ function getToken()
          }
         
     return (
-        <DashboardContext.Provider  value={{navOpen, setNavOpen,isAdminLogin,getToken,adminData}} >
+        <DashboardContext.Provider  value={{navOpen, setNavOpen,isAdminLogin,getAdminToken,adminData}} >
 {children}
         </DashboardContext.Provider>
     )

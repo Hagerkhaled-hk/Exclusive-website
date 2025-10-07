@@ -20,13 +20,7 @@ export default function Nav() {
 const{isAdminLogin}=useContext(DashboardContext);
 const [isPageOpen, setIsPageOpen] = useState(false);
 const navigate=useNavigate();
-/* 
 
-useEffect(()=>{
-    console.log(isAdminLogin());
-    
-!isAdminLogin()?navigate("/login"):"";
-},[]) */
 
     return (
         <div className={`Nav-dashboard ${navOpen ? '' : 'closed'}`} aria-hidden={!navOpen}>
@@ -101,6 +95,9 @@ useEffect(()=>{
                             <li > <NavLink to={"discounts"}>  
                                 <span className='logo'><MdOutlineDiscount  style={{color:"rgb(180 99 100)"}}/></span>
                                 discounts </NavLink></li>
+                            <li > <NavLink to={"orders"}>  
+                                <span className='logo'><MdOutlineDiscount  style={{color:"rgb(180 99 100)"}}/></span>
+                                orders </NavLink></li>
                         </ul>
                     </motion.div>
 

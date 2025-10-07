@@ -12,6 +12,7 @@ export default function CurrentOrder() {
   const{current_Order_index,get_order,currentOrder,getIndexOfOrder,totalPages,orders,View_Orders}=useContext(OrderContext);
 const navigate = useNavigate();
 
+
 async function Get_order(id) {
   if(orders.length==0) await View_Orders();  
   let res =await get_order(id);

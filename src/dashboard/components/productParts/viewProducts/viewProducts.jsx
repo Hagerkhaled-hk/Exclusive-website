@@ -4,7 +4,6 @@ import "./viewProducts.css";
 import { ProductDashboard_Context } from "../../../context/productContext";
 import LoadingModal from "../../../../Common/modal/modal";
 import { Button, Modal } from "react-bootstrap";
-import Header from "../../../common/header/header";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import RedButton from "../../../../Common/redButton/redButton";

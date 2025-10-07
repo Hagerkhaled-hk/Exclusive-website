@@ -2,13 +2,17 @@ import React, { useContext } from 'react';
 import "./css/Header.css"
 import { useParams } from 'react-router-dom';
 import { DashboardContext } from '../../context/dashboardContext';
+import { UserContext } from '../../../context/userContext/userContext';
 
 export default function Header() {
     const { path } = useParams();
     const {navOpen, setNavOpen} = useContext(DashboardContext);
-console.log(typeof(setNavOpen));
-console.log(navOpen);
+const {isLogin}=useContext(UserContext);
 
+function Logout()
+{
+    
+}
 
 
     return (
@@ -29,7 +33,7 @@ console.log(navOpen);
                 <div className="input">
                     <input type="text" placeholder="Type here" />
                 </div>
-                <p>Sign In</p>
+                <button onClick={()=>{}} className='btn '>{isLogin ?"Logout" :"Login"}</button>
             </div>
         </div>
     );

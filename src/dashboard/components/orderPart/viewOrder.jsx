@@ -1,27 +1,37 @@
 import { useContext, useEffect, useState } from "react";
-import "./allOrders.css";
+import "../../../components/accountParts/orderPart/AllOrders/allOrders.css";
+import "../../../pages/account/account.css";
+import "../productParts/viewProducts/viewProducts.css"
 import toast, { Toaster } from "react-hot-toast";
 import { Button, Modal } from "react-bootstrap";
 import {  useNavigate } from "react-router-dom";
 import { CiFilter } from "react-icons/ci";
-import LoadingModal from "../../../../Common/modal/modal";
-import NoOrdersModal from "../../../noOrdersModal/noOrdersModal";
+import LoadingModal from "../../../Common/modal/modal";
+import NoOrdersModal from "../../../components/noOrdersModal/noOrdersModal";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { OrderContext } from "../../../../context/orderContext/orderContext";
-export default function AllOrders() {
+import viewAdminOrders from "../../../services/APIs/orders/viewAdminorders";
+import { DashboardContext } from "../../context/dashboardContext";
+import RedButton from "../../../Common/redButton/redButton";
+import { OrderContext } from "../../../context/orderContext/orderContext";
+export default function ViewOrdersAdmin() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [modelINfo, setModelInfo] = useState(
     { selectedOrderId: "", actionType: "", id: null, show: false });
-  const {View_Orders,Delete_Order,Cancel_Order,orders,totalPages,pageSize,page,setPage,setIsAdmin}=useContext(OrderContext);
+ 
 
     const handleChange = (event,value) => {
     setPage(value);
   }; 
   const navigate = useNavigate();
-  
+  const [totalPages,setTotalPages]=useState(10);
+  const [ page,setPage]=useState(1);
+   const pageSize=10;
+  const[orders,setOrders]=useState([]);
 
+  const {getAdminToken}=useContext(DashboardContext);
+  const {setIsAdmin}=useContext(OrderContext);
   const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
   const handleShow = (order, id, type) => { setModelInfo({ selectedOrderId: order, actionType: type, id: id, show: true }); };
 
@@ -47,6 +57,38 @@ export default function AllOrders() {
     };
 
 
+
+     async function View_Orders(status="all") {
+        
+        let token = getAdminToken();
+        console.log(token);
+        
+        if (!token) return;
+        let apiStatus = status === "all" ? "" : status;    
+        
+          let res = await viewAdminOrders(token, { "PageNumber": page, "Status": apiStatus ,"PageSize":pageSize });
+          console.log(res);
+          
+          if(res.statusCode==200 && res?.data?.items?.length==0 ){
+            
+            setOrders([ {
+            "id": "",
+            "buyerName": "",
+            "createdAt": "",
+            "status": "",
+            "total":0
+          }]);}
+          else {
+    let data = res?.data;
+            setOrders(data?.items || []);
+            setTotalPages(data?.totalPages);
+            console.log("data", data?.totalPages);
+            
+          }
+    
+          
+          
+      }
   useEffect(() => {
     
     View_Orders(filter);
@@ -60,7 +102,8 @@ export default function AllOrders() {
 
 
   return (
-    <div className="AllOrders">
+    <div className="viewProducts">
+    <div className="AllOrders  ">
       {orders.length ==0?
        
       <LoadingModal loading={loading} text="No orders found" />
@@ -70,7 +113,12 @@ export default function AllOrders() {
           <Toaster position="top-center" reverseOrder={false} />
       <h2>All Orders</h2>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+        <div className="left">
   <p>      <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an order to see more information.</small></p>
+  <RedButton text={"Add order"}  btn_Function={()=>{navigate("/dashboard/addproduct")}}/>
+        
+
+        </div>
         <div className="filter-select">
           <CiFilter />
           <select
@@ -81,8 +129,8 @@ export default function AllOrders() {
             <option value="all">All</option>
             <option value="pending">Pending</option>
             <option value="canceled">Canceled</option>
-            <option value="Shipped"> Shipped</option>
-            <option value="Delivered"> Delivered</option>
+            <option value="shipped"> Shipped</option>
+            <option value="delivered"> Delivered</option>
           </select>
         </div>
       </div>
@@ -90,6 +138,7 @@ export default function AllOrders() {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Buyer</th>
             <th>Created At</th>
             <th>Total</th>
             <th>Status</th>
@@ -105,14 +154,15 @@ export default function AllOrders() {
           orders[0].id=="" ?
           <tr className="no-orders-tr ">
 
-          <td colSpan={6}   >  <NoOrdersModal status={filter} /></td>
+          <td colSpan={6}>  <NoOrdersModal status={filter}  admin={true}/></td>
 
           </tr> 
       :
           
           orders.map((order, id) => (
-            <tr   onClick={() => { setIsAdmin(false);  navigate(`/account/order/${order.id}`); }} key={id}  >
+            <tr   onClick={() => { setIsAdmin(true); navigate(`/dashboard/order/${order.id}`); }} key={id}  >
               <td data-label="ID: "  >{getOrderIndex(id)}</td>
+              <td data-label="Buyer: "  >{order.buyerName}</td>
               <td  data-label="Start Date: " >{new Date(order.createdAt).toLocaleDateString()}</td>
               <td data-label="Total: " >{(order.total ).toFixed(1)} EGP</td>
               <div className="row">
@@ -192,6 +242,7 @@ export default function AllOrders() {
          <Stack spacing={2} style={{display:"flex" ,justifyContent:"center" ,alignItems:"center", marginTop:"20px" }}>
 <Pagination count={totalPages}   onChange={handleChange}  />
      </Stack>
+    </div>
     </div>
 
 

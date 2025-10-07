@@ -3,6 +3,8 @@ import toast from "react-hot-toast";
 import { UserContext } from "../userContext/userContext";
 import viewOrders from "../../services/APIs/orders/viewOrders";
 import GetAnOrder from "../../services/APIs/orders/getOrder";
+import { DashboardContext } from "../../dashboard/context/dashboardContext";
+import GetAnOrderAdmin from "../../services/APIs/orders/GetanOrderAdmin";
 
 export const OrderContext = createContext();
 
@@ -15,6 +17,9 @@ export default function OrderProvider({ children }) {
   const pageSize=10;
   const [current_Order_index,set_Current_Order_index]=useState(0);
     const [currentOrder, setCurrentOrder] = useState({});
+    const [isAdmin,setIsAdmin]=useState(false);
+      const {getAdminToken}=useContext(DashboardContext);
+
 
 
 
@@ -107,10 +112,33 @@ console.log("totalPages",totalPages);
 
   
   async function get_order(id) {
+    let token=""
+     let res ={};
+if(!isAdmin){
 
-    let token = getToken();
+console.log("userToken");
+
+     token = getToken();
     if (!token) return;
-    let res = await GetAnOrder(id, token);
+     res = await GetAnOrder(id, token);
+     
+}
+else
+{
+  console.log("adminToken");
+
+token=getAdminToken();
+if(!token) return
+res =await GetAnOrderAdmin(id,token) ;
+     console.log(res);
+
+}
+console.log("token",isAdmin );
+console.log("token", token);
+
+console.log("respoce data",res.data);
+
+
     setCurrentOrder(res?.data || {});
     console.log(res);
     
@@ -123,7 +151,7 @@ console.log("totalPages",totalPages);
   return (
     <OrderContext.Provider value={{View_Orders,Delete_Order,Cancel_Order,orders,totalPages,pageSize,setPage,page,set_Current_Order_index,
     
-    current_Order_index,get_order,currentOrder,current_Order_index,getIndexOfOrder}}>
+    current_Order_index,get_order,currentOrder,current_Order_index,getIndexOfOrder,setIsAdmin}}>
       {children}
     </OrderContext.Provider>
   );

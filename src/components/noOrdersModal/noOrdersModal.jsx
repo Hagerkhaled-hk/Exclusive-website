@@ -1,7 +1,7 @@
 import React from "react";
 import "./noOrdersModal.css";
 
-export default function NoOrdersModal({status=""})  {
+export default function NoOrdersModal({status="",admin=false})  {
     return (
         <div className="no-orders-wrapper">
             <table className="no-orders-table" role="table" aria-label="No Shipped Orders">
@@ -14,7 +14,11 @@ export default function NoOrdersModal({status=""})  {
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                
+                    <tbody>
+                        {
+      admin?<tr><td></td></tr>:
+
                     <tr>
                         <td>
                        
@@ -23,7 +27,10 @@ export default function NoOrdersModal({status=""})  {
                      
                         </td>
                     </tr>
+}
                 </tbody>
+                
+              
             </table>
         </div>
     );

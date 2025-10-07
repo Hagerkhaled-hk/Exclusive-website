@@ -186,7 +186,7 @@ input:hover {
   font-size: var(--text-size);
 }
 
-.account-container .AllOrders .row
+.account-container  .AllOrders .row ,.DashboardPage  .AllOrders .row 
 {
   display: none;
 }
@@ -248,12 +248,12 @@ font-size: var(--text-size);
 
 @media (max-width: 606px) {
 
-.account-container table thead
+.account-container table thead ,.DashboardPage  table thead
 {
   display: none;
 }
 
- .account-container table tbody 
+ .account-container table tbody ,.DashboardPage table tbody
 {
   display: block;
   width: 100%;
@@ -261,7 +261,7 @@ font-size: var(--text-size);
   box-shadow: none;
 
 }
- .account-container table tr {
+ .account-container table tr , .DashboardPage table tr {
 
   background-color: transparent;
     display: flex;
@@ -276,7 +276,7 @@ font-size: var(--text-size);
 
 
  }
-.account-container table  td 
+.account-container table  td  ,.DashboardPage table td 
 {
 display: flex;
         text-align: left; /* Align text to the left */
@@ -291,19 +291,19 @@ padding: 8px;
 
 }
 
-.account-container table td * 
+.account-container table td * , .DashboardPage table td *
 {
     width: 100%;
 }
 
 
-.account-container table td:last-child
+.account-container table td:last-child , .DashboardPage table td:last-child 
 {
 justify-content: center;
 }
 
 
-.account-container table td::before
+.account-container table td::before ,.DashboardPage table td::before
 {
   content: attr(data-label) ; /* Get the label from HTML */
         float: left; 
@@ -312,12 +312,16 @@ justify-content: center;
 }
 .account-container .AllOrders table  td:nth-child(5), 
 .account-container .AllOrders table  td:nth-child(6), 
-.account-container .AllOrders table  td:nth-child(7)
+.account-container .AllOrders table  td:nth-child(7),
+.DashboardPage .AllOrders table  td:nth-child(5), 
+.DashboardPage .AllOrders table  td:nth-child(6), 
+.DashboardPage .AllOrders table  td:nth-child(7)
 {
   display: none;
 } 
 
-.account-container .AllOrders table  .row
+.account-container .AllOrders table  .row,
+.DashboardPage .AllOrders table  .row
 {
   display: flex;
   margin: 0px;
@@ -325,16 +329,19 @@ justify-content: center;
   justify-content: end;
   align-items: flex-start;
 }
-.account-container table .row td 
+.account-container table .row td ,
+.DashboardPage table .row td
 {
   width: fit-content !important;
 }
-.account-container table .row td *
+.account-container table .row td *,
+.DashboardPage table .row td *
 {
 width: fit-content ;
 }
 
-.account-container   .currentOrder-container  table td:last-child
+.account-container   .currentOrder-container  table td:last-child,
+.DashboardPage  .currentOrder-container  table td:last-child
 {
   justify-content: flex-start;
 }
@@ -353,7 +360,8 @@ width: fit-content ;
     height: 5px;
   } */
    
-.account-container h2 
+.account-container h2 ,
+.DashboardPage h2
 {
   font-size: var(--sec-text-size);
 }.account-container small
@@ -372,7 +380,9 @@ width: fit-content ;
 }
 @media (max-width: 274px) {
 
- .account-container table td {
+ .account-container table td,
+ .DashboardPage  table td
+  {
 gap: 1px;
 }
  

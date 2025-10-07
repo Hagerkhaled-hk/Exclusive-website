@@ -44,6 +44,7 @@ const ViewDiscounts= lazy(()=>import("./dashboard/components/discountPart/viewDi
 const SelectDiscountProduct= lazy(()=>import( "./dashboard/components/discountPart/selectDiscountProduct.jsx"))
 const AddDiscount= lazy(()=>import( "./dashboard/components/discountPart/addDiscount.jsx"))
 const EditDiscountForm= lazy(()=>import( "./dashboard/components/discountPart/editDiscountForm.jsx"))
+const ViewOrdersAdmin= lazy(()=>import( "./dashboard/components/orderPart/viewOrder.jsx"))
 
 
 
@@ -191,6 +192,7 @@ path: "resetPassword", element: (
 )},
 
 
+
       
       
       ]
@@ -297,8 +299,17 @@ path: "resetPassword", element: (
      {
       path:"discounts/Applydiscounts/:id"
       ,element : <EditDiscountForm/>
-     }
-    
+     },
+    { path: "orders", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <ViewOrdersAdmin />
+    </Suspense>
+)},
+{ path: "order/:id", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <CurrentOrder />
+    </Suspense>
+)}
           ]
           
           

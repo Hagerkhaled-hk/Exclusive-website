@@ -24,7 +24,6 @@ export default function DashboardLayout()
         !isLogin?<ErrorPage/>
         :
 
-    <DashboardProvider >
         <ProductDashboard_Provider>
             <CategoryDashboard_Provider>
     <div className="Dasboard-layout" >
@@ -40,7 +39,6 @@ export default function DashboardLayout()
     </div>  
     </CategoryDashboard_Provider>
 </ProductDashboard_Provider>
-    </DashboardProvider>
     }
 
 

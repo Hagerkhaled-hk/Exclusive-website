@@ -7,9 +7,11 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import WishlistProvider from "./context/wishlistContext/wishlistContext.jsx"
 import PaymentProvider from './context/paymentContext/paymentContext.jsx'
 import OrderProvider from './context/orderContext/orderContext.jsx'
+import DashboardProvider from './dashboard/context/dashboardContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-
+    
+    <DashboardProvider >
      <GoogleOAuthProvider clientId="736736504858-k7297dcrj2ru3j1rlju0k6o8grmgj4qv.apps.googleusercontent.com">
 <UserProvider>
 <ProductProvider>
@@ -27,4 +29,6 @@ createRoot(document.getElementById('root')).render(
 </ProductProvider>
 </UserProvider>
 </GoogleOAuthProvider>
+</DashboardProvider >
+
 )
