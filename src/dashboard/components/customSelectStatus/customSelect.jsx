@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import './customSelect.css'; // We'll create this CSS file
+import ChangeStatusAdmin from '../../../services/APIs/orders/changeStautsAdmin';
+import { DashboardContext } from '../../context/dashboardContext';
+import toast from 'react-hot-toast';
 
-const CustomSelectStatus = ({ value, onChange  }) => {
+const CustomSelectStatus = ({ value ,id }) => {
 
-   
+     const[selectedStatus,setSelectedStatus]=useState(value);
+     const {getAdminToken} =useContext(DashboardContext);
+
  const statusOptions = [
     { value: 'Pending', label: 'Pending' },
     { value: 'Canceled', label: 'Cancel' },
@@ -11,15 +16,35 @@ const CustomSelectStatus = ({ value, onChange  }) => {
     { value: 'Shipped', label: 'Shipped' }
   ];
 
+    async function StatusChangeAPi(status)
+  {
+  console.log(id);
+  
+    let token=getAdminToken();
+    if(!token)return;
+    let res =await ChangeStatusAdmin({status:status},id,token);
+    if(res.statusCode!==200){toast.error(res.message||"unable to change state"); return false;}
+    return true;
+
+  }
+  
+async function onChange(e) {
+  let oldVal=selectedStatus;
+  setSelectedStatus(e?.target?.value);
+  let res =await StatusChangeAPi(e?.target?.value);
+  if(!res)setSelectedStatus(oldVal);
+  console.log("change");
+/*    Pending, Shipped, Processing, Delivered, Canceled
+ */}
  
   return (
     <select 
       className="custom-select"
-      value={value} 
+      value={selectedStatus} 
       onChange={onChange}
     >
       {statusOptions.map((option) => (
-        <option key={option.value} value={option.value}>
+        <option  key={option.value} value={option.value}>
           {option.label}
         </option>
       ))}

@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { data, useParams } from "react-router-dom";
 import "../productParts/editProducts/editProducts.css";
 import { Toaster, toast } from "react-hot-toast";
-import RedButton from "../../../Common/redButton/redButton";
-import Add_Disconut from "../../../services/APIs/discount/addDiscount";
-import getDiscountId from "../../../services/APIs/discount/getDiscount_id";
-import UpdateDiscount from "../../../services/APIs/discount/editDiscount";
+import RedButton from "../../../../Common/redButton/redButton";
+import Add_Disconut from "../../../../services/APIs/discount/addDiscount";
+import getDiscountId from "../../../../services/APIs/discount/getDiscount_id";
+import UpdateDiscount from "../../../../services/APIs/discount/editDiscount";
 
 // Initial state for form data
 const initialFormData = {

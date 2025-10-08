@@ -2,7 +2,6 @@
 
 export default async function UpdateAPi_Function (initialUrl,headers, intialData,stringfyData=true){
 
-    console.log("intial Api funtction" ,intialData);
     
  try {
 
@@ -21,14 +20,17 @@ const {ok , status} = res;
     {
 
         try{
+
 const resJson=await res.json();
+console.log(resJson.message);
+
 
           return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});   
         }
         
         catch(error)
         {
-          return ({ statusCode: status  ,message:'There is a problem in connection , please login again'});   
+          return ({ statusCode: status  ,message:error.message||'There is a problem in connection , please login again'});   
 
         }}
 

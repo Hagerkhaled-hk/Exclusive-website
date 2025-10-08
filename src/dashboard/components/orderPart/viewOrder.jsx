@@ -15,6 +15,7 @@ import { DashboardContext } from "../../context/dashboardContext";
 import RedButton from "../../../Common/redButton/redButton";
 import { OrderContext } from "../../../context/orderContext/orderContext";
 import CustomSelectStatus from "../customSelectStatus/customSelect";
+import ChangeStatusAdmin from "../../../services/APIs/orders/changeStautsAdmin";
 export default function ViewOrdersAdmin() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
@@ -31,15 +32,11 @@ export default function ViewOrdersAdmin() {
    const pageSize=10;
   const[orders,setOrders]=useState([]);
   const {getAdminToken}=useContext(DashboardContext);
-  const {toCurrentOrder}=useContext(OrderContext);
   const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
   const handleShow = (order, id, type) => { setModelInfo({ selectedOrderId: order, actionType: type, id: id, show: true }); };
 
-  const [selectedStatus, setSelectedStatus] = useState('pending');
  
-  const handleStatusChange = (event) => {
-    setSelectedStatus(event.target.value);
-  };
+  
 
 
   function getOrderIndex(index)
@@ -50,7 +47,8 @@ export default function ViewOrdersAdmin() {
 
   }
 
-  
+
+
 
 
 
@@ -96,7 +94,6 @@ export default function ViewOrdersAdmin() {
 
 
 
-
   return (
     <div className="viewProducts">
     <div className="AllOrders  ">
@@ -111,7 +108,7 @@ export default function ViewOrdersAdmin() {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
         <div className="left">
   <p>      <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an order to see more information.</small></p>
-  <RedButton text={"Add order"}  btn_Function={()=>{navigate("/dashboard/addproduct")}}/>
+  <RedButton text={"Add order"}  btn_Function={()=>{navigate("/dashboard/order/ProductOrder")}}/>
         
 
         </div>
@@ -166,7 +163,7 @@ export default function ViewOrdersAdmin() {
                      <td onClick={(e)=>{e.stopPropagation()}}>
             
 
-                <CustomSelectStatus onChange={handleStatusChange} value={order.status} />
+                <CustomSelectStatus  value={order.status} id={order.id} />
               </td>
            
               <td onClick={(e)=>e.stopPropagation()}>
@@ -183,7 +180,7 @@ export default function ViewOrdersAdmin() {
               <td onClick={(e)=>{e.stopPropagation()}}>
             
 
-                <CustomSelectStatus onChange={handleStatusChange} value={order.status} />
+                <CustomSelectStatus value={order.status} id={order.id} /> 
               </td>
            
               <td onClick={(e)=>e.stopPropagation()}>

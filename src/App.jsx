@@ -41,11 +41,14 @@ const ViewCategories= lazy(()=>import("./dashboard/components/categoryPart/viewC
 const EditCategory= lazy(()=>import("./dashboard/components/categoryPart/editCategory/editCategory.jsx"))
 const AddCategory= lazy(()=>import("./dashboard/components/categoryPart/addCategory/addCategory.jsx"))
 const ViewDiscounts= lazy(()=>import("./dashboard/components/discountPart/viewDiscount.jsx"))
-const SelectDiscountProduct= lazy(()=>import( "./dashboard/components/discountPart/selectDiscountProduct.jsx"))
-const AddDiscount= lazy(()=>import( "./dashboard/components/discountPart/addDiscount.jsx"))
-const EditDiscountForm= lazy(()=>import( "./dashboard/components/discountPart/editDiscountForm.jsx"))
+const SelectDiscountProductEdit= lazy(()=>import( "./dashboard/components/discountPart/editDiscount/selectDiscountProduct(edit).jsx"))
+const SelectDiscountProductAdd= lazy(()=>import( "./dashboard/components/discountPart/addDiscount/selectDiscountProduct(add).jsx"))
+const AddDiscount= lazy(()=>import( "./dashboard/components/discountPart/addDiscount/addDiscount.jsx"))
+const EditDiscountForm= lazy(()=>import( "./dashboard/components/discountPart/editDiscount/editDiscountForm.jsx"))
 const ViewOrdersAdmin= lazy(()=>import( "./dashboard/components/orderPart/viewOrder.jsx"))
 const CurrentOrderAdmin= lazy(()=>import( "./dashboard/components/orderPart/currentOrderAdmin.jsx"))
+const ProductSelectAdd_order= lazy(()=>import( "./dashboard/components/orderPart/addAdminOrder/productSelect(Add_Order).jsx"))
+
 
 
 
@@ -282,7 +285,7 @@ path: "resetPassword", element: (
      ,
      {
       path:"discounts/Applyproducts"
-      ,element : <SelectDiscountProduct/>
+      ,element : <SelectDiscountProductAdd/>
      }
      ,
      {
@@ -293,7 +296,7 @@ path: "resetPassword", element: (
      ,
      {
       path:"discounts/Applyproducts/:id"
-      ,element : <SelectDiscountProduct/>
+      ,element : <SelectDiscountProductEdit/>
      }
     
      ,
@@ -309,6 +312,11 @@ path: "resetPassword", element: (
 { path: "order/:id", element: (
     <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
         <CurrentOrderAdmin />
+    </Suspense>
+)},
+{ path: "order/ProductOrder", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <ProductSelectAdd_order />
     </Suspense>
 )}
           ]
