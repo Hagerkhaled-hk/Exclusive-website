@@ -1,0 +1,104 @@
+.currentOrder-container {
+  background: #fff;
+  border-radius: 8px;
+  font-size: var(--sec-text-size);
+  font-family: var(--Inter-regular);
+  padding:5px 2rem;
+  
+  overflow-y: auto;
+height: calc(52px * 8); /* 7 rows + 1 header row */
+}
+
+section{
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+.order-table {
+  width:65%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  font-size: var(--sec-text-size);
+  height: max-content;
+}
+
+.order-table tr:hover {
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
+.order-table th,
+.order-table td {
+  padding: 16px 12px;
+  
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: var(--text-size);
+}
+
+
+
+.order-table th {
+  font-weight: 600;
+  color: #222;
+  background: #fafafa;
+}
+
+.order-table * {
+  font-size: var(--input-txt-size);
+}
+
+.no-orders {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 2rem 0;
+  background: #fafafa;
+}
+.order-summary {
+  flex: 1;
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  max-width: 400px;
+  height: fit-content;
+}
+
+    .discountProduct{
+      padding: 5px;
+            border-radius: 5px;
+      height: 40px;
+      text-align: start;
+      vertical-align:middle;
+            width: 100%;
+
+
+    }
+    .discountProduct:hover{
+      background-color: var(--grey-hover);
+    }
+
+@media (max-width:1030px) {
+ .account-container section
+ {
+  flex-direction: column;
+  width: 100%;
+ }
+
+  .account-container section > * ,
+  .order-summary *
+  {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .order-table th,
+  .order-table td {
+    padding: 10px 6px;
+    font-size: 14px;
+  }
+}

@@ -45,6 +45,7 @@ const SelectDiscountProduct= lazy(()=>import( "./dashboard/components/discountPa
 const AddDiscount= lazy(()=>import( "./dashboard/components/discountPart/addDiscount.jsx"))
 const EditDiscountForm= lazy(()=>import( "./dashboard/components/discountPart/editDiscountForm.jsx"))
 const ViewOrdersAdmin= lazy(()=>import( "./dashboard/components/orderPart/viewOrder.jsx"))
+const CurrentOrderAdmin= lazy(()=>import( "./dashboard/components/orderPart/currentOrderAdmin.jsx"))
 
 
 
@@ -307,7 +308,7 @@ path: "resetPassword", element: (
 )},
 { path: "order/:id", element: (
     <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
-        <CurrentOrder />
+        <CurrentOrderAdmin />
     </Suspense>
 )}
           ]

@@ -8,6 +8,7 @@ import Header from '../../dashboard/common/header/header.jsx';
 import CategoryDashboard_Provider from '../../dashboard/context/categoryContext.jsx';
 import ErrorPage from '../../Common/errorPage/errorPage.jsx';
 import LoadingModal from '../../Common/modal/modal.jsx';
+import OrderDashboardProvider from '../../dashboard/context/orderDashboardContext.jsx';
 
 export default function DashboardLayout()
 {
@@ -23,7 +24,7 @@ export default function DashboardLayout()
          isLogin==undefined?<LoadingModal loading={true}/>:
         !isLogin?<ErrorPage/>
         :
-
+<OrderDashboardProvider>
         <ProductDashboard_Provider>
             <CategoryDashboard_Provider>
     <div className="Dasboard-layout" >
@@ -39,6 +40,7 @@ export default function DashboardLayout()
     </div>  
     </CategoryDashboard_Provider>
 </ProductDashboard_Provider>
+</OrderDashboardProvider>
     }
 
 

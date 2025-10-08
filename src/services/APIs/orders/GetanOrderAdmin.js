@@ -17,7 +17,7 @@ export default async function GetAnOrderAdmin(intialData,Token)
               
                if(res.statusCode===401){
                     
-          let retoken= await ReToken();
+          let retoken= await ReToken(true);
           if (!retoken) return [];
           
           res =await  FetchApi_Function(import.meta.env.VITE_UPDATE_QUNTITY_CART_API,

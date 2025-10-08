@@ -14,12 +14,12 @@ export default function AllOrders() {
   const [loading, setLoading] = useState(true);
   const [modelINfo, setModelInfo] = useState(
     { selectedOrderId: "", actionType: "", id: null, show: false });
-  const {View_Orders,Delete_Order,Cancel_Order,orders,totalPages,pageSize,page,setPage,setIsAdmin}=useContext(OrderContext);
+  const {View_Orders,Delete_Order,Cancel_Order,orders,totalPages,pageSize,page,setPage,toCurrentOrder}=useContext(OrderContext);
 
+  const navigate =useNavigate();
     const handleChange = (event,value) => {
     setPage(value);
   }; 
-  const navigate = useNavigate();
   
 
   const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
@@ -50,6 +50,7 @@ export default function AllOrders() {
   useEffect(() => {
     
     View_Orders(filter);
+    setPage(1);
 
     setTimeout(() => {
       setLoading(false);
@@ -111,7 +112,11 @@ export default function AllOrders() {
       :
           
           orders.map((order, id) => (
-            <tr   onClick={() => { setIsAdmin(false);  navigate(`/account/order/${order.id}`); }} key={id}  >
+            <tr   onClick={() => { 
+
+                             navigate(`/account/order/${order.id}`)
+
+            }} key={id}  >
               <td data-label="ID: "  >{getOrderIndex(id)}</td>
               <td  data-label="Start Date: " >{new Date(order.createdAt).toLocaleDateString()}</td>
               <td data-label="Total: " >{(order.total ).toFixed(1)} EGP</td>

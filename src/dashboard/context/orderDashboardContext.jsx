@@ -1,17 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { UserContext } from "../userContext/userContext";
-import viewOrders from "../../services/APIs/orders/viewOrders";
-import GetAnOrder from "../../services/APIs/orders/getOrder";
-import CancelOrder from "../../services/APIs/orders/cancelOrder";
-import DeleteOrder from "../../services/APIs/orders/deleteOrder";
 
-export const OrderContext = createContext();
+import { DashboardContext } from "./dashboardContext";
+import viewAdminOrders from "../../services/APIs/orders/viewAdminorders";
+import GetAnOrderAdmin from "../../services/APIs/orders/GetanOrderAdmin";
 
-export default function OrderProvider({ children }) {
+export const OrderDashboardContext = createContext();
+
+export default function OrderDashboardProvider({ children }) {
 
       const [orders, setOrders] = useState([]);
-  const { getToken } = useContext(UserContext);
+  const { getAdminToken } = useContext(DashboardContext);
   const [totalPages,setTotalPages]=useState(1);
     const [page,setPage]=useState(1);
   const pageSize=10;
@@ -23,13 +22,12 @@ export default function OrderProvider({ children }) {
 
   async function View_Orders(status = "all") {
     
-    let token = getToken();
-    console.log(token);
+    let token = getAdminToken();
     
     if (!token) return;
     let apiStatus = status === "all" ? "" : status;    
     
-      let res = await viewOrders(token, { "PageNumber": page, "Status": apiStatus ,"PageSize":pageSize });
+      let res = await viewAdminOrders(token, { "PageNumber": page, "Status": apiStatus ,"PageSize":pageSize });
       
       if(res.statusCode==200 && res?.data?.items?.length==0 ){
         
@@ -55,7 +53,7 @@ let data = res?.data;
 
 
   async function Cancel_Order(id) {
-    let token = getToken();
+    let token = getAdminToken();
     if (!token) return;
     let res = await CancelOrder(id, token);
     if (res.succeeded) { toast.success("Order Cancelled"); View_Orders(); }
@@ -63,7 +61,7 @@ let data = res?.data;
   }
 
   async function Delete_Order(id) {
-    let token = getToken();
+    let token = getAdminToken();
     if (!token) return;
     let res = await DeleteOrder(id, token);
     if (res.succeeded) { toast.success("Order Deleted"); View_Orders(); }
@@ -76,17 +74,21 @@ let data = res?.data;
 
   
   async function get_order(id) {
-    let token=""
-     token = getToken();
+    let token="";
+     token = getAdminToken();
+     console.log("token",token);
+     
     if (!token) return;
-    let res = await GetAnOrder(id, token);
+   let  res = await GetAnOrderAdmin(id, token);
+   console.log(res);
+   
          setCurrentOrder(res?.data || {count:0});
   }
 
 
   return (
-    <OrderContext.Provider value={{View_Orders,Delete_Order,Cancel_Order,orders,totalPages,pageSize,setPage,page,get_order,currentOrder}}>
+    <OrderDashboardContext.Provider value={{View_Orders,Delete_Order,Cancel_Order,orders,totalPages,pageSize,setPage,page,get_order,currentOrder}}>
       {children}
-    </OrderContext.Provider>
+    </OrderDashboardContext.Provider>
   );
 }

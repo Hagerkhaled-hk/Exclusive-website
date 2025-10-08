@@ -14,6 +14,7 @@ import viewAdminOrders from "../../../services/APIs/orders/viewAdminorders";
 import { DashboardContext } from "../../context/dashboardContext";
 import RedButton from "../../../Common/redButton/redButton";
 import { OrderContext } from "../../../context/orderContext/orderContext";
+import CustomSelectStatus from "../customSelectStatus/customSelect";
 export default function ViewOrdersAdmin() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
@@ -29,12 +30,16 @@ export default function ViewOrdersAdmin() {
   const [ page,setPage]=useState(1);
    const pageSize=10;
   const[orders,setOrders]=useState([]);
-
   const {getAdminToken}=useContext(DashboardContext);
-  const {setIsAdmin}=useContext(OrderContext);
+  const {toCurrentOrder}=useContext(OrderContext);
   const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
   const handleShow = (order, id, type) => { setModelInfo({ selectedOrderId: order, actionType: type, id: id, show: true }); };
 
+  const [selectedStatus, setSelectedStatus] = useState('pending');
+ 
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
 
 
   function getOrderIndex(index)
@@ -46,19 +51,10 @@ export default function ViewOrdersAdmin() {
   }
 
   
-    const getStatusClass = (status) => {
-      switch (status) {
-        case "Pending": return "status-pending";
-        case "Shipped,": return "status-inprogress";
-        case "Delivered": return "status-completed";
-        case "Canceled": return "status-cancelled";
-        default: return "";
-      }
-    };
 
 
 
-     async function View_Orders(status="all") {
+     async function View_AdminOrders(status="all") {
         
         let token = getAdminToken();
         console.log(token);
@@ -91,7 +87,7 @@ export default function ViewOrdersAdmin() {
       }
   useEffect(() => {
     
-    View_Orders(filter);
+    View_AdminOrders(filter);
 
     setTimeout(() => {
       setLoading(false);
@@ -143,7 +139,6 @@ export default function ViewOrdersAdmin() {
             <th>Total</th>
             <th>Status</th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -160,26 +155,20 @@ export default function ViewOrdersAdmin() {
       :
           
           orders.map((order, id) => (
-            <tr   onClick={() => { setIsAdmin(true); navigate(`/dashboard/order/${order.id}`); }} key={id}  >
+            <tr   onClick={() => {   
+               navigate(`/dashboard/order/${order.id}`)
+}} key={id}  >
               <td data-label="ID: "  >{getOrderIndex(id)}</td>
               <td data-label="Buyer: "  >{order.buyerName}</td>
               <td  data-label="Start Date: " >{new Date(order.createdAt).toLocaleDateString()}</td>
               <td data-label="Total: " >{(order.total ).toFixed(1)} EGP</td>
               <div className="row">
-                  <td >
-                <span className={`status-badge ${getStatusClass(order.status)}`}>
-                  {order.status}
-                </span>
+                     <td onClick={(e)=>{e.stopPropagation()}}>
+            
+
+                <CustomSelectStatus onChange={handleStatusChange} value={order.status} />
               </td>
-              <td onClick={(e)=>e.stopPropagation()} >
-                <Button
-                  className="btn cancel-icon"
-                  disabled={order.status !== "Pending"}
-                  onClick={() => { handleShow(order.id, id, "cancel"); }}
-                >
-                  Cancel
-                </Button>
-              </td>
+           
               <td onClick={(e)=>e.stopPropagation()}>
                 <Button
                   className="btn cancel-icon"
@@ -191,20 +180,12 @@ export default function ViewOrdersAdmin() {
                 </Button>
               </td>
               </div>
-              <td >
-                <span className={`status-badge ${getStatusClass(order.status)}`}>
-                  {order.status}
-                </span>
+              <td onClick={(e)=>{e.stopPropagation()}}>
+            
+
+                <CustomSelectStatus onChange={handleStatusChange} value={order.status} />
               </td>
-              <td onClick={(e)=>e.stopPropagation()} >
-                <Button
-                  className="btn cancel-icon"
-                  disabled={order.status !== "Pending"}
-                  onClick={() => { handleShow(order.id, id, "cancel"); }}
-                >
-                  Cancel
-                </Button>
-              </td>
+           
               <td onClick={(e)=>e.stopPropagation()}>
                 <Button
                   className="btn cancel-icon"
