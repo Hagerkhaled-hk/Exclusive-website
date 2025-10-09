@@ -2,7 +2,7 @@ import { Spinner } from "react-bootstrap";
 import "./redButton.css";
 
 
-export default function RedButton({text,className="",btn_Function})
+export default function RedButton({text,className="",SpinnerRef=null,btn_Function})
 {
 
 
@@ -13,7 +13,7 @@ export default function RedButton({text,className="",btn_Function})
 
 {text} 
    </span>
-      <Spinner className="processing"/>
+      <Spinner ref={SpinnerRef} className="processing"/>
 
 
    </button>    </div>

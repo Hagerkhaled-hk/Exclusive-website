@@ -7,6 +7,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "./App.css";
+import AddUserForm from "./dashboard/components/userPart/addUser/addUserDesign.jsx";
 
 
 const  ForgetPassword = lazy(()=>import ("./pages/forgetpassword/forgetpassword.jsx")) ;
@@ -48,6 +49,7 @@ const EditDiscountForm= lazy(()=>import( "./dashboard/components/discountPart/ed
 const ViewOrdersAdmin= lazy(()=>import( "./dashboard/components/orderPart/viewOrder.jsx"))
 const CurrentOrderAdmin= lazy(()=>import( "./dashboard/components/orderPart/currentOrderAdmin.jsx"))
 const ProductSelectAdd_order= lazy(()=>import( "./dashboard/components/orderPart/addAdminOrder/productSelect(Add_Order).jsx"))
+const AddOrderForm= lazy(()=>import( "./dashboard/components/orderPart/addAdminOrder/addOrderAdminForm.jsx"))
 
 
 
@@ -317,6 +319,16 @@ path: "resetPassword", element: (
 { path: "order/ProductOrder", element: (
     <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
         <ProductSelectAdd_order />
+    </Suspense>
+)},
+{ path: "order/addOrder", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <AddOrderForm />
+    </Suspense>
+)},
+{ path: "addUser", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <AddUserForm />
     </Suspense>
 )}
           ]

@@ -1,16 +1,23 @@
 import React, { useContext } from 'react';
 import "./css/Header.css"
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { DashboardContext } from '../../context/dashboardContext';
 import { UserContext } from '../../../context/userContext/userContext';
+import toast from 'react-hot-toast';
+import Logout from '../../../services/APIs/Auth/logout';
 
 export default function Header() {
-    const { path } = useParams();
-    const {navOpen, setNavOpen} = useContext(DashboardContext);
-const {isLogin}=useContext(UserContext);
+    const  path  = useLocation();
+    const {navOpen, setNavOpen,getAdminToken,isAdminLogin} = useContext(DashboardContext);
+const navigate =useNavigate();
 
-function Logout()
+async function Log_out()
 {
+let token =getAdminToken();
+if(!token)return;
+ let res = await Logout(token);
+    if(res.statusCode==200){  localStorage.removeItem('adminData'); navigate("/ADMIN__LOGINDASHBOARD");  }
+    else toast.error(res.message||"Unable to logout");
     
 }
 
@@ -26,14 +33,13 @@ function Logout()
                     ☰
                 </button>
                 <p className='m-0'>
-                    <span>Pages</span> / {path ?? 'Dashboard'}
+                    <span>Pages</span>  {path.pathname?? 'Dashboard'}
                 </p>
             </div>
             <div className="right">
-                <div className="input">
-                    <input type="text" placeholder="Type here" />
-                </div>
-                <button onClick={()=>{}} className='btn '>{isLogin ?"Logout" :"Login"}</button>
+               
+                <button onClick={()=>{Log_out();
+}} className='btn '>{isAdminLogin ?"Logout" :"Login"}</button>
             </div>
         </div>
     );

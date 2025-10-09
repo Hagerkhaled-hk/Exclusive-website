@@ -187,6 +187,8 @@ p
 width: 50px;
 height: 50px;
 border-radius: 50%;
+position: relative;
+
 }
 
 .viewProducts .img-table .images .img-container img 
@@ -196,3 +198,18 @@ width: 100%;
 height: 100%;
 }
 
+.viewProducts  .out-of-stock-overlay 
+{
+    width: fit-content;
+  height: fit-content;
+  font-size:8px;
+  background-color: transparent;
+  padding: 5px;
+}
+
+.viewProducts  .out-of-stock-overlay *
+{
+    font-size:8px;
+padding: 5px;
+background-color: #e74d3c6f;
+}

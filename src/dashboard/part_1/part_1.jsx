@@ -16,7 +16,7 @@ import axios from 'axios';
 
 export default function Part1()
 {
-const [pData,setPData]=useState([0]);
+const [pData,setPData]=useState([30,44,50,65,82,50,90,45,60]);
 /* async function getPdata() {
   
   const {data} = await axios.get(import.meta.env.VITE_SalesOverMonths_BASE);

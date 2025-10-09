@@ -3,27 +3,32 @@ import ReGenerateToken from "../Auth/reGenerateToken";
 
 export async function ReToken(isAdmin)
     {
-        console.log("Retoken Call");
+        console.log("isAdmin",isAdmin);
         
         let Data_local=isAdmin?localStorage.getItem("adminData"):localStorage.getItem("userData");
 
            let Data= JSON.parse(Data_local) ;
 
-                 console.log("Data.refreshToken",Data.refreshToken);
+                 console.log("Data.refreshToken",Data?.refreshToken);
                    
-    let res = await ReGenerateToken(Data.refreshToken);
+    let res = await ReGenerateToken(Data?.refreshToken);
 if(!res.Data){
-    
-    toast(
-  "Your session has expired, please login again.",
-  {
-    duration: 3000,
-  }
-);
-localStorage.removeItem(isAdmin?"adminData":"userData");
-(!isAdmin)&&localStorage.removeItem("user_Address_Payment");
+  
+  toast(
+"Your session has expired, You have to  login again in sec ...",
+{
+  duration: 3000,
+}
+);    
 
-window.location.href="/login";
+  setTimeout(()=>{
+
+    
+    localStorage.removeItem(isAdmin?"adminData":"userData");
+    (!isAdmin)&&localStorage.removeItem("user_Address_Payment");
+    window.location.href=isAdmin?"/ADMIN__LOGINDASHBOARD":"/login" ;
+  },3000)
+
 
 }
     

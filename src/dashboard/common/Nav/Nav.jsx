@@ -14,6 +14,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { MdCategory } from "react-icons/md";
 import { DashboardContext } from '../../context/dashboardContext';
 import { MdOutlineDiscount } from "react-icons/md";
+import { BsCartPlus } from "react-icons/bs";
 
 export default function Nav() {
     const {navOpen, setNavOpen} = useContext(DashboardContext);
@@ -83,7 +84,7 @@ const navigate=useNavigate();
                         <ul className='page-list'>
                             <li >
                                 
-                                 <NavLink to={"/users"}>
+                                 <NavLink to={"adduser"}>
                                     <span className='logo' style={{color:"rgb(200 99 100)"}}> <FaUserFriends/></span>
                                       Users</NavLink></li>
                             <li > <NavLink to={"products"}>  
@@ -96,28 +97,28 @@ const navigate=useNavigate();
                                 <span className='logo'><MdOutlineDiscount  style={{color:"rgb(180 99 100)"}}/></span>
                                 discounts </NavLink></li>
                             <li > <NavLink to={"orders"}>  
-                                <span className='logo'><MdOutlineDiscount  style={{color:"rgb(180 99 100)"}}/></span>
+                                <span className='logo'><BsCartPlus  style={{color:"rgb(180 99 100)"}}/></span>
                                 orders </NavLink></li>
                         </ul>
                     </motion.div>
 
 </li>
                 <li>
-                    <NavLink to={"/billing"} >
+                    <a to={""} >
                         <span className="logo">
                             <CiCreditCard1 style={{color:"green"}} />
                         </span>
                         Billing
-                    </NavLink>
+                    </a>
                 </li>
 
                 <li>
-                    <NavLink to={"/Rtl"}>
+                    <a to={"#"}>
                         <span className="logo">
                             <MdOutlineLanguage style={{color:"rgb(251 99 64)"}}/>
                         </span>
                         RTL
-                    </NavLink>
+                    </a>
                 </li>
                 <li className='account'>
                     <div className="top">

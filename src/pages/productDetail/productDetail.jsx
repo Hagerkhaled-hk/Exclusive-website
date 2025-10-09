@@ -16,6 +16,7 @@ import { UserContext } from "../../context/userContext/userContext";
 import AddToWishlist from "../../services/APIs/wishlist/addToWishlist";
 import AddTOCart from "../../services/APIs/cart/addToCart";
 import LoadingModal from "../../Common/modal/modal";
+import OutOfStock from "../../Common/outOfStock/outOfStock";
 
 
 export default function ProductDetail() {
@@ -171,9 +172,7 @@ slidesPerView:2,
 
 {
   !products.stock ?
-      <div class="out-of-stock-overlay">
-    <span class="oos-text">OUT OF STOCK</span>
-  </div>
+    <OutOfStock/>
   :
   ""
 

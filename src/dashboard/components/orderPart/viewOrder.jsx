@@ -49,7 +49,11 @@ export default function ViewOrdersAdmin() {
 
 
 
-
+function AddOrderPath()
+{
+  localStorage.removeItem("OrderselectedProducts")
+    navigate("/dashboard/order/ProductOrder")
+}
 
 
      async function View_AdminOrders(status="all") {
@@ -108,7 +112,8 @@ export default function ViewOrdersAdmin() {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
         <div className="left">
   <p>      <small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an order to see more information.</small></p>
-  <RedButton text={"Add order"}  btn_Function={()=>{navigate("/dashboard/order/ProductOrder")}}/>
+  <RedButton text={"Add order"}  btn_Function={()=>{
+  AddOrderPath()}}/>
         
 
         </div>

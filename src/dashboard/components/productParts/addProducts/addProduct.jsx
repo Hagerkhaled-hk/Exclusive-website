@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductDashboard_Context } from "../../../context/productContext";
-import ProductById from "../../../../services/APIs/products/get_Product_Id";
-import LoadingModal from "../../../../Common/modal/modal";
+import "../../productParts/viewProducts/viewProducts.css";
 import { Toaster, toast } from "react-hot-toast";
 import RedButton from "../../../../Common/redButton/redButton";
 import Viewateg from "../../../../services/APIs/category/ViewCateg";
@@ -222,7 +221,7 @@ console.log("validation ERROrs ===================",validationErrors);
     
    
     return (
-        <div className="EditProduct DashboardPage AddProduct ">
+        <div className="EditProduct ViewProducts DashboardPage AddProduct ">
             <Toaster position="top-center" reverseOrder={false} />
 
                 <div className="form-container">

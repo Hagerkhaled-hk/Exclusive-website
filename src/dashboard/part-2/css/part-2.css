@@ -35,7 +35,7 @@
   -webkit-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
           box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Equivalent to Tailwind's shadow-lg */
   max-width: 28rem;
-  width: 250px;
+  width: 280px;
   height: 150px;
 }
 .Part2-Dashboard .text-section {
@@ -73,16 +73,21 @@
 }
 .Part2-Dashboard .icon-section {
   -ms-flex-negative: 0;
-      flex-shrink: 0; /* Equivalent to Tailwind's flex-shrink-0 */
+      flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  /* Equivalent to Tailwind's flex-shrink-0 */
 }
 .Part2-Dashboard .icon-section .fas {
   color: hsl(217, 91%, 60%); /* Equivalent to Tailwind's text-blue-500 */
   font-size: 2.25rem; /* Equivalent to Tailwind's text-3xl */
-  padding: 0.75rem; /* Equivalent to Tailwind's p-3 */
+  padding: 4px; /* Equivalent to Tailwind's p-3 */
   background-color: #8884d8; /* Equivalent to Tailwind's bg-blue-100 */
-  border-radius: 9999px; /* Equivalent to Tailwind's rounded-full */
+  border-radius: 50%; /* Equivalent to Tailwind's rounded-full */
   -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Equivalent to Tailwind's shadow-md */
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }

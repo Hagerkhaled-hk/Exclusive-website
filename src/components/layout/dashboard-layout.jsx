@@ -16,8 +16,8 @@ export default function DashboardLayout()
 
     useEffect(()=>{
         let data = localStorage.getItem("adminData");
-        if(data)setIsLogin(true) ;
-        else setIsLogin(false) 
+        if(data){ let res = JSON.parse(data) ; if(res.accessToken){setIsLogin(true); return;}} 
+         setIsLogin(false) 
     },[])
     return <>
     {

@@ -52,6 +52,8 @@ if(!SelectedProducts_local)return;
 
 
  return (
-<ProductSelectList  selectedProducts={selectedProducts} selectDiscountProduct={selectDiscountProduct} Next={Next} Get_LocalStorage_Data={Get_LocalStorage_Data} setSelectedProducts={setSelectedProducts}/>
+<ProductSelectList  selectedProducts={selectedProducts} selectDiscountProduct={selectDiscountProduct} Next={Next} Get_LocalStorage_Data={Get_LocalStorage_Data} setSelectedProducts={setSelectedProducts}
+Title={`${IsStateFunction?"Add discount":"Edit Discount"}`}
+/>
  );
 }

@@ -6,8 +6,9 @@ import LoadingModal from "../../../Common/modal/modal";
 import RedButton from "../../../Common/redButton/redButton";
 import Viewateg from "../../../services/APIs/category/ViewCateg";
 import { Toaster } from "react-hot-toast";
+import OutOfStock from "../../../Common/outOfStock/outOfStock";
 
-export default function ProductSelectList({Get_LocalStorage_Data,selectedProducts,Next,selectDiscountProduct,setSelectedProducts,visibleQuantity=false,handleQuantityChange,selectOrderProduct}) {
+export default function ProductSelectList({Get_LocalStorage_Data,selectedProducts,Next,selectDiscountProduct,setSelectedProducts,visibleQuantity=false,handleQuantityChange,selectOrderProduct ,Title=""}) {
  const { products } = useContext(ProductDashboard_Context);
  const [loading, setLoading] = useState(true);
  const [filter, setFilter] = useState([]);
@@ -43,16 +44,25 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
     if(e.target.checked){
      let allData=[];
      filter.map((item)=>{ 
-     allData.push({"productId":item.id,"categoryID":item.categoryId})  
+    
+   !visibleQuantity?
+      allData.push({"productId":item.id,"categoryID":item.categoryId})  
+      :
+      setOrderSellectedToAll(allData,item);
      })
-
       setSelectedProducts(allData)
     }
     else setSelectedProducts([]);
-
- 
-
 }
+
+function setOrderSellectedToAll(allData,item)
+{
+
+  const productExists=selectedProducts.find((current)=>current.productId===item.id);
+        if(productExists)allData.push(productExists);
+        else if(item.stock) allData.push({"productId":item.id,"quantity":1});
+}
+
  useEffect(() => { 
   getCategories();
   setTimeout(() => {
@@ -82,7 +92,7 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
     <>
      <Toaster position="top-center" reverseOrder={false} />
 
-     <h2>Add discount</h2>
+     <h2>{Title}</h2>
      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
       <div className="left">
        <p style={{ marginTop: "0px" }}><small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to Edit. </small></p>
@@ -121,7 +131,7 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
      </div>
 
 <div style={{ fontSize:"13px"}} className="form-input d-flex justify-content-start align-items-center mt-3 ms-1 mb-0">
-<input value="selectAll" onChange={selectAll} id="selectAll" type="checkbox" />
+<input value="selectAll"  onChange={selectAll} id="selectAll" type="checkbox" />
 <label htmlFor="selectAll" className="m-0 ms-1 ">select All</label>
 
 </div>
@@ -156,7 +166,8 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
            <input
             type="checkbox"
             checked={selectedProducts.some((item)=>(item?.productId===product.id))  }
-            onChange={() => {!visibleQuantity ? selectDiscountProduct(product.id,product.categoryId ):selectOrderProduct(product.id,1,product.stock)}}
+            onChange={() => 
+              {!visibleQuantity ? selectDiscountProduct(product.id,product.categoryId ):selectOrderProduct(product.id,1,product.stock)}}
            />
           </td>
                     {/* Quantity Input */}
@@ -173,7 +184,14 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
           <td data-label="ID: " >{id + 1}</td>
           <td className="img-table" >
            <div className="images">
-            <div className="img-container">{product.images.map((image, idx) => <img key={idx} src={image} alt="" />)}</div>
+            <div  className="img-container">{product.images.map((image, idx) => <img key={idx} src={image} alt="" />)}
+            {
+              !product.stock ? 
+            <OutOfStock/>
+            :
+            ""
+            }
+            </div>
            </div>
           </td>
           <td data-label="Name: " >{product.name}</td>

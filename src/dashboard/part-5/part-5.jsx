@@ -8,22 +8,32 @@ import { MdFeedback } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 export default function Part5()
 {
-/*     const {FeedBackApi} =useContext(FetchApIsContext);
-
- */const [feedBack,setFeedBack]=useState([]);
-
 
 const Icons=[<BiSolidFoodMenu/>,<MdOutlineFoodBank/>,<FaUser/>,<MdFeedback/>];
+  const feedBack= [
+   {
+      "name":  "Orders",
+      "completed today": 215,
+      "pending": 5
+    },
+     {
+            "name":  "Reservations",
 
-   /*  async function  getFeedBack() {
-const data= await FeedBackApi();
-setFeedBack(data);
+      "made today": 32,
+      "upcoming this week": 124
+    },
+   {
+      "name":  "Staff",
+      "on duty": 8,
+      "available": 2
+    },
+    {
+      "name": "Customer feedback",
+      "positive reviews": 15,
+      "negative reviews": 1
+    }
+  ]
 
-    } */
-/* 
-    useEffect(()=>{ 
-        getFeedBack();
-    },[]) */
 
     return <div className="Part5">
 <h5>Categories</h5>

@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import Viewateg from "../../../services/APIs/category/ViewCateg";
 import ProductCards from "../../ProductCards/ProductCards";
 import ViewProducts from "../../../services/APIs/products/viewProducts";
+import LoadingModal from "../../../Common/modal/modal";
 
 
 export default function HomePart2()
@@ -26,6 +27,7 @@ const [products,setProducts]=useState([]);
 
 async function Getproducts(categName)
 {
+ 
     console.log(categName);
     
         let res_products =await ViewProducts();
@@ -52,6 +54,7 @@ Getproducts(res.data[4].name);
 
     })()
 
+  
 },[])
 
 
@@ -124,8 +127,8 @@ Getproducts(res.data[4].name);
 
             <ProductCards products={products} />
             :
-            <p style={{color:"red" ,fontWeight:"bold" ,marginTop:"25px"}}>No products found</p>
-        }
+<LoadingModal text={"No product founds in this Category"} />
+}
 </div>
 
     </div>

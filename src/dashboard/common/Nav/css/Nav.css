@@ -14,6 +14,7 @@
   transition: var(--hover-transition);
   -webkit-transform: translateX(0px);
           transform: translateX(0px);
+  overflow-y: scroll;
 }
 .Nav-dashboard .header {
   position: sticky;

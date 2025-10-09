@@ -14,6 +14,7 @@ import { WishlistContext } from "../../context/wishlistContext/wishlistContext";
 import RemoveWishlist from "../../services/APIs/wishlist/removeWishlist";
 import { FaRegTrashCan } from "react-icons/fa6";
 import LoadingModal from "../../Common/modal/modal";
+import OutOfStock from "../../Common/outOfStock/outOfStock";
 export default function ProductCards({ products }) {
   
   const Navigate =useNavigate();
@@ -112,9 +113,7 @@ DeleteFromWishlist(product.productId,product.name || product.productName)
               </div>
               {
  !product?.stock?
-                     <div class="out-of-stock-overlay">
-    <span class="oos-text">OUT OF STOCK</span>
-  </div>
+   <OutOfStock/>
   :
   ""
 
