@@ -6,18 +6,18 @@ export default function ProductSelectAdd_order() {
   const navigate = useNavigate();
   
 
-   const [selectedOrderProducts, setSelectedOrderProducts] = useState([]);
+   const [selectedProducts, setSelectedProducts] = useState([]);
 
 
 
 
-  const handleQuantityChange = (productId, e) => {
+  const handleQuantityChange = (productId, e,stock) => {
     const quantity = parseInt(e.target.value);
     
-    if (!isNaN(quantity) && quantity >= 1) {
+    if (!isNaN(quantity) && quantity >= 1 && quantity <=stock) {
         selectOrderProduct(productId, quantity);
     } else if (quantity === 0) {
-       setSelectedOrderProducts(prev => prev.filter(item => item.productId !== productId));
+       setSelectedProducts(prev => prev.filter(item => item.productId !== productId));
     }
   };
 
@@ -29,7 +29,7 @@ function Next()
 }
 
 
-  function get_Selected_localstorage(setSelectedProducts)
+  function get_Selected_Order_localstorage(setSelectedProducts)
   {
    let SelectedProducts_local = localStorage.getItem("OrderselectedProducts");
    
@@ -45,7 +45,7 @@ if(!SelectedProducts_local)return;
     // Ensure quantity is a number and at least 1, or default to 1 if invalid
     const newQuantity = Math.min( Math.max(1, Number(quantity) || 1) ,stock); 
 
-    setSelectedOrderProducts(prev => {
+    setSelectedProducts(prev => {
       const existingProduct = prev.find(item => item.productId === productId);
       
       if (existingProduct) {
@@ -54,7 +54,7 @@ if(!SelectedProducts_local)return;
             ? { ...item, quantity: newQuantity } 
             : item
         );
-      } else if (newQuantity > 0) {
+      } else if (newQuantity > 0 ) {
         return [...prev, { productId, quantity: newQuantity }];
       }
       return prev;
@@ -65,9 +65,10 @@ if(!SelectedProducts_local)return;
 
 
   return (
-    <ProductSelectList  get_Selected_localstorage={get_Selected_localstorage} Next={Next}
-        IsStateFunction={true}
-
+    <ProductSelectList  Get_LocalStorage_Data={get_Selected_Order_localstorage} Next={Next}
+     visibleQuantity={true} handleQuantityChange={handleQuantityChange}
+selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts}
+    selectOrderProduct={selectOrderProduct}
     />
   );
 }

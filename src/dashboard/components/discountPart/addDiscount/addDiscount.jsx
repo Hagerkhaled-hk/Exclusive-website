@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { data, useParams } from "react-router-dom";
-import "../productParts/editProducts/editProducts.css";
+import {  useEffect, useState } from "react";
+import "../../productParts/editProducts/editProducts.css";
 import { Toaster, toast } from "react-hot-toast";
 import RedButton from "../../../../Common/redButton/redButton";
 import Add_Disconut from "../../../../services/APIs/discount/addDiscount";
@@ -46,11 +45,7 @@ export default function AddDiscount() {
                     productIds: productIds,
                     categoryIds: [...new Set(categoryIds)] 
                 }));
-                
-                console.log("Loaded selected products:", selectedProducts);
-                console.log("Product IDs:", productIds);
-                console.log("Category IDs:", categoryIds);
-                
+                                
             } catch (error) {
                 console.error("Error parsing selected products from localStorage:", error);
                 toast.error("Error loading selected products");

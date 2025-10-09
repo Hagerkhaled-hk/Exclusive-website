@@ -7,13 +7,14 @@ import RedButton from "../../../Common/redButton/redButton";
 import Viewateg from "../../../services/APIs/category/ViewCateg";
 import { Toaster } from "react-hot-toast";
 
-export default function ProductSelectList({Get_LocalStorage_Data,selectedProducts,Next,selectDiscountProduct,visibleQuantity=false}) {
+export default function ProductSelectList({Get_LocalStorage_Data,selectedProducts,Next,selectDiscountProduct,setSelectedProducts,visibleQuantity=false,handleQuantityChange,selectOrderProduct}) {
  const { products } = useContext(ProductDashboard_Context);
  const [loading, setLoading] = useState(true);
  const [filter, setFilter] = useState([]);
  const [categories, setCategories] = useState([]);
 
 
+ 
 
 
 
@@ -49,20 +50,28 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
     }
     else setSelectedProducts([]);
 
- }
- useEffect(() => {
-  setFilter([...products]);
+ 
 
-    Get_LocalStorage_Data(); 
-  }, [products])
-
-
+}
  useEffect(() => { 
   getCategories();
   setTimeout(() => {
    setLoading(false);
-  }, 2000);
+  }, 5000);
  }, []);
+
+
+ useEffect(() => {
+  setFilter([...products]);
+  console.log(localStorage.getItem("selectedProducts"));
+  
+ Get_LocalStorage_Data();
+    
+  }, [products])
+ 
+  
+
+
 
 
  return (
@@ -120,7 +129,7 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
       <thead>
        <tr>
         <th>Select</th>
-                <th>Quantity</th>
+                <th style={{visiblity:visibleQuantity?"visible":"hidden"}}>Quantity</th>
         <th>ID</th>
         <th>Images</th>
         <th>Name</th>
@@ -139,26 +148,24 @@ export default function ProductSelectList({Get_LocalStorage_Data,selectedProduct
         :
         filter?.map((product, id) => {
                   // Retrieve the current quantity from the order state, default to 1
-                  if(visibleQuantity){
-                   const selectedOrder = selectedOrderProducts.find(item => item.productId === product.id);
-                  const currentQuantity = selectedOrder ? selectedOrder.quantity : 1; 
-                  }
+            const selectedProduct= selectedProducts.find((item)=>item.productId==product.id)
+                  
                   return (
          <tr style={{cursor:"default"}} key={product.id}>
           <td data-label="Select: " onClick={(e) => e.stopPropagation()}>
            <input
             type="checkbox"
             checked={selectedProducts.some((item)=>(item?.productId===product.id))  }
-            onChange={() => selectDiscountProduct(product.id,product.categoryId)}
+            onChange={() => {!visibleQuantity ? selectDiscountProduct(product.id,product.categoryId ):selectOrderProduct(product.id,1,product.stock)}}
            />
           </td>
                     {/* Quantity Input */}
-                    <td data-label="Quantity: " onClick={(e) => e.stopPropagation()}>
+                    <td style={{visiblity:visibleQuantity?"block":"none"}} data-label="Quantity: " onClick={(e) => e.stopPropagation()}>
                         <input
                           type="number"
                           min="1"
                           // Ensures input is controlled, using state quantity or default of 1
-                          value={currentQuantity} 
+                          value={selectedProduct?.quantity||1} 
                           onChange={(e) => handleQuantityChange(product.id, e,product?.stock)}
                           style={{ width: '60px', padding: '5px', textAlign: 'center' }}
                         />

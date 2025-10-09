@@ -7,25 +7,19 @@ export default function SelectDiscountProductEdit() {
   const { products } = useContext(ProductDashboard_Context);
   const navigate = useNavigate();
   const{id} = useParams()// State to store selected product IDs
-
- 
-
-
-
-
 function Next()
 {
-  
   navigate(`/dashboard/discounts/Applydiscounts/${id}`)
    
 }
 
-
   function get_Selected_localstorage(selectDiscountProduct)
   {
    const editSelectedDiscount = localStorage.getItem("editSelectedDiscount");
+   console.log(editSelectedDiscount);
+   
+   if(!editSelectedDiscount)return;
   let editSelectedDiscount_parsed= JSON.parse(editSelectedDiscount);
-  if(!editSelectedDiscount_parsed)return;
 
  editSelectedDiscount_parsed.forEach(productId => {
     const product = products.find(item => item.id === productId);
@@ -38,11 +32,6 @@ function Next()
   });
 
   }
-
-
-
-
-
 
   return (
     <ProductDiscountList  get_Selected_localstorage={get_Selected_localstorage} Next={Next} 

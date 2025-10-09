@@ -5,39 +5,12 @@ import ProductDiscountList from "../productDiscountList/productDiscountList";
 
 export default function SelectDiscountProductAdd() {
   const navigate = useNavigate();
-
- 
-
-
-
-
 function Next()
-{
-  
-   
-    navigate("/dashboard/discounts/Applydiscounts");
+{ navigate("/dashboard/discounts/Applydiscounts");
 }
 
-
-  function get_Selected_localstorage(setSelectedProducts)
-  {
-   let SelectedProducts_local = localStorage.getItem("selectedProducts");
-   
-if(!SelectedProducts_local)return;
-     SelectedProducts_local=JSON.parse(SelectedProducts_local);
-     setSelectedProducts(SelectedProducts_local);
-
-
-
-  }
-
-
-
-
-
-
   return (
-    <ProductDiscountList  get_Selected_localstorage={get_Selected_localstorage} Next={Next}
+    <ProductDiscountList   Next={Next}
         IsStateFunction={true}
 
     />

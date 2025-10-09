@@ -51,6 +51,8 @@ setActiveOnly(e.target.value);
 
     function editFunction(selectedProducts,id)
     {
+      localStorage.removeItem("selectedProducts");
+
     localStorage.setItem("editSelectedDiscount",JSON.stringify(selectedProducts));
 
 
