@@ -48,9 +48,9 @@ useEffect(()=>{
     (async ()=>{
         let res = await Viewateg();
         setcategories(res.data);
-        setActCateg(res.data[4].name);
+        setActCateg(res.data[0].name);
 
-Getproducts(res.data[4].name);
+Getproducts(res.data[0].name);
 
     })()
 

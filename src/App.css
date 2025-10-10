@@ -157,14 +157,7 @@ body
    }
 }
 
-/* 
-@media  (min-width: 1700px) {
 
-  body #root
-  {
-    width: 75vw;
-  }
-} */
 @media  (min-width: 2000px) {
 
   body #root

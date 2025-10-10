@@ -27,6 +27,7 @@
   width: 18%;
 }
 .HomePart1 .left ul {
+  height: 100%;
   margin: 0px;
   list-style: none;
   color: var(--black-color);
