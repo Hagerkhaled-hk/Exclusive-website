@@ -246,7 +246,7 @@ font-size: var(--text-size);
   }
 }
 
-@media (max-width: 606px) {
+@media (max-width: 658px) {
 
 .account-container table thead ,.DashboardPage  table thead
 {

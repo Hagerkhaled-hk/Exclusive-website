@@ -10,6 +10,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import HomeHeader from "../../Common/homeHeader/homeHeader";
 import { ProductContext } from "../../context/productContext/productContext";
 import LoadingModal from "../../Common/modal/modal";
+import { UserContext } from "../../context/userContext/userContext";
 export default function Wishlist()
 {
  
@@ -19,10 +20,17 @@ const {products}=useContext(ProductContext);
 const Navigate=useNavigate(null);
 const [loading,setLoading]=useState(true);
 
+const {isLogin}=useContext(UserContext);
+
 useEffect(()=>{
+      if(!isLogin()) Navigate("/signup");
+else
+{
     setTimeout(() => {
 setLoading(false);
     }, 2000);
+
+}
 },[])
 
 

@@ -144,7 +144,7 @@ margin-top: 50px;
 }
 
 
-@media (max-width:1030px) {
+@media (max-width:1030px) and (min-width:1031px){
     .HomePart2 .products-container, .HomePart5 .products-container, .ProductsPage .products-container
     {
             grid-template-columns: repeat(3, auto) !important;

@@ -22,6 +22,9 @@ export default  function ProductDashboard_Provider({children})
     }
 
     async function Delete_product(id , name) {
+        toast.loading("Deleting product...", {
+  duration: 1500
+});
         let res = await DeleteProduct(id) ;
         
         if(res.statusCode!=200)toast.error(res.message || `Unable to delete ${name} `)

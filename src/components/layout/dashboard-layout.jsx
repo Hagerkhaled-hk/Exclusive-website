@@ -9,6 +9,7 @@ import CategoryDashboard_Provider from '../../dashboard/context/categoryContext.
 import ErrorPage from '../../Common/errorPage/errorPage.jsx';
 import LoadingModal from '../../Common/modal/modal.jsx';
 import OrderDashboardProvider from '../../dashboard/context/orderDashboardContext.jsx';
+import "../../pages/account/account.css"
 
 export default function DashboardLayout()
 {

@@ -4,10 +4,11 @@ export default function Part3()
 {
 
     return <div className="Part3-Dashboard">
-<div className="text">
+        <div className="Part3-container">
 
-<h6>Get started with Coffe Blend </h6>
-<p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+<div className="text">
+<h6>Your Mission Control</h6> <p>You're not just managing data; you're orchestrating success.</p>
 </div>
+        </div>
     </div>;
 }

@@ -44,6 +44,7 @@ overflow: hidden;
 
 
 
+
 @mixin ScrollbarCommon()
 {
 
@@ -152,4 +153,61 @@ margin: 0px;
 {
   height: 50px ;
   width: 60px;
+}
+
+
+.DashboardPage .AllOrders 
+{
+    height: 90%;
+    
+} /* .orders-table    {
+        height: 100%;
+    }
+.DashboardPage .AllOrders   .orders-table tbody{
+        height: 90%;
+    } */
+
+
+@media (max-width:1516px) {
+    .fixed-bg .DashboardPage .container-Dashboard 
+    {
+flex-wrap: wrap;
+height: max-content;
+width: 100%;
+
+> *,.Part3-Dashboard .Part3-Dashboard ,.Part1-Dashboard .css-u237jv-MuiChartsSurface-root
+{
+    width: 100%;
+}
+    }
+    
+}
+
+
+@media (max-width:1214px) {
+    .fixed-bg .Dashboard-content
+    {
+        width: 100%;
+    }
+    
+}
+
+
+@media (max-width:657px) {
+    
+ .fixed-bg .DashboardPage  
+ {
+
+  .Part2-Dashboard ,.card-container
+    {
+    width: 100%;
+    }
+    .Part2-Dashboard
+    {
+            display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    
+}
 }

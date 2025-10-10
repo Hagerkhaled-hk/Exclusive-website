@@ -25,10 +25,11 @@ import apple from "../../../assets/images/swiperImages/logo/apple.png"
 
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Viewateg from "../../../services/APIs/category/ViewCateg";
 export default function HomePart1()
 {
-    const avaCateg=["Woman's Fashion","Men's Fashion","Electronics","Home & Lifestyle","Medicine","Sports & Outdoor",
-        "Baby's & Toys","Gorceries & Pets","Healty & Beauty"];
+  const [categories,setCategories]=useState(["Gaming",""]);
     
 const saleImages=[
 
@@ -66,7 +67,18 @@ const saleImages=[
   }
 ]
 
+useEffect(()=>{
 
+  (async()=>{
+    let res = await Viewateg();
+    if(res.statusCode===200){let data=[] ; res?.data.slice(0, 9).forEach((item) => {
+    data.push(item.name);
+}); 
+  console.log("data",data);
+  
+    setCategories(data);  }
+  })()
+},[])
 
  
     return <div className="HomePart1"> 
@@ -78,7 +90,7 @@ const saleImages=[
  */}   
  <img src=" " />
  {
-avaCateg.map((item,index)=>{
+categories.map((item,index)=>{
 
     return (<li key={index}>{item}</li>)
 })
@@ -133,7 +145,7 @@ avaCateg.map((item,index)=>{
 
 <div className="ShopNow">
     
-<p > <Link to="/products">Shop Now </Link>  </p>
+<p > <Link to="/product">Shop Now </Link>  </p>
 <span className="icon"><FaArrowRight/></span>
 </div>
 

@@ -6,8 +6,13 @@ import { PieChart } from '@mui/x-charts/PieChart';
 {
 
 /* const {CategoriesApi} = useContext(FetchApIsContext);
- */ const[categories,setCategories]=useState([]);
- const[pieData,setPieData]=useState([]);
+ */ 
+/* const[categories,setCategories]=useState([]);
+ *//*  const[pieData,setPieData]=useState([]);
+ */ 
+
+const pieData=[{label:"Gaming",value:4},{label:"Convertable labtobs",value:4},{label:"Computers",value:4},{label:"SmartPhones",value:4 }]
+
  /* 
   async function  categoryFetch() {
     const data=await CategoriesApi()

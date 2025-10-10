@@ -14,12 +14,12 @@ export default function Dashboard()
     return <div className="DashboardPage">
 
     <Part2/>
-    <div className="container-Dashboard">
+    <div className="container-Dashboard  first-container">
 
     <Part1/>
     <Part3/>
     </div>
-    <div className="container-Dashboard">
+    <div className="container-Dashboard sec-container">
     <Part4/>
 <Part5/>
     </div>

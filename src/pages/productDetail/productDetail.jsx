@@ -24,6 +24,7 @@ export default function ProductDetail() {
 const [products ,setProducts]=useState([]);
 const [activeImageIndex, setActiveImageIndex] = useState(0);
   const navigate =useNavigate();
+
   const{getToken,isLogin} =useContext(UserContext);
   const{setCart_All_State} =useContext(CartContext);
   const [loading, setLoading] = useState(true);
@@ -59,16 +60,20 @@ else {toast.error(res?.message)}
 
 
    useEffect(()=>{
-    (async()=>{
-      let res =await ProductById(id)
+          if(!isLogin()) navigate("/signup");
+else{
 
-   setProducts(res.data);
-    })()
+  (async()=>{
+    let res =await ProductById(id)
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-   
+ setProducts(res.data);
+  })()
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 2000);
+ 
+}
 
    },[id])
  

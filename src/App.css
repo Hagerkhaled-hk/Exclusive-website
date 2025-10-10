@@ -131,3 +131,44 @@ body
   background-color:grey !important;
   border-radius: 5px !important;
 }
+
+@media  (min-width: 1700px) {
+  body 
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  body #root 
+  {
+    width: 90vw;
+  }
+ body .fixed-bg 
+ {
+  justify-content:center
+ }
+ body .fixed-bg .Dashboard-content
+  { 
+    width: fit-content;
+  }
+   body .fixed-bg footer
+   {
+    width: fit-content;
+   }
+}
+
+/* 
+@media  (min-width: 1700px) {
+
+  body #root
+  {
+    width: 75vw;
+  }
+} */
+@media  (min-width: 2000px) {
+
+  body #root
+  {
+    width: 50vw;
+  }
+} 

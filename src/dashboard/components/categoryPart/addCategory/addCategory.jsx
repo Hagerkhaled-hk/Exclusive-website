@@ -29,12 +29,9 @@ export default function AddCategory() {
 
 
 async function  add_Category() {
-toast(
-  "Updating your changes....",
-  {
-    duration: 1000,
-  }
-);
+toast.loading("Adding Category...", {
+  duration: 2000
+});
  
 
 

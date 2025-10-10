@@ -8,7 +8,8 @@ import Viewateg from "../../../services/APIs/category/ViewCateg";
 import { Toaster } from "react-hot-toast";
 import OutOfStock from "../../../Common/outOfStock/outOfStock";
 
-export default function ProductSelectList({Get_LocalStorage_Data,selectedProducts,Next,selectDiscountProduct,setSelectedProducts,visibleQuantity=false,handleQuantityChange,selectOrderProduct ,Title=""}) {
+export default function ProductSelectList({Get_LocalStorage_Data,selectedProducts,Next,selectDiscountProduct,setSelectedProducts,visibleQuantity=false,handleQuantityChange,
+  selectOrderProduct ,Title=""}) {
  const { products } = useContext(ProductDashboard_Context);
  const [loading, setLoading] = useState(true);
  const [filter, setFilter] = useState([]);
@@ -73,7 +74,6 @@ function setOrderSellectedToAll(allData,item)
 
  useEffect(() => {
   setFilter([...products]);
-  console.log(localStorage.getItem("selectedProducts"));
   
  Get_LocalStorage_Data();
     
@@ -139,7 +139,7 @@ function setOrderSellectedToAll(allData,item)
       <thead>
        <tr>
         <th>Select</th>
-                <th style={{visiblity:visibleQuantity?"visible":"hidden"}}>Quantity</th>
+                <th style={{display:visibleQuantity?"block":"none"}}>Quantity</th>
         <th>ID</th>
         <th>Images</th>
         <th>Name</th>
@@ -171,7 +171,7 @@ function setOrderSellectedToAll(allData,item)
            />
           </td>
                     {/* Quantity Input */}
-                    <td style={{visiblity:visibleQuantity?"block":"none"}} data-label="Quantity: " onClick={(e) => e.stopPropagation()}>
+                    <td style={{display:visibleQuantity?"block":"none"}} data-label="Quantity: " onClick={(e) => e.stopPropagation()}>
                         <input
                           type="number"
                           min="1"

@@ -10,10 +10,13 @@ import CartProduct from "../../Common/cartProduct/cartProduct";
 import LoadingModal from "../../Common/modal/modal";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { UserContext } from "../../context/userContext/userContext";
 export default function Cart()
 {
   const {cartItems,cartInfo } = useContext(CartContext);
 const [loading,setLoading]=useState(true);
+  const {isLogin}=useContext(UserContext);
+
 const navigate = useNavigate();
 
   async function processOrder()
@@ -24,12 +27,17 @@ navigate("/Payment");
 
   }
 
+  
+
 
 
   useEffect(()=>{
+        if(!isLogin()) navigate("/signup");
+ else{ 
 setTimeout(() => {
   setLoading(false);
 }, 2000);
+ }
   },[]);
 
   

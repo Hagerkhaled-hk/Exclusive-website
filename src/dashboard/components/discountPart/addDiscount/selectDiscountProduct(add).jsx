@@ -12,6 +12,7 @@ function Next()
   return (
     <ProductDiscountList   Next={Next}
         IsStateFunction={true}
+        localStorageKey="addSelectedProducts"
 
     />
   );

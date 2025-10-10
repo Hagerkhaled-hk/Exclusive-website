@@ -32,13 +32,9 @@ export default function EditCategory() {
 
 
 async function  update_Category() {
-toast(
-  "Updating your changes....",
-  {
-    duration: 1000,
-  }
-);
- 
+toast.loading("Updating Category...", {
+  duration: 1500
+});
 
 
      let res = await UpdateCategory(formData,id)    

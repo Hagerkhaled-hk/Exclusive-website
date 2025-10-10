@@ -1,4 +1,17 @@
 .Part3-Dashboard {
+  height: 100%;
+  width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.Part3-Dashboard .Part3-container {
   background: url("aboutimg1.jpeg") no-repeat center;
   background-size: contain;
   width: 450px;
@@ -15,9 +28,9 @@
           align-items: end;
   padding: 40px;
 }
-.Part3-Dashboard .text {
+.Part3-Dashboard .Part3-container .text {
   color: white;
 }
-.Part3-Dashboard .text p {
+.Part3-Dashboard .Part3-container .text p {
   width: 320px;
 }

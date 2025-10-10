@@ -14,20 +14,26 @@ import RedButton from "../../../Common/redButton/redButton";
 export default function ViewDiscounts()
 {
   const [loading, setLoading] = useState(true);
-  const [modelINfo, setModelInfo] = useState(  { selectedOrdertId: "" ,id: null, show: false });
+  const [modelINfo, setModelInfo] = useState(  { code: "" ,id: null, show: false });
   const [activeOnly,setActiveOnly]=useState(false)
   const[discounts,setDiscounts]=useState([]);
   const navigate= useNavigate();
-  const handleClose = (order_id) => { setModelInfo({ selectedOrdertId: order_id, id: null, show: false }); };
-  const handleShow = (index ,id  ) => { 
+  const handleClose = (order_id) => { setModelInfo({ code: "", id: null, show: false }); };
+  const handleShow = ( id,code  ) => { 
     
-    setModelInfo({ selectedOrdertId: index, id: id, show: true }); };
+    setModelInfo({ code: code, id: id, show: true }); };
 
 
-  async  function Delete_discount(id)
+  async  function Delete_discount(id,code)
     {
+
+      console.log(id);
+      
+      toast.loading("Deleting discount...", {
+  duration: 2000
+});
         let res =await DeleteDiscount(id);
-        if(res.statusCode!==200) toast.error(res.message||"Unable to delete discount");
+        if(res.statusCode!==200) toast.error(res.message||"Unable to delete discount"+code);
         getDiscounts();
 
     }
@@ -51,17 +57,19 @@ setActiveOnly(e.target.value);
 
     function editFunction(selectedProducts,id)
     {
-      localStorage.removeItem("selectedProducts");
+      localStorage.removeItem("editSelectedProducts");
+      console.log(selectedProducts);
+      
 
     localStorage.setItem("editSelectedDiscount",JSON.stringify(selectedProducts));
 
 
-    navigate(`/dashboard/discounts/Applyproducts/${id}`); 
-    }
+     navigate(`/dashboard/discounts/Applyproducts/${id}`); 
+     }
 
     function addDiscountBtn()
     {
-localStorage.removeItem("selectedProducts");
+localStorage.removeItem("addSelectedProducts");
       navigate("Applyproducts")
     }
 
@@ -149,7 +157,7 @@ useEffect(()=>{
                       className="btn cancel-icon"
                       variant="danger"
                       onClick={() => { 
-                       handleShow(id, discount.id); }}
+                       handleShow(discount.id, discount.code); }}
                     >
                       Delete
                     </Button>
@@ -158,16 +166,16 @@ useEffect(()=>{
               ))}
               <Modal show={modelINfo.show} onHide={() => { handleClose(null); }}>
                 <Modal.Header closeButton>
-                  <Modal.Title style={{ fontSize: "22px" }}>Order {modelINfo.selectedOrdertId+1} </Modal.Title>
+                  <Modal.Title style={{ fontSize: "22px" }}>Discount {modelINfo.code} </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ fontSize: "12px" }}>
-                  Do u want to delete <span style={{ fontWeight: "bold" }}> order {modelINfo.selectedOrdertId} </span>
+                  Do u want to delete <span style={{ fontWeight: "bold" }}> Discount {modelINfo.code} </span>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button style={{ fontSize: "10px" }} variant="danger" onClick={() => {
                  
-                  Delete_discount(modelINfo.id , modelINfo.selectedOrdertId)
-                    handleClose(modelINfo.selectedOrdertId );
+                  Delete_discount(modelINfo.id , modelINfo.code)
+                    handleClose(modelINfo.id );
                   }}>
                     Delete 
                   </Button>

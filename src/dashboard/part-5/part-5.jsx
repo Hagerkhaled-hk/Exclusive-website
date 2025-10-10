@@ -11,29 +11,35 @@ export default function Part5()
 
 const Icons=[<BiSolidFoodMenu/>,<MdOutlineFoodBank/>,<FaUser/>,<MdFeedback/>];
   const feedBack= [
+  // Sales & Performance
+  {
+    name:"Sales performance",
+    "Revenue today": 18450,
+    "Orders shipped": 215,
+  },
+  
+  // Inventory & Products
+ {
+    name:"Inventory status",
+    "Low stock alerts": 4,
+    "New products added": 7,
+  },
+  
+  // Customer Service
    {
-      "name":  "Orders",
-      "completed today": 215,
-      "pending": 5
-    },
-     {
-            "name":  "Reservations",
+        name:"Customer support",
 
-      "made today": 32,
-      "upcoming this week": 124
-    },
-   {
-      "name":  "Staff",
-      "on duty": 8,
-      "available": 2
-    },
-    {
-      "name": "Customer feedback",
-      "positive reviews": 15,
-      "negative reviews": 1
-    }
-  ]
-
+    "Tickets resolved": 48,
+    "Average response time": "2 min",
+  },
+  
+  // Customer Feedback & Trust
+ {
+    name:"Customer trust",
+    "Average rating": 4.8,
+    "Total reviews": 1244,
+  }
+  ];
 
     return <div className="Part5">
 <h5>Categories</h5>

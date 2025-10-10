@@ -147,6 +147,8 @@
   text-decoration: none;
 }
 .HomePart1 .right .container .text .ShopNow span {
+  font-size: var(--text-size);
+  color: var(--white-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -15,6 +15,7 @@ import RemoveWishlist from "../../services/APIs/wishlist/removeWishlist";
 import { FaRegTrashCan } from "react-icons/fa6";
 import LoadingModal from "../../Common/modal/modal";
 import OutOfStock from "../../Common/outOfStock/outOfStock";
+import ViewDiscount from "../../services/APIs/discount/viewDiscount";
 export default function ProductCards({ products }) {
   
   const Navigate =useNavigate();
@@ -22,13 +23,26 @@ export default function ProductCards({ products }) {
   const {addToCart}=useContext(CartContext);
     const{isLogin} =useContext(UserContext);
     const {AddTOWishlist,DeleteFromWishlist}=useContext(WishlistContext);
+ const [discountIds,setDiscountIds]=useState([]);
 
+ async function getDisocuntIds() {
 
+  let res =await ViewDiscount(true);
+  if(res.statusCode!=200)return;
+  let data=[];
+  res?.data?.forEach(item => {
+    data.push({"ids":item?.guidCategoryIds.flat(),"value":`${item.value} ${item.type=="Percentage"?"%":"-"}`});
+  
+  });
+  setDiscountIds(data);
+  
+ }
 
 
 
 
   useEffect(()=>{
+    getDisocuntIds();
 
     setTimeout(() => {
 setLoading(false);
@@ -116,7 +130,13 @@ DeleteFromWishlist(product.productId,product.name || product.productName)
    <OutOfStock/>
   :
   ""
-
+              }
+              {
+                discountIds.map((item,index)=>{ 
+               let found = item?.ids.find((id)=>id===product.id)
+                  
+               if(found!==-1){ return <p className="discountCard" key={index} >{item.value}</p> }
+                })
               }
 
             </div>

@@ -13,9 +13,8 @@ import Stack from '@mui/material/Stack';
 import viewAdminOrders from "../../../services/APIs/orders/viewAdminorders";
 import { DashboardContext } from "../../context/dashboardContext";
 import RedButton from "../../../Common/redButton/redButton";
-import { OrderContext } from "../../../context/orderContext/orderContext";
 import CustomSelectStatus from "../customSelectStatus/customSelect";
-import ChangeStatusAdmin from "../../../services/APIs/orders/changeStautsAdmin";
+import DeleteOrderAdmin from "../../../services/APIs/orders/deleteOrderAdmin";
 export default function ViewOrdersAdmin() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
@@ -53,6 +52,22 @@ function AddOrderPath()
 {
   localStorage.removeItem("OrderselectedProducts")
     navigate("/dashboard/order/ProductOrder")
+}
+
+
+async function Delete_Order(id)
+{
+toast.loading("Deleting order...", {
+  duration: 2000
+});let token = getAdminToken();
+if(!token){ toast.error("Unable to delete" ); return;
+}
+console.log(token);
+   let res = await DeleteOrderAdmin(id,token);
+  if(res.statusCode==200){toast.success("Order deleted successfuly"); View_AdminOrders(filter);}
+  else toast.error(res.message||"Unable to delete");
+ 
+  
 }
 
 
@@ -209,9 +224,8 @@ function AddOrderPath()
             </Modal.Body>
             <Modal.Footer>
               <Button style={{ fontSize: "10px" }} variant="danger" onClick={() => {
-                modelINfo.actionType == "delete"
-                  ? Delete_Order(modelINfo.selectedOrderId ? modelINfo.selectedOrderId : null)
-                  : Cancel_Order(modelINfo.selectedOrderId ? modelINfo.selectedOrderId : null);
+              
+                  Delete_Order(modelINfo.selectedOrderId ? modelINfo.selectedOrderId : null)
                 handleClose(modelINfo.selectedOrderId ? modelINfo.selectedOrderId : null);
               }}>
                 {modelINfo.actionType} Order

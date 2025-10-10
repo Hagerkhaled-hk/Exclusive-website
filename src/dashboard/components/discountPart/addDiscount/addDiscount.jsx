@@ -195,7 +195,7 @@ else{
         const isValueValid = validateField('value', formData.value);
         const isEndDateValid = validateField('endDate', formData.endDate);
 
-        if (isCodeValid && isTypeValid && isValueValid && isEndDateValid && isProductIdsValid) {
+        if (isCodeValid && isTypeValid && isValueValid && isEndDateValid ) {
             console.log("Form is valid. Submitting data:", formData);
             addDiscount();
         } else {

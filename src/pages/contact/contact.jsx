@@ -1,8 +1,17 @@
+import { useContext, useEffect } from "react";
 import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
 import RedButton from "../../Common/redButton/redButton";
 import "./contact.css";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext/userContext";
 
 export default function Contact() {
+    const {isLogin}=useContext(UserContext);
+    const navigate=useNavigate(null);
+    
+    useEffect(()=>{
+        if(!isLogin()) navigate("/signup");
+    })
     return (
         <div className="contact">
 

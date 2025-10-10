@@ -7,11 +7,11 @@ import { IoMdArrowDropleft } from "react-icons/io";
 
 export default function Account() {
 
+  const [SideBar,setSideBar]=useState(false);
 const {isLogin}=useContext(UserContext);
 const navigate=useNavigate(null);
-const [SideBar,setSideBar]=useState(false);
 useEffect(()=>{
-  if(!isLogin()) navigate("/sigunp");
+  if(!isLogin()) navigate("/signup");
   
 },[])
 

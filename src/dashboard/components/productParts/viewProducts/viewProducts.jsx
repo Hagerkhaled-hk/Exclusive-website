@@ -28,7 +28,7 @@ const [categories,setCategories]=useState([]);
 
 
     async function getCategories() {
-          let res =await Viewateg();
+          let res =await Viewateg(true);
           console.log(res);
           
           if(res.statusCode==200)setCategories(res?.data);

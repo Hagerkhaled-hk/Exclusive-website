@@ -227,6 +227,18 @@ background-color: var(--black-hover);
   transform: rotate(-10deg); /* OPTIONAL: Gives it a slight, eye-catching tilt */
 }
 
+.discountCard
+{
+  position: absolute;
+  background-color: var(--red-color);
+  color: var(--white-color);
+  font-size: var(--input-txt-size);
+  padding: 2px 5px;
+  border-radius:2px;
+  left: 8px;
+  top: 8px;
+}
+
  @media (max-width:272px) {
         .products-container .card
         {

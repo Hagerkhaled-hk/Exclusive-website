@@ -29,17 +29,21 @@ const coupounRef=useRef(null)
   // State for errors
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-
-    // Load saved address from localStorage if available
-    const savedAddress = localStorage.getItem("user_Address_Payment");   
-  if (savedAddress) {
-    
-      setForm(JSON.parse(savedAddress));
-    }
-    
+  const {isLogin}=useContext(UserContext);
   
- 
+
+  useEffect(() => {
+      if(!isLogin()) navigate("/sigunp");
+else{
+
+  // Load saved address from localStorage if available
+  const savedAddress = localStorage.getItem("user_Address_Payment");   
+if (savedAddress) {
+  
+    setForm(JSON.parse(savedAddress));
+  }
+
+}
   },[]);
 
   // Handle input change
@@ -147,22 +151,6 @@ setActiveProcess(true);
       }
     ); 
 
-//Temp
-
-/*     let res =await CheckoutSession({
-  "productNames": [
-    "product1","product2","product3"
-  ],
-  "unitAmounts": [
-    5000,3000,2000
-  ],
-  "quantities": [
-    1,2,3
-  ],
-  "currency": "EGP",
-  "successUrl": "http://localhost:5173/success-payment",
-  "cancelUrl": "http://localhost:5173/Payment"
-});  */ 
     if(res.data.url) {
    set_Is_From_PaymentPage(true);
    localStorage.setItem("is_From_PaymentPage",true);
@@ -171,6 +159,7 @@ setActiveProcess(true);
   }
 
   async function applyDiscount() {
+    toast.loading("Applying discount",{duration:1500});
     let data=[];
     cartItems.map((item)=>{
       data.push(item.productId) ;

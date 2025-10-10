@@ -28,6 +28,10 @@ const [categories,setCategories]=useState([]);
                   
 
     async function Delete_category(id ,name ,description) {
+
+        toast.loading("Archiving category...", {
+  duration: 2000
+});
 let newName="";
         if(name.includes("##ARCHIVE"))newName=name.split("##ARCHIVE")[0];
         else newName=name+"##ARCHIVE"

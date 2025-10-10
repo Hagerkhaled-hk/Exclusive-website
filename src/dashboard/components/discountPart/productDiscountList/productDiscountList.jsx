@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import ProductSelectList from "../../../common/productSelectList/productSelectList";
 
-export default function ProductDiscountList({Next,get_Selected_edit_localstorage=()=>{},IsStateFunction=true}) {
+export default function ProductDiscountList({Next,get_Selected_edit_localstorage=()=>{;
+},IsStateFunction=true, localStorageKey=""}) {
  const [selectedProducts, setSelectedProducts] = useState([]); 
 
  const selectDiscountProduct = (productId,categoryID) => {
@@ -22,10 +23,12 @@ export default function ProductDiscountList({Next,get_Selected_edit_localstorage
 
  function Get_LocalStorage_Data()
  {
-    let isSelectedProduct_exists = localStorage.getItem("selectedProducts");      
-  (IsStateFunction || isSelectedProduct_exists) ? 
-  get_Selected_localstorage()
-  :get_Selected_edit_localstorage((prodId,categID)=>{selectDiscountProduct(prodId,categID)})
+    let isSelectedProduct_exists = localStorage.getItem(localStorageKey);     
+    console.log("isSelectedProduct_exists",(!IsStateFunction || !isSelectedProduct_exists));
+     
+(!IsStateFunction && !isSelectedProduct_exists) ? 
+get_Selected_edit_localstorage((prodId,categID)=>{selectDiscountProduct(prodId,categID)})
+ : get_Selected_localstorage()
     
  }
 
@@ -33,7 +36,11 @@ export default function ProductDiscountList({Next,get_Selected_edit_localstorage
 
   function get_Selected_localstorage()
   {
-   let SelectedProducts_local = localStorage.getItem("selectedProducts");
+   let SelectedProducts_local = localStorage.getItem(localStorageKey);
+   console.log(localStorageKey,"localStorageKey");
+   console.log("SelectedProducts_local",SelectedProducts_local);
+   
+   
 if(!SelectedProducts_local)return;
      SelectedProducts_local=JSON.parse(SelectedProducts_local);
      setSelectedProducts(SelectedProducts_local);
@@ -43,7 +50,7 @@ if(!SelectedProducts_local)return;
 
   useEffect(()=>{
 
-      localStorage.setItem("selectedProducts",JSON.stringify(selectedProducts));
+      localStorage.setItem(localStorageKey,JSON.stringify(selectedProducts));
   },[selectedProducts])
   
  
@@ -53,7 +60,8 @@ if(!SelectedProducts_local)return;
 
  return (
 <ProductSelectList  selectedProducts={selectedProducts} selectDiscountProduct={selectDiscountProduct} Next={Next} Get_LocalStorage_Data={Get_LocalStorage_Data} setSelectedProducts={setSelectedProducts}
-Title={`${IsStateFunction?"Add discount":"Edit Discount"}`}
+Title={`${IsStateFunction?"Add discount":"Edit Discount"}`}visibleQuantity={false}
+
 />
  );
 }

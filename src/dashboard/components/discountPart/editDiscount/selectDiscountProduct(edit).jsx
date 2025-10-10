@@ -16,7 +16,7 @@ function Next()
   function get_Selected_localstorage(selectDiscountProduct)
   {
    const editSelectedDiscount = localStorage.getItem("editSelectedDiscount");
-   console.log(editSelectedDiscount);
+   console.log("editSelectedDiscount",editSelectedDiscount);
    
    if(!editSelectedDiscount)return;
   let editSelectedDiscount_parsed= JSON.parse(editSelectedDiscount);
@@ -34,8 +34,8 @@ function Next()
   }
 
   return (
-    <ProductDiscountList  get_Selected_localstorage={get_Selected_localstorage} Next={Next} 
-    IsStateFunction={false}
+    <ProductDiscountList  get_Selected_edit_localstorage={get_Selected_localstorage} Next={Next} 
+    IsStateFunction={false}   localStorageKey="editSelectedProducts"
     />
   );
 }
