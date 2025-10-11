@@ -1,8 +1,11 @@
 // src/Common/Auth/AuthFormLayout.jsx
 import register_img from "../../../assets/images/register-img.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../../../Common/errorComponents/errorComponents";
 import "./AuthFormatLayout.css"; // Assuming the common styles are in signup.css or you might want to create a separate auth.css
+import LoadingModal from "../../../Common/modal/modal";
+import { UserContext } from "../../../context/userContext/userContext";
+import { useContext, useEffect, useState } from "react";
 
 /**
  * A layout component for both Signup and Login forms.
@@ -23,8 +26,31 @@ export default function AuthFormLayout({
   footerText,
   footerLinkText,
   footerLinkTo,
-}) {
+}) 
+{
+
+  const navigate =useNavigate();
+  const {isLogin}=useContext(UserContext);
+
+  useEffect(()=>{
+    console.log('fff');
+    
+    setTimeout(()=>{
+
+      if(isLogin())console.log("is login" ,isLogin());
+      else console.log("false");
+      
+    },1000)
+  },[])
+
   return (
+    <>
+{
+  isLogin()?
+  <LoadingModal loading={true}/>
+  :
+
+
     <div className="Signup formContainer">
       <main className="main-content">
         <div className="image-section">
@@ -58,5 +84,8 @@ export default function AuthFormLayout({
         </div>
       </main>
     </div>
+}
+        </>
+
   );
 }

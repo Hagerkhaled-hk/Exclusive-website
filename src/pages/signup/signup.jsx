@@ -1,10 +1,11 @@
 // src/components/Auth/Signup.jsx (Refactored)
 import { FcGoogle } from "react-icons/fc";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import SignUp_Api from "../../services/APIs/Auth/signup";
 import { Link, useNavigate } from "react-router-dom";
 import AuthFormLayout from "../../dashboard/common/AuthFormLayout/AuthFormLayout"; // Import the new layout component
 import RedButton from "../../Common/redButton/redButton";
+import { UserContext } from "../../context/userContext/userContext";
 
 export default function Signup() {
   const inputRef = useRef([]);
@@ -74,6 +75,7 @@ export default function Signup() {
   };
 
   return (
+    <>
     <AuthFormLayout
       heading="Create an account"
       subHeading="Enter your details below"
@@ -149,5 +151,6 @@ export default function Signup() {
         Sign up with Google
       </button>
     </AuthFormLayout>
+    </>
   );
 }

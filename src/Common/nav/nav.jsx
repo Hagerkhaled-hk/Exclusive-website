@@ -14,7 +14,7 @@ import { ProductContext } from "../../context/productContext/productContext";
 import { GoPerson } from "react-icons/go";
 export default function Nav()
 {
-const {isLogin,setUserLogin , getToken} =useContext(UserContext);  
+const {isLogin , getToken,setUserLogin} =useContext(UserContext);  
  const {products} =useContext(ProductContext)
  const [openSearch ,setOpenSearch]=useState(false);
 const [productSearch ,setProductSearch]=useState([]);
@@ -43,9 +43,11 @@ async function logingOut()
 let token =getToken()
 if(token){
 let res = await Logout(token);
+console.log(res);
 
  if(res.succeeded) {localStorage.removeItem("userData");
 window.dispatchEvent(new Event('localStorageChange'));
+
 
   }
 

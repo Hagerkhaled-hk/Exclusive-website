@@ -28,16 +28,21 @@ const [userLogin ,setUserLogin]=useState(false)
 
     function UserDataSetting()
     {
+        
+        console.log("UserLogin", "UserDataSetting");
          if(localStorage.getItem("userData")!=null ||localStorage.getItem("userData")!=undefined)
-        {
+        {  
+            console.log("ddd");
+            
             let Data= JSON.parse(localStorage.getItem("userData")) ;
             setUserData(Data);
             setUserLogin(true);
             
-        
         }
         else
         {
+            console.log("done");
+            
             setUserData([]);
             setUserLogin(false);
 
@@ -48,6 +53,7 @@ const [userLogin ,setUserLogin]=useState(false)
 
 function isLogin()
 {
+console.log("userLogin", userLogin);
 
  return userLogin;
 

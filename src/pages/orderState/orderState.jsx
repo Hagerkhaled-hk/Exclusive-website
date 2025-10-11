@@ -21,11 +21,11 @@ const{deleteAllCart}=useContext(CartContext);
 
     useEffect(()=>{
 
-let  Confirmed=  (localStorage.getItem("is_From_PaymentPage") ?? is_From_PaymentPage);
+let  Confirmed=  (localStorage.getItem("is_From_PaymentPage") ?? is_From_PaymentPage) ;
 console.log("confi", Confirmed );
 
-/*  if (!Confirmed)  navigate("/account/allOrders");
- */ 
+  if (!Confirmed)  navigate("/account/allOrders");
+  
 
 (async()=>{
    let token =getToken();
@@ -42,7 +42,7 @@ if(!user_Address_Payment) return;
 },token);
 
 if(res.statusCode!=200)setSuccess({"isSuccess":false , "message":res.message});
-else{ setSuccess({"isSuccess":true , "message":""}); await deleteAllCart();};
+else{ setSuccess({"isSuccess":true , "message":""}); localStorage.removeItem("LogOrder"); await deleteAllCart();};
 
 
 })()
