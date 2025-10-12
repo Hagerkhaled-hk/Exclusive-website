@@ -6,6 +6,7 @@ import "./AuthFormatLayout.css"; // Assuming the common styles are in signup.css
 import LoadingModal from "../../../Common/modal/modal";
 import { UserContext } from "../../../context/userContext/userContext";
 import { useContext, useEffect, useRef, useState } from "react";
+import RedButton from "../../../Common/redButton/redButton";
 
 /**
  * A layout component for both Signup and Login forms.
@@ -83,6 +84,7 @@ export default function AuthFormLayout({
             Opacity={errorData.Opacity}
             message2={errorData.message2}
           />
+
         </div>
       </main>
     </div>

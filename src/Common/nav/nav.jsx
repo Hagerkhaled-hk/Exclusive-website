@@ -12,6 +12,7 @@ import { UserContext } from "../../context/userContext/userContext";
 import Logout from "../../services/APIs/Auth/logout";
 import { ProductContext } from "../../context/productContext/productContext";
 import { GoPerson } from "react-icons/go";
+import RedButton from "../redButton/redButton";
 export default function Nav()
 {
 const {isLogin , getToken,setUserLogin} =useContext(UserContext);  
@@ -67,8 +68,10 @@ window.dispatchEvent(new Event('localStorageChange'));
 <div className="bottom">
 <div>
     <p style={{margin:"0px"}}>Exclusive</p>
+
 </div>
 <div className="nav_links">
+   <NavLink to="/DemoDashboard" style={{color:"var(--red-color)", fontWeight:"bold"}}>Demo-Dashboard</NavLink>
    <NavLink to="">Home</NavLink>
    <NavLink to="/contact">Contact</NavLink>
    <NavLink to="/about">About</NavLink>
@@ -123,6 +126,8 @@ isLogin()?
         </a>
         <div class="dropdown-menu" style={{position:"absolute",zIndex:555}} aria-labelledby="navbarDropdownMenuLink">
          
+            <NavLink to="/DemoDashboard" style={{color:"var(--red-color)", fontWeight:"bold", fontSize:"14px" }}>Demo-Dashboard</NavLink>
+
             <NavLink className="dropdown-item" to="">Home</NavLink>
    <NavLink className="dropdown-item" to="/contact">Contact</NavLink>
    <NavLink className="dropdown-item" to="/about">About</NavLink>

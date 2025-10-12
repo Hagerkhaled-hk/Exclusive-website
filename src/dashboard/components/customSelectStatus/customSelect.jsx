@@ -4,7 +4,7 @@ import ChangeStatusAdmin from '../../../services/APIs/orders/changeStautsAdmin';
 import { DashboardContext } from '../../context/dashboardContext';
 import toast from 'react-hot-toast';
 
-const CustomSelectStatus = ({ value ,id,order={},setOrders=()=>{}}) => {
+const CustomSelectStatus = ({ value ,id,handleDemoOrdersStatus}) => {
 
      const[selectedStatus,setSelectedStatus]=useState(value);
      const {getAdminToken,demoDashboard} =useContext(DashboardContext);
@@ -29,16 +29,15 @@ const CustomSelectStatus = ({ value ,id,order={},setOrders=()=>{}}) => {
   }
   
 async function onChange(e) {
+  let newStatus=e?.target.value;
 
-    if(demoDashboard){setSelectedStatus(e?.target?.value);
-      
-      let AnOrder= Orders.find((order)=>{order.id==id});
-      console.log(Orders);
-      
-      AnOrder.status=e?.target?.value;
-      setOrders([...Orders]);
-      return;}
+if(demoDashboard) {
+      setSelectedStatus(newStatus);
+    handleDemoOrdersStatus(newStatus,id);
 
+
+      return;
+    }
   let oldVal=selectedStatus;
   setSelectedStatus(e?.target?.value);
   let res =await StatusChangeAPi(e?.target?.value);

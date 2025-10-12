@@ -29,7 +29,7 @@ const initialValidation = {
 export default function AddOrderForm() {
     const [formData, setFormData] = useState(initialFormData);
     const [validationErrors, setValidationErrors] = useState(initialValidation);
-    const {getAdminToken}=useContext(DashboardContext);
+    const {getAdminToken,demoDashboard}=useContext(DashboardContext);
 
     // Load mock product/order summary data on component mount
     useEffect(() => {
@@ -69,6 +69,10 @@ export default function AddOrderForm() {
 
     // --- API Submission Function ---
     async function submitOrderDetails() {
+
+if(demoDashboard){toast.success("added successfully (simulated)"); return;}
+
+
         toast.loading("Submitting order details...", { duration: 1000 });
         const orderDetails = {
             buyerId: formData.buyerId,

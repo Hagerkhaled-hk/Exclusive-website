@@ -31,12 +31,26 @@ export default function ViewOrdersAdmin() {
   const [ page,setPage]=useState(1);
    const pageSize=10;
   const[orders,setOrders]=useState([]);
+
   const {getAdminToken}=useContext(DashboardContext);
   const handleClose = (order) => { setModelInfo({ selectedOrderId: order, actionType: "", id: null, show: false }); };
   const handleShow = (order, id, type) => { setModelInfo({ selectedOrderId: order, actionType: type, id: id, show: true }); };
 
  
   
+  function handleDemoOrdersStatus(status,id)
+  {
+    console.log(status,id);
+    
+    
+ let newStatus= orders.map((item)=>{ 
+    return  item.id==id? {...item,status:status} : item;
+    })    
+    console.log(newStatus);
+    
+    setOrders(newStatus);
+
+  }
 
 
   function getOrderIndex(index)
@@ -49,15 +63,19 @@ export default function ViewOrdersAdmin() {
 
 
 
+
 function AddOrderPath()
 {
   localStorage.removeItem("OrderselectedProducts")
-    navigate("/dashboard/order/ProductOrder")
+    navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/order/ProductOrder`);
 }
 
 
 async function Delete_Order(id)
 {
+if(demoDashboard){toast.success("Deleted successfully (simulated)"); return;}
+
+
 toast.loading("Deleting order...", {
   duration: 2000
 });let token = getAdminToken();
@@ -71,24 +89,32 @@ console.log(token);
   
 }
 
+function setDemoOrders()
+{
+   
 
-     async function View_AdminOrders(status="all") {
-        if(demoDashboard){ setOrders([ {
+
+   setOrders([   {
             "id": "1",
             "buyerName": "User1",
             "createdAt": "0001-01-01T00:00:00",
-            "status": "Pending",
+            "status": "pending",
             "total":7854
           },
         {
             "id": "2",
             "buyerName": "User2",
             "createdAt": "0001-01-01T00:00:00",
-            "status": "Pending",
+            "status": "pending",
             "total":8888
-          }
-        
-        ]);
+          }]);
+  
+}
+
+
+     async function View_AdminOrders(status="all") {
+        if(demoDashboard){ 
+           setDemoOrders();
       return;
       }
         let token = getAdminToken();
@@ -102,13 +128,16 @@ console.log(token);
           
           if(res.statusCode==200 && res?.data?.items?.length==0 ){
             
-            setOrders([ {
+            setOrders(
+              [ {
             "id": "",
             "buyerName": "",
             "createdAt": "",
             "status": "",
             "total":0
-          }]);}
+          }]);
+        
+        }
           else {
     let data = res?.data;
             setOrders(data?.items || []);
@@ -191,7 +220,7 @@ console.log(token);
           
           orders.map((order, id) => (
             <tr   onClick={() => {   
-               navigate(`/dashboard/order/${order.id}`)
+               navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/order/${order.id}`)
 }} key={id}  >
               <td data-label="ID: "  >{getOrderIndex(id)}</td>
               <td data-label="Buyer: "  >{order.buyerName}</td>
@@ -201,7 +230,7 @@ console.log(token);
                      <td onClick={(e)=>{e.stopPropagation()}}>
             
 
-                <CustomSelectStatus  value={order.status} id={order.id} />
+                <CustomSelectStatus  value={order.status}  handleDemoOrdersStatus={handleDemoOrdersStatus}   id={order.id} />
               </td>
            
               <td onClick={(e)=>e.stopPropagation()}>
@@ -218,7 +247,7 @@ console.log(token);
               <td onClick={(e)=>{e.stopPropagation()}}>
             
 
-                <CustomSelectStatus value={order.status}  Orders={order} setOrders={setOrders}  id={order.id} /> 
+                <CustomSelectStatus value={order.status}   handleDemoOrdersStatus={handleDemoOrdersStatus}  id={order.id} /> 
               </td>
            
               <td onClick={(e)=>e.stopPropagation()}>
