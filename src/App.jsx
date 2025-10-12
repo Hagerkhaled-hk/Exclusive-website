@@ -50,6 +50,7 @@ const ViewOrdersAdmin= lazy(()=>import( "./dashboard/components/orderPart/viewOr
 const CurrentOrderAdmin= lazy(()=>import( "./dashboard/components/orderPart/currentOrderAdmin.jsx"))
 const ProductSelectAdd_order= lazy(()=>import( "./dashboard/components/orderPart/addAdminOrder/productSelect(Add_Order).jsx"))
 const AddOrderForm= lazy(()=>import( "./dashboard/components/orderPart/addAdminOrder/addOrderAdminForm.jsx"))
+const DemoDashboardLayout= lazy(()=>import( "./components/layout/demoDashboard-layout.jsx"))
 
 
 
@@ -241,6 +242,104 @@ path: "resetPassword", element: (
     {
           path:"/dashboard",
           element:<DashboardLayout/>,
+          children: [
+    {
+      path:"",
+      element :<Dashboard/>,
+
+    
+    },
+     {
+      path:"products",
+      element :<ViewProducts/>,
+
+    
+     },
+     {
+      path:"product/:id"
+      ,element : <EditProduct/>
+     }
+     ,
+     {
+      path:"addproduct"
+      ,element : <AddProduct/>
+     }
+    
+     ,
+     {
+      path:"categories"
+      ,element : <ViewCategories/>
+     }
+     ,
+     {
+      path:"category/:id"
+      ,element : <EditCategory/>
+     }
+     ,
+     {
+      path:"addcategory"
+      ,element : <AddCategory/>
+     }
+     ,
+     {
+      path:"discounts"
+      ,element : <ViewDiscounts/>
+     }
+     ,
+     {
+      path:"discounts/Applyproducts"
+      ,element : <SelectDiscountProductAdd/>
+     }
+     ,
+     {
+      path:"discounts/Applydiscounts"
+      ,element : <AddDiscount/>
+     }
+    
+     ,
+     {
+      path:"discounts/Applyproducts/:id"
+      ,element : <SelectDiscountProductEdit/>
+     }
+    
+     ,
+     {
+      path:"discounts/Applydiscounts/:id"
+      ,element : <EditDiscountForm/>
+     },
+    { path: "orders", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <ViewOrdersAdmin />
+    </Suspense>
+)},
+{ path: "order/:id", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <CurrentOrderAdmin />
+    </Suspense>
+)},
+{ path: "order/ProductOrder", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <ProductSelectAdd_order />
+    </Suspense>
+)},
+{ path: "order/addOrder", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <AddOrderForm />
+    </Suspense>
+)},
+{ path: "addUser", element: (
+    <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   "}} animation="border" />}>
+        <AddUserForm />
+    </Suspense>
+)}
+          ]
+          
+          
+    
+        },
+    {
+          path:"/DemoDashboard",
+          element:<DemoDashboardLayout/>,
           children: [
     {
       path:"",

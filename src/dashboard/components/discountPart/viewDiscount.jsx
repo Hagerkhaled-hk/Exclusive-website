@@ -9,10 +9,12 @@ import ViewDiscount from "../../../services/APIs/discount/viewDiscount";
 import DeleteDiscount from "../../../services/APIs/discount/deleteDiscount";
 import LoadingModal from "../../../Common/modal/modal";
 import RedButton from "../../../Common/redButton/redButton";
+import { DashboardContext } from "../../context/dashboardContext";
 
 
 export default function ViewDiscounts()
 {
+  const {demoDashboard,isAdminLogin}=useContext(DashboardContext);
   const [loading, setLoading] = useState(true);
   const [modelINfo, setModelInfo] = useState(  { code: "" ,id: null, show: false });
   const [activeOnly,setActiveOnly]=useState(false)
@@ -26,8 +28,11 @@ export default function ViewDiscounts()
 
   async  function Delete_discount(id,code)
     {
+ //Demo Dashboard
+   if(demoDashboard){toast.success("Deleted Successfully (Simulation)",{duration:1500});  return;}
 
-      console.log(id);
+        // --- API Submission ---
+      if(isAdminLogin && !demoDashboard){
       
       toast.loading("Deleting discount...", {
   duration: 2000
@@ -36,7 +41,7 @@ export default function ViewDiscounts()
         if(res.statusCode!==200) toast.error(res.message||"Unable to delete discount"+code);
         getDiscounts();
 
-    }
+    }}
 
     async function getDiscounts() {
           let res =await ViewDiscount(activeOnly);
@@ -57,14 +62,16 @@ setActiveOnly(e.target.value);
 
     function editFunction(selectedProducts,id)
     {
+
+ 
+
       localStorage.removeItem("editSelectedProducts");
       console.log(selectedProducts);
       
 
     localStorage.setItem("editSelectedDiscount",JSON.stringify(selectedProducts));
 
-
-     navigate(`/dashboard/discounts/Applyproducts/${id}`); 
+     navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/discounts/Applyproducts/${id}`); 
      }
 
     function addDiscountBtn()
@@ -74,6 +81,8 @@ localStorage.removeItem("addSelectedProducts");
     }
 
 useEffect(()=>{
+  console.log("activeOnly",activeOnly);
+  
    getDiscounts();
 
 },[activeOnly])
@@ -132,7 +141,7 @@ useEffect(()=>{
            
 {         
 
-(discounts?.length==1&&filter[0]?.count==0)?
+(discounts?.length==1&&discounts[0]?.count==0)?
 <tr  >
 <td colSpan={6} >
 <LoadingModal loading={false} mainText="No Discount Found "/>

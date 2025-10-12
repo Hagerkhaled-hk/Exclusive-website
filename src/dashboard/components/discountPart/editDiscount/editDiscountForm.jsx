@@ -5,6 +5,7 @@ import { Toaster, toast } from "react-hot-toast";
 import RedButton from "../../../../Common/redButton/redButton";
 import getDiscountId from "../../../../services/APIs/discount/getDiscount_id";
 import UpdateDiscount from "../../../../services/APIs/discount/editDiscount";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 // Initial state for form data
 const initialFormData = {
@@ -30,13 +31,14 @@ const initialValidation = {
 
 export default function EditDiscountForm() {
     // State to hold and manage form input values
+    const{isAdminLogin,demoDashboard}=useContext(DashboardContext);
     const [formData, setFormData] = useState(initialFormData);
     const [validationErrors, setValidationErrors] = useState(initialValidation);
     const {id}=useParams();
     async function getDiscount() {
 
         console.log("ddd");
-     const selectedProducts = JSON.parse(localStorage.getItem("selectedProducts") || "[]");
+     const selectedProducts = JSON.parse(localStorage.getItem("editSelectedProducts") || "[]");
                                 // Extract productIds and categoryIds from the selected products
         const productIds = selectedProducts.map(item => item.productId).filter(id => id);
         const categoryIds = selectedProducts.map(item => item.categoryID).filter(id => id);
@@ -63,6 +65,12 @@ let {data}=res;
     }, []);
 
     async function updateDiscount() {
+ //Demo Dashboard
+   if(demoDashboard){toast.success("Updated Successfully (Simulation)",{duration:1500});  return;}
+
+        // --- API Submission ---
+      if(isAdminLogin && !demoDashboard){
+
         toast("Updating discount...", { duration: 1000 });
         
         // Prepare data for API call
@@ -94,6 +102,7 @@ let {data}=res;
         } else {
             toast.error(res.message || "Unable to update this discount.");
         } 
+    }
     }
 
     const validateField = (name, value) => {

@@ -17,10 +17,8 @@ import { MdOutlineDiscount } from "react-icons/md";
 import { BsCartPlus } from "react-icons/bs";
 
 export default function Nav() {
-    const {navOpen, setNavOpen} = useContext(DashboardContext);
-const{isAdminLogin}=useContext(DashboardContext);
+    const {navOpen, setNavOpen,demoDashboard} = useContext(DashboardContext);
 const [isPageOpen, setIsPageOpen] = useState(false);
-const navigate=useNavigate();
 
 
     return (
@@ -46,7 +44,7 @@ const navigate=useNavigate();
             <ul className='main-container'>
 
                 <li>
-                    <NavLink to={"/dashboard"}>
+                    <NavLink to={`${demoDashboard?"/DemoDashboard":"/dashboard`"}`}>
                         <div className="logo">
                             <FaTv  style={{color:"rgb(94 114 228)"}} />
                         </div>

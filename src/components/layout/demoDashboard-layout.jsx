@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
  import Nav from '../../dashboard/common/Nav/Nav.jsx';
 import DashboardProvider, { DashboardContext } from '../../dashboard/context/dashboardContext';
 import ProductDashboard_Provider from '../../dashboard/context/productContext';
@@ -11,21 +11,29 @@ import LoadingModal from '../../Common/modal/modal.jsx';
 import OrderDashboardProvider from '../../dashboard/context/orderDashboardContext.jsx';
 import "../../pages/account/account.css"
 
-export default function DashboardLayout()
+export default function DemoDashboardLayout()
 {
-    const[isLogin,setIsLogin]=useState(undefined);
-    
+    const{demoDashboard,DemoDashboardMode}=useContext(DashboardContext);
 
+    const path =useLocation();
 
     useEffect(()=>{
-        let data = localStorage.getItem("adminData");
-        if(data){ let res = JSON.parse(data) ; if(res.accessToken){setIsLogin(true); return;}} 
-         setIsLogin(false) 
-    },[])
+        console.log(path);
+        
+                    DemoDashboardMode(path);
+
+             },[path.pathname])
+
+
+useEffect(()=>{
+    console.log("demoDashBoard",demoDashboard);
+    
+},[demoDashboard])
+
     return <>
     {
-         isLogin==undefined ?<LoadingModal loading={true}/>:
-        !isLogin?<ErrorPage/>
+         demoDashboard===undefined?<LoadingModal loading={true}/>:
+     !demoDashboard?<ErrorPage/>
         :
 <OrderDashboardProvider>
         <ProductDashboard_Provider>

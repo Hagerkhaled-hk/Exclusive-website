@@ -1,8 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import ViewProducts from "../../services/APIs/products/viewProducts";
 import DeleteProduct from "../../services/APIs/products/delete_product";
 import toast from "react-hot-toast";
 import ProductById from "../../services/APIs/products/get_Product_Id";
+import { DashboardContext } from "./dashboardContext";
 
 
 
@@ -11,6 +12,7 @@ export const ProductDashboard_Context= createContext();
 
 export default  function ProductDashboard_Provider({children})
 {
+    const{demoDashboard,isAdminLogin} = useContext(DashboardContext);
     const [products, setProducts] = useState([]);
 
     async function View_Products() {
@@ -22,6 +24,12 @@ export default  function ProductDashboard_Provider({children})
     }
 
     async function Delete_product(id , name) {
+       //Demo Dashboard
+   if(demoDashboard){toast.success("Deleted Successfully (Simulation)",{duration:1500});  return;}
+
+        // --- API Submission ---
+        if(isAdminLogin && !demoDashboard){
+
         toast.loading("Deleting product...", {
   duration: 1500
 });
@@ -30,6 +38,7 @@ export default  function ProductDashboard_Provider({children})
         if(res.statusCode!=200)toast.error(res.message || `Unable to delete ${name} `)
         else setTimeout(()=>{View_Products()  ;},500); 
     }
+}
     useEffect(()=>{
         View_Products()
     },[]);

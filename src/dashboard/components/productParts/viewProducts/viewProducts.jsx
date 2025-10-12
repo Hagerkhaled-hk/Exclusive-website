@@ -9,10 +9,12 @@ import { useNavigate } from "react-router-dom";
 import RedButton from "../../../../Common/redButton/redButton";
 import Viewateg from "../../../../services/APIs/category/ViewCateg";
 import { CiFilter } from "react-icons/ci";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 
 export default function viewProducts()
 {
+  const{demoDashboard}=useContext(DashboardContext);
 const {products,Delete_product} =useContext(ProductDashboard_Context);
   const [loading, setLoading] = useState(true);
   const [filter,setFilter]=useState([])
@@ -77,7 +79,7 @@ useEffect(()=>{
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
                 <div className="left">
                 <p style={{marginTop:"0px"  }}><small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to Edit. </small></p>
-<RedButton text={"Add product"}  btn_Function={()=>{navigate("/dashboard/addproduct")}}/>
+<RedButton text={"Add product"}  btn_Function={()=>{navigate(`${demoDashboard?"/DemoDashboard":"dashboard"}/addproduct`)}}/>
 
                 </div>
   <div className="filter-select">
@@ -124,7 +126,7 @@ useEffect(()=>{
 
 :
               filter?.map((product, id) => (
-                <tr   onClick={() => {   navigate(`/dashboard/product/${product.id}`); }} key={id}  >
+                <tr   onClick={() => {   navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/product/${product.id}`); }} key={id}  >
                   <td data-label="ID: "  >{id+1}</td>
                   <td className="img-table" >
                     <div className="images">

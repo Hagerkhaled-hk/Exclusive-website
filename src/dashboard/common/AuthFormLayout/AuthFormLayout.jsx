@@ -5,7 +5,7 @@ import ErrorMessage from "../../../Common/errorComponents/errorComponents";
 import "./AuthFormatLayout.css"; // Assuming the common styles are in signup.css or you might want to create a separate auth.css
 import LoadingModal from "../../../Common/modal/modal";
 import { UserContext } from "../../../context/userContext/userContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 /**
  * A layout component for both Signup and Login forms.
@@ -31,17 +31,19 @@ export default function AuthFormLayout({
 
   const navigate =useNavigate();
   const {isLogin}=useContext(UserContext);
+  const isLoginRef=useRef(isLogin);
 
-  useEffect(()=>{
-    console.log('fff');
-    
+  useEffect(() => {
+    isLoginRef.current = isLogin;
+  }, [isLogin]);
+
+
+
+   useEffect(()=>{
     setTimeout(()=>{
-
-      if(isLogin())console.log("is login" ,isLogin());
-      else console.log("false");
-      
-    },1000)
-  },[])
+      if(isLoginRef.current())navigate("/");   
+    },500)
+  },[]);
 
   return (
     <>

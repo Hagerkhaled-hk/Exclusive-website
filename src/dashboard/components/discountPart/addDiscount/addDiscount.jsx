@@ -1,8 +1,9 @@
-import {  useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import "../../productParts/editProducts/editProducts.css";
 import { Toaster, toast } from "react-hot-toast";
 import RedButton from "../../../../Common/redButton/redButton";
 import Add_Disconut from "../../../../services/APIs/discount/addDiscount";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 // Initial state for form data
 const initialFormData = {
@@ -27,14 +28,16 @@ const initialValidation = {
 
 export default function AddDiscount() {
     // State to hold and manage form input values
+    const{isAdminLogin,demoDashboard}=useContext(DashboardContext);
     const [formData, setFormData] = useState(initialFormData);
     const [validationErrors, setValidationErrors] = useState(initialValidation);
+
     
     // Load selected products from localStorage on component mount
     useEffect(() => {
         const loadSelectedProducts = () => {
             try {
-                const selectedProducts = JSON.parse(localStorage.getItem("selectedProducts") || "[]");
+                const selectedProducts = JSON.parse(localStorage.getItem("addSelectedProducts") || "[]");
                 
                 // Extract productIds and categoryIds from the selected products
                 const productIds = selectedProducts.map(item => item.productId).filter(id => id);
@@ -56,6 +59,13 @@ export default function AddDiscount() {
     }, []);
 
     async function addDiscount() {
+
+ //Demo Dashboard
+   if(demoDashboard){toast.success("Added Successfully (Simulation)",{duration:1500});  return;}
+
+        // --- API Submission ---
+      if(isAdminLogin && !demoDashboard){
+        
         toast("Creating discount...", { duration: 1000 });
         console.log(formData);
         
@@ -86,6 +96,7 @@ export default function AddDiscount() {
         } else {
             toast.error(res.message || "Unable to create this discount.");
         } 
+    }
     }
 
     const validateField = (name, value) => {

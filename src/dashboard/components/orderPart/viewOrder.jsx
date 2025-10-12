@@ -16,6 +16,7 @@ import RedButton from "../../../Common/redButton/redButton";
 import CustomSelectStatus from "../customSelectStatus/customSelect";
 import DeleteOrderAdmin from "../../../services/APIs/orders/deleteOrderAdmin";
 export default function ViewOrdersAdmin() {
+  const{demoDashboard}=useContext(DashboardContext);
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [modelINfo, setModelInfo] = useState(
@@ -72,7 +73,24 @@ console.log(token);
 
 
      async function View_AdminOrders(status="all") {
+        if(demoDashboard){ setOrders([ {
+            "id": "1",
+            "buyerName": "User1",
+            "createdAt": "0001-01-01T00:00:00",
+            "status": "Pending",
+            "total":7854
+          },
+        {
+            "id": "2",
+            "buyerName": "User2",
+            "createdAt": "0001-01-01T00:00:00",
+            "status": "Pending",
+            "total":8888
+          }
         
+        ]);
+      return;
+      }
         let token = getAdminToken();
         console.log(token);
         
@@ -118,7 +136,7 @@ console.log(token);
     <div className="AllOrders  ">
       {orders.length ==0?
        
-      <LoadingModal loading={loading} text="No orders found" />
+      <LoadingModal loading={loading} mainText="No orders found" />
       :
       <>  
       
@@ -190,7 +208,7 @@ console.log(token);
                 <Button
                   className="btn cancel-icon"
                   variant="danger"
-                  disabled={order.status!="Canceled"}
+                  disabled={ order.status!="Canceled"}
                   onClick={() => { handleShow(order.id, id, "delete"); }}
                 >
                   Delete
@@ -200,7 +218,7 @@ console.log(token);
               <td onClick={(e)=>{e.stopPropagation()}}>
             
 
-                <CustomSelectStatus value={order.status} id={order.id} /> 
+                <CustomSelectStatus value={order.status}  Orders={order} setOrders={setOrders}  id={order.id} /> 
               </td>
            
               <td onClick={(e)=>e.stopPropagation()}>

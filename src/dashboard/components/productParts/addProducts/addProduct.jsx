@@ -7,6 +7,7 @@ import RedButton from "../../../../Common/redButton/redButton";
 import Viewateg from "../../../../services/APIs/category/ViewCateg";
 import Add_Product from "../../../../services/APIs/products/add_product";
 import"../editProducts/editProducts.css"
+import { DashboardContext } from "../../../context/dashboardContext";
 
 // Initial state for form data, matching the product structure
 
@@ -27,6 +28,7 @@ export default function  AddProduct() {
     const [isCategorySelectOpen, setIsCategorySelectOpen] = useState(false);
     const [ selectedCategory ,setSelectedCategory]=useState("")
     const{View_Products}=useContext(ProductDashboard_Context);
+    const{isAdminLogin,demoDashboard}=useContext(DashboardContext);
 
     useEffect(()=>{
 console.log(formData);
@@ -54,6 +56,14 @@ async function getCategNames() {
 }
 
 async function add_product() {
+     //Demo Dashboard
+   if(demoDashboard){toast.success("Added Successfully (Simulation)",{duration:1500});  return;}
+
+        // --- API Submission ---
+      if(isAdminLogin && !demoDashboard){
+
+
+
     toast(
   "Adding Product....",
   {
@@ -90,7 +100,7 @@ for (const item of data.entries()) {
 });
         View_Products();}
     else toast.error("Unable to add product,Try again or Ensure if you set all required data");
-    
+}
 }
 
 
@@ -225,7 +235,7 @@ console.log("validation ERROrs ===================",validationErrors);
             <Toaster position="top-center" reverseOrder={false} />
 
                 <div className="form-container">
-                    <h2>Edit Product Details</h2>
+                    <h2>Add Product</h2>
 
                     <div >
 

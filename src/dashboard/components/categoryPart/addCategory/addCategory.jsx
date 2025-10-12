@@ -5,6 +5,7 @@ import LoadingModal from "../../../../Common/modal/modal";
 import { Toaster, toast } from "react-hot-toast";
 import RedButton from "../../../../Common/redButton/redButton";
 import Add_Categ from "../../../../services/APIs/category/add_categ";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 // Initial state for form data, matching the product structure
 const initialFormData = {
@@ -21,6 +22,7 @@ const initialValidation = {
 export default function AddCategory() {
 /*     const [category, setCategory] = useState({});
  */    // State to hold and manage form input values
+ const{isAdminLogin,demoDashboard}=useContext(DashboardContext);
     const [formData, setFormData] = useState(initialFormData);
     const [validationErrors, setValidationErrors] = useState(initialValidation);
     
@@ -29,6 +31,13 @@ export default function AddCategory() {
 
 
 async function  add_Category() {
+
+ //Demo Dashboard
+   if(demoDashboard){toast.success("Added Successfully (Simulation)",{duration:1500});  return;}
+
+        // --- API Submission ---
+      if(isAdminLogin && !demoDashboard){
+
 toast.loading("Adding Category...", {
   duration: 2000
 });
@@ -43,7 +52,7 @@ setTimeout(()=>{
 },500)
     }
 else toast.error( res.message || "Unable to create this category."); 
-    
+}
 }
 
 

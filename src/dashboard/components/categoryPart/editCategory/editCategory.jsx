@@ -6,6 +6,7 @@ import { Toaster, toast } from "react-hot-toast";
 import RedButton from "../../../../Common/redButton/redButton";
 import CategId from "../../../../services/APIs/category/categ_id";
 import UpdateCategory from "../../../../services/APIs/category/update_categ";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 // Initial state for form data, matching the product structure
 const initialFormData = {
@@ -22,6 +23,7 @@ const initialValidation = {
 export default function EditCategory() {
 /*     const [category, setCategory] = useState({});
  */    // State to hold and manage form input values
+ const{isAdminLogin,demoDashboard}=useContext(DashboardContext);
     const [formData, setFormData] = useState(initialFormData);
     const [validationErrors, setValidationErrors] = useState(initialValidation);
     const [loading, setLoading] = useState(true);
@@ -32,6 +34,12 @@ export default function EditCategory() {
 
 
 async function  update_Category() {
+
+     //Demo Dashboard
+   if(demoDashboard){toast.success("Updated Successfully (Simulation)",{duration:1500});  return;}
+
+        // --- API Submission ---
+      if(isAdminLogin && !demoDashboard){
 toast.loading("Updating Category...", {
   duration: 1500
 });
@@ -43,7 +51,7 @@ toast.loading("Updating Category...", {
     }
 else toast.error( res.message || "Unable to update this category."); 
     
-}
+}}
 
 
 

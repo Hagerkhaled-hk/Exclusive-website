@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import RedButton from "../../../../Common/redButton/redButton";
 import { CategoryDashboard_Context } from "../../../context/categoryContext";
 import "../../productParts/viewProducts/viewProducts.css"
+import { DashboardContext } from "../../../context/dashboardContext";
 
 export default function ViewCategories()
 {
+  const{demoDashboard}=useContext(DashboardContext);
  const [loading, setLoading] = useState(true);
   const [modelINfo, setModelInfo] = useState(  { selectedCategoryId: "",name:"",description:"" ,id: null, show: false });
   const navigate= useNavigate();
@@ -44,7 +46,7 @@ const {categories,getCategories,Delete_category}=useContext(CategoryDashboard_Co
               <h2 >Categories</h2>
               
                 <p style={{marginTop:"0px"  }}><small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an category to Edit. </small></p>
-<RedButton text={"Add category"}  btn_Function={()=>{navigate("/dashboard/addcategory")}}/>
+<RedButton text={"Add category"}  btn_Function={()=>{navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/addcategory`)}}/>
 
 
           <table className="orders-table">
@@ -65,7 +67,7 @@ const {categories,getCategories,Delete_category}=useContext(CategoryDashboard_Co
 
 
               categories?.map((category, id) => (
-                <tr   onClick={() => {   navigate(`/dashboard/category/${category.id}`); }} key={id}  >
+                <tr   onClick={() => {   navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/category/${category.id}`); }} key={id}  >
                   <td data-label="ID: "  >{id+1}</td>
                  
                   <td  data-label="Name: " >{category.name.split("##ARCHIVE")[0]}</td>

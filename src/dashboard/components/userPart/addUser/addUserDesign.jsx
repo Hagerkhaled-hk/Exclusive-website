@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import SignUp_Api from "../../../../services/APIs/Auth/signup"; // Assuming correct path
 import { useNavigate } from "react-router-dom";
 import "../../productParts/editProducts/editProducts.css"; // Reuse Order/Product CSS
 import RedButton from "../../../../Common/redButton/redButton";
 import SignUp_Admin_Api from "../../../../services/APIs/Auth/sigupAdmin";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 // --- INITIAL STATE FOR SIGNUP ---
 const initialFormData = {
@@ -27,52 +28,77 @@ const initialValidation = {
 // --- REACT COMPONENT ---
 
 export default function SignupWithOrderLayout() {
+    const{demoDashboard,isAdminLogin}=useContext(DashboardContext);
     const [formData, setFormData] = useState(initialFormData);
     const [validationErrors, setValidationErrors] = useState(initialValidation);
 const [roleType,setRoleType]=useState("buyer");
     const SpinnerRef =useRef(null)
 
+
     // --- Validation Logic (Copied from structured Signup) ---
-    const validateField = (name, value) => {
-        let error = "";
-        const trimmedValue = String(value).trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10,}$/;
-        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const validateField = (name, value) => {
+    let error = "";
+    const trimmedValue = String(value).trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10,}$/;
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
-        switch (name) {
-            case "fullName":
-                if (!trimmedValue) error = "Full Name is required.";
-                else if (trimmedValue.length < 3) error = "Full Name must be at least 3 characters.";
-                break;
+    switch (name) {
+        case "fullName":
+            if (!trimmedValue) error = "Full Name is required.";
+            else if (trimmedValue.length < 3) error = "Full Name must be at least 3 characters.";
+            break;
 
-            case "email":
-                if (!trimmedValue) error = "Email is required.";
-                else if (!emailRegex.test(trimmedValue)) error = "Please enter a valid email address.";
-                break;
+        case "email":
+            if (!trimmedValue) error = "Email is required.";
+            else if (!emailRegex.test(trimmedValue)) error = "Please enter a valid email address.";
+            break;
 
-            case "password":
-                if (!trimmedValue) error = "Password is required.";
-                else if (trimmedValue.length < 6) error = "Password must be at least 6 characters.";
-                break;
+        case "password":
+            if (!trimmedValue) {
+                error = "Password is required.";
+            } else {
+                const errors = [];
+                
+                if (trimmedValue.length < 8) {
+                    errors.push("at least 8 characters");
+                }
+                
+                if (!/[A-Z]/.test(trimmedValue)) {
+                    errors.push("one uppercase letter");
+                }
+                
+                if (!/[a-z]/.test(trimmedValue)) {
+                    errors.push("one lowercase letter");
+                }
+                
+                if (!/[!@#$%^&*]/.test(trimmedValue)) {
+                    errors.push("one special character (!@#$%^&*)");
+                }
+                
+                if (errors.length > 0) {
+                    error = `Password must contain: ${errors.join(", ")}.`;
+                }
+            }
+            break;
 
-            case "birthDate":
-                if (!trimmedValue) error = "Birth Date is required (YYYY-MM-DD).";
-                else if (!dateRegex.test(trimmedValue)) error = "Format must be YYYY-MM-DD (e.g., 2004-09-18).";
-                break;
+        case "birthDate":
+            if (!trimmedValue) error = "Birth Date is required (YYYY-MM-DD).";
+            else if (!dateRegex.test(trimmedValue)) error = "Format must be YYYY-MM-DD (e.g., 2004-09-18).";
+            break;
 
-            case "phoneNumber":
-                if (!trimmedValue) error = "Phone Number is required.";
-                else if (!phoneRegex.test(trimmedValue.replace(/\D/g, ""))) error = "Phone number must contain at least 10 digits.";
-                break;
+        case "phoneNumber":
+            if (!trimmedValue) error = "Phone Number is required.";
+            else if (!phoneRegex.test(trimmedValue.replace(/\D/g, ""))) error = "Phone number must contain at least 10 digits.";
+            break;
 
-            default:
-                break;
-        }
+        default:
+            break;
+    }
 
-        setValidationErrors(prev => ({ ...prev, [name]: error }));
-        return error.length === 0; // Return true if valid
-    };
+    setValidationErrors(prev => ({ ...prev, [name]: error }));
+    return error.length === 0; // Return true if valid
+};
 
     // --- Event Handlers ---
     const handleChange = (e) => {
@@ -92,13 +118,19 @@ const [roleType,setRoleType]=useState("buyer");
 
         const isFormValid = isFullNameValid && isEmailValid && isPasswordValid && isBirthDateValid && isPhoneNumberValid;
 
+
         if (!isFormValid) {
             toast.error("Please fix the validation errors before submitting.");
             SpinnerRef.current.display="none";
             return;
         }
 
+        //Demo Dashboard
+   if(isFormValid&&demoDashboard){toast.success("Added Successfully (Simulation)",{duration:1500});  return;}
+
         // --- API Submission ---
+        if(isAdminLogin && !demoDashboard){
+
         toast.loading("Creating account...", { duration: 1000 });
         const dataToSend = {
             email: formData.email.trim(),
@@ -121,7 +153,7 @@ const [roleType,setRoleType]=useState("buyer");
             toast.error("Registration failed. Please try again later.");
         }
                     SpinnerRef.current.display="none";
-
+    }
     };
 
     // --- Render ---

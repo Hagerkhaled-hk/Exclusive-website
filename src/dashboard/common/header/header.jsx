@@ -13,11 +13,12 @@ const navigate =useNavigate();
 
 async function Log_out()
 {
+    toast.loading("Loging out",{duration:1000})
 let token =getAdminToken();
 if(!token)return;
  let res = await Logout(token);
     if(res.statusCode==200){  localStorage.removeItem('adminData'); navigate("/ADMIN__LOGINDASHBOARD");  }
-    else toast.error(res.message||"Unable to logout");
+    else toast.error("Unable to logout");
     
 }
 

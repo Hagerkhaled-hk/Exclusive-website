@@ -8,6 +8,7 @@ import { Toaster, toast } from "react-hot-toast";
 import UpdateProduct from "../../../../services/APIs/products/update_product";
 import Viewateg from "../../../../services/APIs/category/ViewCateg";
 import RedButton from "../../../../Common/redButton/redButton";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 // Initial state for form data, matching the product structure
 const initialFormData = {
@@ -40,6 +41,7 @@ export default function EditProduct() {
     const [isCategorySelectOpen, setIsCategorySelectOpen] = useState(false);
     const [ selectedCategory ,setSelectedCategory]=useState("")
     const{View_Products}=useContext(ProductDashboard_Context);
+    const{isAdminLogin,demoDashboard}=useContext(DashboardContext);
     useEffect(()=>{
 console.log(categoryOptions);
 
@@ -56,6 +58,12 @@ console.log(categoryOptions);
     const { id } = useParams();
 
 async function  update_product() {
+
+         //Demo Dashboard
+   if(demoDashboard){toast.success("Added Successfully (Simulation)",{duration:1500});  return;}
+
+        // --- API Submission ---
+      if(isAdminLogin && !demoDashboard){
 toast(
   "Updating your changes....",
   {
@@ -84,7 +92,7 @@ View_Products();
 
     }
 else toast.error( res.message || "Unable to update this product."); 
-    
+}
 }
 
 async function getCategNames() {
@@ -297,7 +305,7 @@ else{
                                 onChange={handleChange}
                                 required
                             />
-                            {validationErrors.Price && <p className="error-message">{validationErrors.Price}</p>}
+                            {validationErrors.Price ? <p className="error-message">{validationErrors.Price}</p>:""}
                         </div>
 
                         <div className="form-group">
@@ -311,7 +319,7 @@ else{
                                 onChange={handleChange}
                                 required
                             />
-                            {validationErrors.Stock && <p className="error-message">{validationErrors.Stock}</p>}
+                            {validationErrors.Stock ? <p className="error-message">{validationErrors.Stock}</p>:""}
                         </div>
 
                         {/* --- Upload Images (File Input) --- */}

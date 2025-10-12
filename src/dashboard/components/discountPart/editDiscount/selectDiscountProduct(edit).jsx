@@ -2,14 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProductDashboard_Context } from "../../../context/productContext";
 import ProductDiscountList from "../productDiscountList/productDiscountList";
+import { DashboardContext } from "../../../context/dashboardContext";
 
 export default function SelectDiscountProductEdit() {
+  const{demoDashboard}=useContext(DashboardContext);
   const { products } = useContext(ProductDashboard_Context);
   const navigate = useNavigate();
   const{id} = useParams()// State to store selected product IDs
 function Next()
 {
-  navigate(`/dashboard/discounts/Applydiscounts/${id}`)
+  navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/discounts/Applydiscounts/${id}`)
    
 }
 
