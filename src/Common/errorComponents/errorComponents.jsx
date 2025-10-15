@@ -2,6 +2,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./errorComponents.css"
 import { IoIosCloseCircle } from "react-icons/io";
+import { MdDoneOutline } from "react-icons/md";
 export default function ErrorMessage({message1,message2,Opacity})
 {
     
@@ -10,10 +11,14 @@ export default function ErrorMessage({message1,message2,Opacity})
     return (
     
     <div id="error-message-container" style={{opacity:Opacity ,marginTop:"20px"} } className="ErrorMessage">
-        <div className="error-card"  >
+        <div className={`error-card ${message1=="Success!"?"success":""}` }  >
             <div className="flex-container">
                 <div className="icon-wrapper">
+                    {message1=="Success!"?
+                        <MdDoneOutline className="icon" />
+                        :
                 <IoIosCloseCircle className="icon"/>
+                    }
                 </div>
                 <div className="text-content">
                     <h3 className="error-heading">

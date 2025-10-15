@@ -12,11 +12,15 @@ import { UserContext } from "../../context/userContext/userContext";
 import Logout from "../../services/APIs/Auth/logout";
 import { ProductContext } from "../../context/productContext/productContext";
 import { GoPerson } from "react-icons/go";
-import RedButton from "../redButton/redButton";
+import toast from "react-hot-toast";
+import { CartContext } from "../../context/cartContext/cartContext";
+import { WishlistContext } from "../../context/wishlistContext/wishlistContext";
 export default function Nav()
 {
-const {isLogin , getToken,setUserLogin} =useContext(UserContext);  
+const {isLogin , getToken} =useContext(UserContext);  
  const {products} =useContext(ProductContext)
+ const{setCart_All_StateEmpty}=useContext(CartContext);
+ const{setWishlistItemsEmpty}=useContext(WishlistContext);
  const [openSearch ,setOpenSearch]=useState(false);
 const [productSearch ,setProductSearch]=useState([]);
 const searchRef =useRef();
@@ -41,18 +45,26 @@ setProductSearch(data);
 
 async function logingOut()
  {
-let token =getToken()
+const loadingToast = toast.loading("Logging out, please wait...", {
+  duration: 3000, 
+});let token =getToken()
 if(token){
 let res = await Logout(token);
 console.log(res);
 
- if(res.succeeded) {localStorage.removeItem("userData");
+ if(res.succeeded) {
+    localStorage.removeItem("userData");
+    setCart_All_StateEmpty();
+    setWishlistItemsEmpty();
 window.dispatchEvent(new Event('localStorageChange'));
+}
+else toast.error("Something went wrong , please try again");
 
+     toast.dismiss(loadingToast);
 
-  }
 
 }
+
 
  }
     return <nav>

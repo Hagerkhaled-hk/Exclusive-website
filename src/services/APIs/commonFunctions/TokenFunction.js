@@ -3,13 +3,11 @@ import ReGenerateToken from "../Auth/reGenerateToken";
 
 export async function ReToken(isAdmin)
     {
-        console.log("isAdmin",isAdmin);
         
         let Data_local=isAdmin?localStorage.getItem("adminData"):localStorage.getItem("userData");
 
            let Data= JSON.parse(Data_local) ;
 
-                 console.log("Data.refreshToken",Data?.refreshToken);
                    
     let res = await ReGenerateToken(Data?.refreshToken);
 if(!res.Data){

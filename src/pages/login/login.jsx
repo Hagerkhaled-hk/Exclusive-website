@@ -6,9 +6,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { UserContext } from "../../context/userContext/userContext";
 import Google_Login_Api from "../../services/APIs/Auth/googleLogin";
 import { FcGoogle } from "react-icons/fc";
-import AuthFormLayout from "../../dashboard/common/AuthFormLayout/AuthFormLayout";// Import the new layout component
+import AuthFormLayout from "../../Common/AuthFormLayout/AuthFormLayout";// Import the new layout component
 import RedButton from "../../Common/redButton/redButton";
-
 export default function Login() {
   const { UserDataSetting } = useContext(UserContext); // Retain context
   const SpinnerRef=useRef(null);

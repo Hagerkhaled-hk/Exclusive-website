@@ -1,4 +1,3 @@
-import { data } from "react-router-dom";
 
 
 export default async function CreateAPi_Function (initialUrl,headersData,intialData,stringfyData=true){
@@ -14,6 +13,8 @@ export default async function CreateAPi_Function (initialUrl,headersData,intialD
         body:stringfyData ?JSON.stringify(intialData):intialData,
         headers:headersData
     })
+    
+    console.log("res",res);
     
 const {status , ok }= res;
 
@@ -47,6 +48,8 @@ const contentType = res.headers.get("content-type");
 
 
     } catch(error) {
+        console.log("errror");
+        
 return  { statusCode:0  ,message:error.message} ;
         /*  throw new Error (error.message);
         */

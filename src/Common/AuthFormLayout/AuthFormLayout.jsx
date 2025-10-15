@@ -1,12 +1,11 @@
 // src/Common/Auth/AuthFormLayout.jsx
-import register_img from "../../../assets/images/register-img.png";
-import { Link, useNavigate } from "react-router-dom";
-import ErrorMessage from "../../../Common/errorComponents/errorComponents";
+import register_img from "../../assets/images/register-img.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import ErrorMessage from "../../Common/errorComponents/errorComponents";
 import "./AuthFormatLayout.css"; // Assuming the common styles are in signup.css or you might want to create a separate auth.css
-import LoadingModal from "../../../Common/modal/modal";
-import { UserContext } from "../../../context/userContext/userContext";
+import LoadingModal from "../../Common/modal/modal";
+import { UserContext } from "../../context/userContext/userContext";
 import { useContext, useEffect, useRef, useState } from "react";
-import RedButton from "../../../Common/redButton/redButton";
 
 /**
  * A layout component for both Signup and Login forms.
@@ -33,6 +32,7 @@ export default function AuthFormLayout({
   const navigate =useNavigate();
   const {isLogin}=useContext(UserContext);
   const isLoginRef=useRef(isLogin);
+  const path=useLocation();
 
   useEffect(() => {
     isLoginRef.current = isLogin;
@@ -42,14 +42,15 @@ export default function AuthFormLayout({
 
    useEffect(()=>{
     setTimeout(()=>{
-      if(isLoginRef.current())navigate("/");   
-    },500)
+      if(path.pathname==="/ADMIN__LOGINDASHBOARD")return;
+       else if(isLoginRef.current())navigate("/");   
+     },600)
   },[]);
 
   return (
     <>
 {
-  isLogin()?
+  isLogin()&&path.pathname!=="/ADMIN__LOGINDASHBOARD"?
   <LoadingModal loading={true}/>
   :
 

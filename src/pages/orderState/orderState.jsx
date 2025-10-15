@@ -22,7 +22,6 @@ const{deleteAllCart}=useContext(CartContext);
     useEffect(()=>{
 
 let  Confirmed=  (localStorage.getItem("is_From_PaymentPage") ?? is_From_PaymentPage) ;
-console.log("confi", Confirmed );
 
   if (!Confirmed)  navigate("/account/allOrders");
   

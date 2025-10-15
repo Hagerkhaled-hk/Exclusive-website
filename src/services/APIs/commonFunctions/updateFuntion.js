@@ -22,7 +22,6 @@ const {ok , status} = res;
         try{
 
 const resJson=await res.json();
-console.log(resJson.message);
 
 
           return ({ statusCode: status|| resJson.statusCode  ,message:resJson.message});   

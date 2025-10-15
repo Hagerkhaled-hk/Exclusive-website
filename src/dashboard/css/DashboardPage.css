@@ -1,7 +1,3 @@
-body {
-  overflow-y: hidden;
-}
-
 .fixed-bg {
   width: 100vw;
   position: fixed;
@@ -146,6 +142,14 @@ body {
 @media (max-width: 1214px) {
   .fixed-bg .Dashboard-content {
     width: 100%;
+  }
+}
+@media (max-width: 950px) {
+  .fixed-bg .DashboardPage {
+    padding: 5px;
+  }
+  .fixed-bg .DashboardPage input, .fixed-bg .DashboardPage textarea, .fixed-bg .DashboardPage select, .fixed-bg .DashboardPage button {
+    font-size: var(--input-txt-size) !important;
   }
 }
 @media (max-width: 657px) {

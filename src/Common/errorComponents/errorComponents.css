@@ -26,6 +26,11 @@ overflow-y: auto;
     transition-duration: 300ms;
 }
 
+.error-card.success
+{
+    background-color: #0080003e;
+}
+
 /* Flexbox container for the icon and text */
 .flex-container {
     display: flex; /* flex */
@@ -40,6 +45,13 @@ overflow-y: auto;
     color: var(--red-color);
 }
 
+
+.error-card.success .icon-wrapper
+{
+    color: rgba(0, 128, 0, 0.626);
+}
+
+
 /* Styles for the text content area */
 .text-content {
     margin-left: 0.75rem; /* ml-3 */
@@ -52,6 +64,8 @@ overflow-y: auto;
     color: #991b1b; /* text-red-800 */
 }
 
+
+
 /* Styles for the error details section */
 .error-details {
     margin-top: 0.5rem; /* mt-2 */
@@ -59,6 +73,10 @@ overflow-y: auto;
     color: #b91c1c; /* text-red-700 */
 }
 
+.error-card.success .error-heading ,.error-card.success .error-details  {
+
+    color: var(--white-color);
+}
 /* List styles for error messages */
 .error-list {
     list-style-type: disc;

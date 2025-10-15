@@ -14,7 +14,7 @@ import { UserContext } from "../../context/userContext/userContext";
 export default function Wishlist()
 {
  
-const {wishlistItems,add_Wishlit_To_Cart}=useContext(WishlistContext);
+const {wishlistItems,add_Wishlit_To_Cart,fetchWishlist}=useContext(WishlistContext);
 
 const {products}=useContext(ProductContext);
 const Navigate=useNavigate(null);
@@ -24,11 +24,13 @@ const {isLogin}=useContext(UserContext);
 
 useEffect(()=>{
       if(!isLogin()) Navigate("/signup");
-else
-{
+      else
+{   
+        fetchWishlist();
+
     setTimeout(() => {
 setLoading(false);
-    }, 2000);
+    }, 5000);
 
 }
 },[])
@@ -67,7 +69,7 @@ setLoading(false);
 
 <div className="recommendation-bottom">
 
-<ProductCards products={products.splice(4,4)} />
+<ProductCards products={products.slice(0,4)} />
 </div>
 
 </div>

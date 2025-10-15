@@ -15,8 +15,8 @@ createRoot(document.getElementById('root')).render(
      <GoogleOAuthProvider clientId="736736504858-k7297dcrj2ru3j1rlju0k6o8grmgj4qv.apps.googleusercontent.com">
 <UserProvider>
 <ProductProvider>
-<WishlistProvider>
     <CartProvider>
+<WishlistProvider>
         <PaymentProvider>
 <OrderProvider>
 
@@ -24,8 +24,8 @@ createRoot(document.getElementById('root')).render(
 </OrderProvider>
 
         </PaymentProvider>
-    </CartProvider>
     </WishlistProvider>
+    </CartProvider>
 </ProductProvider>
 </UserProvider>
 </GoogleOAuthProvider>

@@ -21,7 +21,7 @@ style={{marginTop:"50px", width:"100%" , display:"flex",justifyContent:"center",
 
 
 
-<p style={{marginTop:"20px",fontSize:"var(--text-size)"}}>
+<p style={{marginTop:"20px",fontSize:"var(--text-size)" , verticalAlign:"middle",textAlign:"center"} }>
     
 {mainText ? mainText : 
       <span>

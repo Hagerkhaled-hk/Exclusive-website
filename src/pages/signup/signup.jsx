@@ -3,9 +3,8 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext, useEffect, useRef, useState } from "react";
 import SignUp_Api from "../../services/APIs/Auth/signup";
 import { Link, useNavigate } from "react-router-dom";
-import AuthFormLayout from "../../dashboard/common/AuthFormLayout/AuthFormLayout"; // Import the new layout component
+import AuthFormLayout from "../../Common/AuthFormLayout/AuthFormLayout"
 import RedButton from "../../Common/redButton/redButton";
-import { UserContext } from "../../context/userContext/userContext";
 
 export default function Signup() {
   const inputRef = useRef([]);
@@ -27,7 +26,7 @@ export default function Signup() {
       birthDate: inputRef.current[3].value.trim(),
     };
 
-    // --- Client-Side Validation Check (Moved to register for direct check) ---
+     // --- Client-Side Validation Check (Moved to register for direct check) ---
     let firstError = false;
     for (const item of inputRef.current) {
       if (item.value.trim() === "") {
@@ -43,11 +42,19 @@ export default function Signup() {
       }
     }
     if (firstError) return; // Should be covered by the loop return, but good as a safety.
-    // ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------ 
 
-    let res = await SignUp_Api(data);
+   SignUpApi(data);
+          SpinnerRef.current.style.display="none";
 
-    if (res.succeeded) navigate("/");   
+  }
+
+
+  async function SignUpApi(data) {
+     let res = await SignUp_Api(data);
+
+    if (res.succeeded){ setErrorData({ message1: `Success!`, message2: res.message, Opacity: 1 });
+    setTimeout(() => { navigate("/login")  }, 2000);}   
     else if (!res) {
       // API call failed unexpectedly (e.g., network error)
            
@@ -62,8 +69,6 @@ export default function Signup() {
       setErrorData({ message1: `Oops!`, message2: res.message, Opacity: 1 });
 
     }
-          SpinnerRef.current.style.display="none";
-
   }
 
   // Define the common reset action for clearing errors on button click

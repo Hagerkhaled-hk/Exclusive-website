@@ -43,6 +43,8 @@ export default function ProductCards({ products }) {
 
   useEffect(()=>{
     getDisocuntIds();
+    console.log("wishlist products",products);
+    
 
     setTimeout(() => {
 setLoading(false);
@@ -126,7 +128,7 @@ DeleteFromWishlist(product.productId,product.name || product.productName)
             <img src={product?.productImageUrl || product?.images[0] } alt={product.name || product.productName} />
               </div>
               {
- !product?.stock?
+ product?.stock==0?
    <OutOfStock/>
   :
   ""

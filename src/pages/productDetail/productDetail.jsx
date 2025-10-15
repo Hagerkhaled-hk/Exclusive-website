@@ -26,24 +26,9 @@ const [activeImageIndex, setActiveImageIndex] = useState(0);
   const navigate =useNavigate();
 
   const{getToken,isLogin} =useContext(UserContext);
-  const{setCart_All_State} =useContext(CartContext);
+  const{setCart_All_State,addToCart} =useContext(CartContext);
   const [loading, setLoading] = useState(true);
-async function addToCart(data)
-  {
-    if (!products.stock) return;
-    let token =getToken();
-    if(token){
 
-      let res =await AddTOCart(data,token);
-      
-
-      console.log(res);
-      if(res.succeeded){ toast.success('Successfully added to cart!')
-  setCart_All_State();}    
-else {toast.error(res?.message)}
-    }
-    
-  }
 
 
   async function AddTOWishlist(data)
@@ -65,8 +50,8 @@ else{
 
   (async()=>{
     let res =await ProductById(id)
-
- setProducts(res.data);
+if(res.statusCode!==200)return;
+ setProducts(res?.data);
   })()
 
   setTimeout(() => {
@@ -245,8 +230,9 @@ slidesPerView:2,
                           addToCart({
   "productId": products.id,
   "quantity": quantity
-})
+},products.name,quantity)
           }} className="buy-btn">Add to cart</button>
+
           <button disabled={!products.stock} onClick={()=>{
 isLogin()?
 AddTOWishlist(

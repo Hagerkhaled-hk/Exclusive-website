@@ -1,10 +1,6 @@
 @use "../../assets/common_scss/commonScss.scss"as *;
 
 
-body
-{
-    overflow-y: hidden;
-}
    .fixed-bg
     {
         width: 100vw;
@@ -192,6 +188,18 @@ width: 100%;
     
 }
 
+@media (max-width:950px) {
+
+ .fixed-bg .DashboardPage  
+{
+    padding: 5px;
+}
+ .fixed-bg .DashboardPage 
+ { input ,textarea,select , button 
+ {
+    font-size: var(--input-txt-size) !important;
+ }}
+}
 
 @media (max-width:657px) {
     

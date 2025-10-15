@@ -165,3 +165,9 @@ body
     width: 50vw;
   }
 } 
+
+@media (max-width: 578px) {
+    :root {
+        --pages-padding: 100px 10px;
+    }
+}

@@ -151,11 +151,14 @@ setActiveProcess(true);
       }
     ); 
 
-    if(res.data.url) {
+    if(res?.data?.url) {
    set_Is_From_PaymentPage(true);
    localStorage.setItem("LogOrder",false);
    localStorage.setItem("is_From_PaymentPage",true);
        window.location.href=res.data.url;
+     }else
+     {
+      toast.error("unable to process , please  try again.")
      }
   }
 

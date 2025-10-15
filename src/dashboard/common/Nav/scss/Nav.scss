@@ -238,3 +238,11 @@ transform: translateX(-500px);
                 }
 
 }
+
+
+@media (max-width:900px) {
+    .fixed-bg .DashboardPage .Header
+    {
+        font-size: var(--input-txt-size);
+    }
+}

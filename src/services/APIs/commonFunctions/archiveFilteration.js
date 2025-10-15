@@ -2,7 +2,6 @@
 
 export function archiveProductsFilteration(data,isUser)
 {
-    console.log(data);
     isUser?
 data=data.filter((item)=>item.categoryName.includes("##ARCHIVE")===false)
 :data.map((item)=>{
