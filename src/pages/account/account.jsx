@@ -33,7 +33,7 @@ useEffect(()=>{
           <h3>Manage My Account</h3>
           <ul>
             <li>
-              <NavLink  to="profile">
+              <NavLink  to="">
                 My Profile
               </NavLink>
             </li>

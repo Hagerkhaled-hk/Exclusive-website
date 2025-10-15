@@ -44,7 +44,7 @@ const [isPageOpen, setIsPageOpen] = useState(false);
             <ul className='main-container'>
 
                 <li>
-                    <NavLink to={`${demoDashboard?"/DemoDashboard":"/dashboard`"}`}>
+                    <NavLink to={`${demoDashboard?"/DemoDashboard":"/dashboard"}`}>
                         <div className="logo">
                             <FaTv  style={{color:"rgb(94 114 228)"}} />
                         </div>

@@ -159,7 +159,7 @@ path: "resetPassword", element: (
          errorElement:<ErrorPage/>,
         children:[
           {
-            path:"profile" ,
+            path:"" ,
             element:(
           
                   <Suspense fallback={<Spinner style={{margin:"25% 0px 25%  50%   ", }} animation="border" /> }>

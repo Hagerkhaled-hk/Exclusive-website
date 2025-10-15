@@ -311,7 +311,7 @@ setActiveProcess(true);
             <p ref={discountRef} style={{display:"none",justifyContent:"spaceBetween","alignItems":"center"}}>New Total : <span> {discount}</span></p>
             </div>  
           </div>
-          <p style={{color:"var(--red-color)"}}>Note:To complete your purchase, please follow all the steps </p>
+          <p style={{color:"var(--red-color)",fontSize:"10px" }}>Note:To complete your purchase, please follow all the steps </p>
           <RedButton text="Place order"
           className={`${activeProcess?"active":""}`}  btn_Function={paymentMethod=="OnBank" ?
             processpayment_OnBank:

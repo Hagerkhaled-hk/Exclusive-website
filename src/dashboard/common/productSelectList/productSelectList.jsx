@@ -139,7 +139,7 @@ function setOrderSellectedToAll(allData,item)
       <thead>
        <tr>
         <th>Select</th>
-                <th style={{display:visibleQuantity?"block":"none"}}>Quantity</th>
+                <th style={{display:visibleQuantity?"table-cell":"none"}}>Quantity</th>
         <th>ID</th>
         <th>Images</th>
         <th>Name</th>
@@ -171,7 +171,7 @@ function setOrderSellectedToAll(allData,item)
            />
           </td>
                     {/* Quantity Input */}
-                    <td style={{display:visibleQuantity?"block":"none"}} data-label="Quantity: " onClick={(e) => e.stopPropagation()}>
+                    <td style={{display:visibleQuantity?"table-cell":"none"}} data-label="Quantity: " onClick={(e) => e.stopPropagation()}>
                         <input
                           type="number"
                           min="1"

@@ -45,22 +45,21 @@ setProductSearch(data);
 
 async function logingOut()
  {
-const loadingToast = toast.loading("Logging out, please wait...", {
-  duration: 3000, 
-});let token =getToken()
+let token =getToken()
 if(token){
 let res = await Logout(token);
 console.log(res);
 
  if(res.succeeded) {
+
     localStorage.removeItem("userData");
     setCart_All_StateEmpty();
     setWishlistItemsEmpty();
+
 window.dispatchEvent(new Event('localStorageChange'));
 }
 else toast.error("Something went wrong , please try again");
 
-     toast.dismiss(loadingToast);
 
 
 }
@@ -129,7 +128,7 @@ isLogin()?
 
          <Link to={ isLogin()?`/wishlist`:"/signup"}  className="wishList"><AiOutlineHeart/></Link>
     <Link to={ isLogin()?`/cart`:"/signup"}  className="Cart"><PiShoppingCartLight/></Link>
-    <Link to={ isLogin()?`/account/profile`:"/signup"}  className="Account"><GoPerson/></Link>
+    <Link to={ isLogin()?`/account`:"/signup"}  className="Account"><GoPerson/></Link>
     
    
     <div class="nav-item dropdown" style={{position:"unset",display:"none"}}>

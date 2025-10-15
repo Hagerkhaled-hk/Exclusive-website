@@ -71,7 +71,7 @@ useEffect(()=>{
           {filter?.length ==0?
            
           <LoadingModal loading={loading} mainText="No products found" />
-          :
+          : 
           <>  
                     <Toaster position="top-center" reverseOrder={false} />
 
@@ -79,7 +79,7 @@ useEffect(()=>{
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
                 <div className="left">
                 <p style={{marginTop:"0px"  }}><small style={{ fontSize: "13px", color: "var(--red-color)" }}>Select an product to Edit. </small></p>
-<RedButton text={"Add product"}  btn_Function={()=>{navigate(`${demoDashboard?"/DemoDashboard":"dashboard"}/addproduct`)}}/>
+<RedButton text={"Add product"}  btn_Function={()=>{navigate(`${demoDashboard?"/DemoDashboard":"/dashboard"}/addproduct`)}}/>
 
                 </div>
   <div className="filter-select">
