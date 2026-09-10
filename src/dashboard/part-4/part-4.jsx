@@ -1,19 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
-import "./css/Part-4.css"
-import { PieChart } from '@mui/x-charts/PieChart';
+import React, { useContext, useEffect, useState } from "react";
+import "./css/part-4.css";
+import { PieChart } from "@mui/x-charts/PieChart";
 /* import { FetchApIsContext } from '../../../context/fetchAPIs/fetchAPIs';
- */export default function Part4()
-{
+ */ export default function Part4() {
+  /* const {CategoriesApi} = useContext(FetchApIsContext);
+   */
+  /* const[categories,setCategories]=useState([]);
+   *//*  const[pieData,setPieData]=useState([]);
+   */
 
-/* const {CategoriesApi} = useContext(FetchApIsContext);
- */ 
-/* const[categories,setCategories]=useState([]);
- *//*  const[pieData,setPieData]=useState([]);
- */ 
+  const pieData = [
+    { label: "Gaming", value: 4 },
+    { label: "Convertable labtobs", value: 4 },
+    { label: "Computers", value: 4 },
+    { label: "SmartPhones", value: 4 },
+  ];
 
-const pieData=[{label:"Gaming",value:4},{label:"Convertable labtobs",value:4},{label:"Computers",value:4},{label:"SmartPhones",value:4 }]
-
- /* 
+  /* 
   async function  categoryFetch() {
     const data=await CategoriesApi()
     setCategories(data);
@@ -33,13 +36,12 @@ categoryFetch();
 
     },[]); */
 
-/*  useEffect(()=>{
+  /*  useEffect(()=>{
 categoryFetch();
 
   },[]) */
 
-
-/* function setData()
+  /* function setData()
 {
 
   let data=[];
@@ -53,37 +55,34 @@ setPieData(data);
 
 }
  */
-const settings = {
-  margin: { right: 5 },
-  width:550,
-  height: 300,
-  hideLegend: true,
-};
-    return <div className="Part4">
-
-<header>
-  <h6>Products Overview</h6>
-  <p>Currently Stock</p>
-</header>
-{
-  (pieData.length!=0)
-  ?
-  <PieChart
-  series={[
-    {
-      startAngle: -90,
-      endAngle: 90,
-      data:pieData,
-outerRadius:120
-    },
-  ]}
-  height={300}
-  width={450}
-/>  
-    :
-    ""
-    }
-
-    
-    </div>;
+  const settings = {
+    margin: { right: 5 },
+    width: 550,
+    height: 300,
+    hideLegend: true,
+  };
+  return (
+    <div className="Part4">
+      <header>
+        <h6>Products Overview</h6>
+        <p>Currently Stock</p>
+      </header>
+      {pieData.length != 0 ? (
+        <PieChart
+          series={[
+            {
+              startAngle: -90,
+              endAngle: 90,
+              data: pieData,
+              outerRadius: 120,
+            },
+          ]}
+          height={300}
+          width={450}
+        />
+      ) : (
+        ""
+      )}
+    </div>
+  );
 }

@@ -5,54 +5,45 @@ import HomeHeader from "../../../Common/homeHeader/homeHeader";
 import RedButton from "../../../Common/redButton/redButton";
 import { useNavigate } from "react-router-dom";
 
-import "./HomePart5.css"
+import "./homePart5.css";
 import LoadingModal from "../../../Common/modal/modal";
-export default function HomePart5()
-{
+export default function HomePart5() {
+  const [products, setProducts] = useState([]);
+  let navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  function navigatetoProduct() {
+    navigate("/product");
+  }
 
-   const [products,setProducts] =  useState([]); 
-   let navigate =useNavigate();
-   const[loading,setLoading]=useState(true);
-   function navigatetoProduct()
-   {
-navigate("/product")
-   }
+  useEffect(() => {
+    (async () => {
+      let res = await ViewProducts();
+      setProducts(res.data);
+    })();
 
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  }, []);
 
-   useEffect(()=>{
-     
- 
-(async()=>{
+  return (
+    <div className="HomePart5">
+      <HomeHeader title={"Explore our products"} note={"our products"} />
+      <div
+        className="inner 
+"
+      >
+        <div className="products-container-home2">
+          {products.length ? (
+            <ProductCards products={products.splice(0, 8)} />
+          ) : (
+            <LoadingModal loading={loading} />
+          )}
+        </div>
 
-       let res= await  ViewProducts();
-  setProducts(res.data);
-})()    
-
-
-setTimeout(()=>{
-   setLoading(false)
-},5000)
-   },[])
-
-
-   
-    return <div  className="HomePart5"> 
-    <HomeHeader title={"Explore our products"} note={"our products"}  /> 
-
-<div className="inner 
-">
- <div className="products-container-home2">
-{
-products.length ? <ProductCards products={products.splice(0,8)} />:
-
-<LoadingModal loading={loading}/>
-}
-</div> 
-
-      <RedButton text={"View all product"} btn_Function={navigatetoProduct}/>
-</div>
-
-    </div>
-    
-
+        <RedButton text={"View all product"} btn_Function={navigatetoProduct} />
+      </div>
+         
+    </div>
+  );
 }
