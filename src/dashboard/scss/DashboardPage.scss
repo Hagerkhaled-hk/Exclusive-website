@@ -1,161 +1,116 @@
-@use "../../assets/common_scss/commonScss.scss"as *;
+@use "../../assets/common_scss/commonScss.scss" as *;
 
+.fixed-bg {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0px;
+  height: 100vh;
+  margin-top: 20px;
+  @include around-start;
 
-   .fixed-bg
-    {
-        width: 100vw;
-        position: fixed;
-        top: 0;
-        left: 0px;
-        height: 100vh;
-        margin-top: 20px;
-                @include around-start ; 
+  .DashboardPage {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    height: 90vh;
+    padding: 20px;
 
-
-
-    
-.DashboardPage
-{
-overflow-y: auto;
-overflow-x: hidden;
-          min-height: 0;
-          height: 90vh;
-        padding: 20px;
-
-        >*
-        {
-                margin: 0px;
-                margin-bottom: 50px;
-                
-
-        }
-.container-Dashboard
-{
-    height: 404px;
-    @include  Centering;
-gap:25px;
-width: fit-content;
-overflow: hidden;
-}
-
-
-
-
-@mixin ScrollbarCommon()
-{
-
-
-    visibility:hidden;
-
-transition: 0.5s;
-
-
-}
-&::-webkit-scrollbar
-{
-            width: 9px;
-        background-color: transparent;
-        @include ScrollbarCommon;
-
-
-}
-
-&::-webkit-scrollbar-thumb
-{
-    background-color: rgba(128, 128, 128, 0.3);
-    border-radius:10px;
-    @include ScrollbarCommon;
-
-}
-
-&:hover{
-&::-webkit-scrollbar,&::-webkit-scrollbar-thumb
-{
-
-    visibility: visible;
-}
-
+    > * {
+      margin: 0px;
+      margin-bottom: 50px;
     }
-}
-
-
+    .container-Dashboard {
+      height: 404px;
+      @include Centering;
+      gap: 25px;
+      width: fit-content;
+      overflow: hidden;
     }
 
- 
-.Layout,.Dasboard-layout
-{
-    background: url("images/bg_4.jpg") no-repeat center;
-      padding: 0px;
+    @mixin ScrollbarCommon() {
+      visibility: hidden;
+
+      transition: 0.5s;
+    }
+    &::-webkit-scrollbar {
+      width: 9px;
+      background-color: transparent;
+      @include ScrollbarCommon;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(128, 128, 128, 0.3);
+      border-radius: 10px;
+      @include ScrollbarCommon;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar,
+      &::-webkit-scrollbar-thumb {
+        visibility: visible;
+      }
+    }
+  }
+}
+
+.Layout,
+.Dasboard-layout {
+  padding: 0px;
   margin: 0px;
   overflow-x: hidden;
-
-
 }
 
-.Layout{
-    background-size: cover;
+.Layout {
+  background-size: cover;
   width: 100%;
   height: 100%;
-    padding: 0px;
+  padding: 0px;
   margin: 0px;
   overflow-x: hidden;
-
 }
 
 .Dasboard-layout {
-    height: 100vh;
-    background: none;
-background-color:rgb(253, 251, 251);
-    width: 100%;
- padding: 0px;
+  height: 100vh;
+  background: none;
+  background-color: rgb(253, 251, 251);
+  width: 100%;
+  padding: 0px;
   margin: 0px;
   overflow-x: hidden;
 }
 
-
-.Dasboard-layout > *
-{
-    box-shadow: 0px 0px solid black;
+.Dasboard-layout > * {
+  box-shadow: 0px 0px solid black;
 }
 
-.Dasboard-layout > div:nth-last-of-type(2)
-{
-    width: 100vw;
+.Dasboard-layout > div:nth-last-of-type(2) {
+  width: 100vw;
 }
 
-
-
-
-.fixed-bg  >  .DashboardPage 
-{
-    overflow-y: hidden;
-     > *{
-margin: 0px;
-    }
+.fixed-bg > .DashboardPage {
+  overflow-y: hidden;
+  > * {
+    margin: 0px;
+  }
 }
 
-.fixed-bg .DashboardPage  .Header 
-{
-    margin-bottom: 50px;
+.fixed-bg .DashboardPage .Header {
+  margin-bottom: 50px;
 }
 
-.fixed-bg .Dashboard-content
-{
-    width: 80vw;
-    height: fit-content;
+.fixed-bg .Dashboard-content {
+  width: 80vw;
+  height: fit-content;
 }
 
- .fixed-bg .Dashboard-content td
-{
-  height: 50px ;
+.fixed-bg .Dashboard-content td {
+  height: 50px;
   width: 60px;
 }
 
-
-.DashboardPage .AllOrders 
-{
-    height: 90%;
-    
+.DashboardPage .AllOrders {
+  height: 90%;
 } /* .orders-table    {
         height: 100%;
     }
@@ -163,59 +118,50 @@ margin: 0px;
         height: 90%;
     } */
 
-
-@media (max-width:1516px) {
-    .fixed-bg .DashboardPage .container-Dashboard 
-    {
-flex-wrap: wrap;
-height: max-content;
-width: 100%;
-
-> *,.Part3-Dashboard .Part3-Dashboard ,.Part1-Dashboard .css-u237jv-MuiChartsSurface-root
-{
+@media (max-width: 1516px) {
+  .fixed-bg .DashboardPage .container-Dashboard {
+    flex-wrap: wrap;
+    height: max-content;
     width: 100%;
-}
+
+    > *,
+    .Part3-Dashboard .Part3-Dashboard,
+    .Part1-Dashboard .css-u237jv-MuiChartsSurface-root {
+      width: 100%;
     }
-    
+  }
 }
 
-
-@media (max-width:1214px) {
-    .fixed-bg .Dashboard-content
-    {
-        width: 100%;
-    }
-    
+@media (max-width: 1214px) {
+  .fixed-bg .Dashboard-content {
+    width: 100%;
+  }
 }
 
-@media (max-width:950px) {
-
- .fixed-bg .DashboardPage  
-{
+@media (max-width: 950px) {
+  .fixed-bg .DashboardPage {
     padding: 5px;
-}
- .fixed-bg .DashboardPage 
- { input ,textarea,select , button 
- {
-    font-size: var(--input-txt-size) !important;
- }}
+  }
+  .fixed-bg .DashboardPage {
+    input,
+    textarea,
+    select,
+    button {
+      font-size: var(--input-txt-size) !important;
+    }
+  }
 }
 
-@media (max-width:657px) {
-    
- .fixed-bg .DashboardPage  
- {
-
-  .Part2-Dashboard ,.card-container
-    {
-    width: 100%;
+@media (max-width: 657px) {
+  .fixed-bg .DashboardPage {
+    .Part2-Dashboard,
+    .card-container {
+      width: 100%;
     }
-    .Part2-Dashboard
-    {
-            display: flex;
-    justify-content: center;
-    align-items: center;
+    .Part2-Dashboard {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    
-}
+  }
 }

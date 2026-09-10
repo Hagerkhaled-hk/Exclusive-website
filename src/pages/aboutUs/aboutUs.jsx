@@ -14,7 +14,7 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./AboutUs.css";
+import "./aboutUs.css";
 import DynamicIndex from "../../Common/DynamicIndex/DynamicIndex";
 
 export default function AboutUs() {
@@ -99,10 +99,9 @@ export default function AboutUs() {
 
   return (
     <div className="about-container">
-      <DynamicIndex page={["Home","Contact"]} />
+      <DynamicIndex page={["Home", "Contact"]} />
       <div className="story-section">
         <div className="story-text">
-          
           <h2>Our Story</h2>
           <p>
             Launced in 2015, Exclusive is South Asia’s premier online shopping
@@ -159,14 +158,14 @@ export default function AboutUs() {
       </div> */}
 
       <div className="features-container">
-      {features.map((f, i) => (
-        <div key={i} className="feature-card">
-          <div className="feature-icon">{f.icon}</div>
-          <h4>{f.title}</h4>
-          <p>{f.text}</p>
-        </div>
-      ))}
-    </div>
+        {features.map((f, i) => (
+          <div key={i} className="feature-card">
+            <div className="feature-icon">{f.icon}</div>
+            <h4>{f.title}</h4>
+            <p>{f.text}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

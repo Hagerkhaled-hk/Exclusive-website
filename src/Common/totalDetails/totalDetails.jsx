@@ -14,6 +14,7 @@ export default function TotalDetails({total, subTotal,shipPostalCode,shippingAdd
 {createdAt ? <p>Order Date<span>{new Date(createdAt).toLocaleDateString()}</span></p>:""}
 
 
+
     </div>
     
 }

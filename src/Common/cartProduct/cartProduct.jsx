@@ -1,8 +1,10 @@
+import "./cartProduct.css";
 import React, { useContext, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { CartContext } from '../../context/cartContext/cartContext';
 
-export default function CartProduct  ({ item , index })  {
+export default function CartProduct  ({ item , index }) 
+{
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

@@ -21,10 +21,7 @@ const navigate = useNavigate();
 
   async function processOrder()
   {
-
-
 navigate("/Payment");
-
   }
 
   
@@ -110,6 +107,6 @@ index={index}
    
     </div>
 
-        </div>
+       </div>
 }
         </div>}

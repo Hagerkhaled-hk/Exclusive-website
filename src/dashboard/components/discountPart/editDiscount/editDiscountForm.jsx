@@ -9,350 +9,397 @@ import { DashboardContext } from "../../../context/dashboardContext";
 
 // Initial state for form data
 const initialFormData = {
-    code: "",
-    type: "",
-    value: 0,
-    startDate: "",
-    endDate: "",
-    productIds: [],
-    categoryIds: [],
-    isActive:true};
+  code: "",
+  type: "",
+  value: 0,
+  startDate: "",
+  endDate: "",
+  productIds: [],
+  categoryIds: [],
+  isActive: true,
+};
 
 // Initial state for validation errors
-const initialValidation = { 
-    code: "",
-    type: "",
-    value: "",
-    endDate: "",
-    productIds: "",
-    categoryIds: "",
-    isActive:true
+const initialValidation = {
+  code: "",
+  type: "",
+  value: "",
+  endDate: "",
+  productIds: "",
+  categoryIds: "",
+  isActive: true,
 };
 
 export default function EditDiscountForm() {
-    // State to hold and manage form input values
-    const{isAdminLogin,demoDashboard}=useContext(DashboardContext);
-    const [formData, setFormData] = useState(initialFormData);
-    const [validationErrors, setValidationErrors] = useState(initialValidation);
-    const {id}=useParams();
-    async function getDiscount() {
-
-        console.log("ddd");
-     const selectedProducts = JSON.parse(localStorage.getItem("editSelectedProducts") || "[]");
-                                // Extract productIds and categoryIds from the selected products
-        const productIds = selectedProducts.map(item => item.productId).filter(id => id);
-        const categoryIds = selectedProducts.map(item => item.categoryID).filter(id => id);
-                
-
-        let res =await getDiscountId(id);
-        console.log(res);
-if(!res.statusCode==200) return;
-let {data}=res;
-    setFormData( {
-    code: data.code,
-    type: data.type,
-    value: data.value,
-    startDate:data.startDate ,
-    endDate: data.endDate,
-    productIds: productIds,
-    categoryIds: [...new Set(categoryIds)],
-    isActive:data.isActive })
-    }
-    // Load selected products from localStorage on component mount
-    useEffect(() => {
-        getDiscount();
-
-    }, []);
-
-    async function updateDiscount() {
- //Demo Dashboard
-   if(demoDashboard){toast.success("Updated Successfully (Simulation)",{duration:1500});  return;}
-
-        // --- API Submission ---
-      if(isAdminLogin && !demoDashboard){
-
-        toast("Updating discount...", { duration: 1000 });
-        
-        // Prepare data for API call
-             const discountData = {
-            code: formData.code,
-            type: formData.type,
-            value: Number(formData.value),
-            startDate:formData.startDate,
-            endDate: formData.endDate,
-            productIds: formData.productIds,
-            categoryIds:  formData.categoryIds,
-            isActive:formData.isActive!="false"?true : false ,
-
-        };
-        
-        console.log(typeof(discountData.isActive) ,discountData.isActive);
-        
-        
-        
-         let res = await UpdateDiscount(discountData,id);
-        console.log(res);
-        
-        if (res.statusCode === 200) {
-            toast.success(res.message || "Discount updated successfully");
-            setTimeout(() => {
-                // Clear localStorage after successful creation
-                getDiscount();
-            }, 500);
-        } else {
-            toast.error(res.message || "Unable to update this discount.");
-        } 
-    }
-    }
-
-    const validateField = (name, value) => {
-        let error = "";
-        console.log(name,value);
-        
-        // --- Code Validation ---
-        if (name === "code") {
-            if (!value.trim()) {
-                error = "Discount code is required.";
-            } else if (value.trim().length < 3) {
-                error = "Discount code must be at least 3 characters long.";
-            } else if (value.trim().length > 50) {
-                error = "Discount code cannot exceed 50 characters.";
-            } else if (!/^[a-zA-Z0-9_-]+$/.test(value)) {
-                error = "Discount code can only contain letters, numbers, hyphens, and underscores.";
-            }
-        }
-        
-        // --- Type Validation ---
-        if (name === "type") {
-            if (!value.trim()) {
-                error = "Discount type is required.";
-            } else if (!["percentage", "fixedamount"].includes(value.toLowerCase())) {
-                error = "Discount type must be: percentage or fixed.";
-            }
-        }
-        
-        // --- Value Validation ---
-        if (name === "value") {
-            const numValue = Number(value);
-            if (isNaN(numValue)) {
-                error = "Discount value must be a number.";
-            } else if (numValue < 0) {
-                error = "Discount value cannot be negative.";
-            } else if (formData.type === "percentage" && numValue > 100) {
-                error = "Percentage discount cannot exceed 100%.";
-            } else if (formData.type === "fixed" && numValue <= 0) {
-                error = "Fixed discount must be greater than 0.";
-            }
-        }
-        
-        // --- End Date Validation ---
-        if (name === "startDate") {
- if (!value) {
-                error = "Start date is required.";
-            }
-else{
-
-
-                const selectedDate = new Date(value);
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                
-                if (selectedDate <= today) {
-                    error = "Start date must be in Today's day or in the future.";
-                }
-            }
-            
-        }
-        if (name === "endDate") {
-            if (!value) {
-                error = "End date is required.";
-            } else {
-                const selectedDate = new Date(value);
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                
-                if (selectedDate <= today) {
-                    error = "End date must be in the future.";
-                }
-            }
-        }
-        
-        // --- Product IDs Validation ---
-        if (name === "productIds") {
-            if (!value || value.length === 0) {
-                error = "At least one product must be selected.";
-            }
-        }
-        
-     if(name=="isActive")
-     {
-        if(typeof(value)=="boolen") error="choose tha Activation  from avalliable options "
-     }        
-     
-        setValidationErrors(prev => ({ ...prev, [name]: error }));
-        return error.length === 0; // Return true if valid
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-        
-        // Run validation immediately on change
-        validateField(name, value);
-    };
-
-    const handleSubmit = () => {
-        // Re-validate all fields on submit
-        const isCodeValid = validateField('code', formData.code);
-        const isTypeValid = validateField('type', formData.type);
-        const isValueValid = validateField('value', formData.value);
-        const isEndDateValid = validateField('endDate', formData.endDate);
-        const isProductIdsValid = validateField('productIds', formData.productIds);
-        const isActiveValid = validateField('isActive', formData.isActive);
-   
-        if (isCodeValid && isTypeValid && isValueValid && isEndDateValid && isProductIdsValid&&isActiveValid) {
-            console.log("Form is valid. Submitting data:", formData);
-            updateDiscount();
-        } else {
-            toast.error("Please fix the validation errors before submitting.");
-        }
-    }
-
-    return (
-        <div className="EditProduct DashboardPage">
-            <Toaster position="top-center" reverseOrder={false} />
-
-            <div className="form-container">
-                <h2>Edit Discount</h2>
-
-                <div>
-                    <div className="form-group">
-                        <label htmlFor="discountCode" className="required">Discount Code</label>
-                        <input
-                            type="text"
-                            id="discountCode"
-                            name="code"
-                            placeholder="Enter discount code (e.g., SUMMER25)"
-                            value={formData.code}
-                            onChange={handleChange}
-                            required
-                        />
-                        {validationErrors.code && <p className="error-message">{validationErrors.code}</p>}
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="discountType" className="required">Discount Type</label>
-                        <select
-                            id="discountType"
-                            name="type"
-                            value={formData.type}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">Select discount type</option>
-                            <option value="Percentage">Percentage</option>
-                            <option value="FixedAmount">Fixed Amount</option>
-                        </select>
-                        {validationErrors.type && <p className="error-message">{validationErrors.type}</p>}
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="discountValue" className="required">Discount Value</label>
-                        <input
-                            type="number"
-                            id="discountValue"
-                            name="value"
-                            placeholder={formData.type === "percentage" ? "Enter percentage (0-100)" : "Enter amount"}
-                            value={formData.value}
-                            onChange={handleChange}
-                            min="0"
-                            step={formData.type === "percentage" ? "1" : "0.01"}
-                            required
-                        />
-                        {validationErrors.value && <p className="error-message">{validationErrors.value}</p>}
-                        <small>
-                            {formData.type === "percentage" 
-                                ? "Enter percentage value (e.g., 25 for 25% off)" 
-                                : "Enter fixed amount to deduct"  
-                                    
-                                  }
-                        </small>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="startDate" className="required">Start Date</label>
-                        <input
-                            type="datetime-local"
-                            id="startDate"
-                            name="startDate"
-value={formData?.startDate}
-                            onChange={handleChange}
-                            required
-                        />
-                        {validationErrors.startDate && <p className="error-message">{validationErrors.startDate}</p>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="endDate" className="required">End Date</label>
-                        <input
-                            type="datetime-local"
-                            id="endDate"
-                            name="endDate"
-                            value={ formData.endDate}
-                            onChange={handleChange}
-                            required
-                        />
-                        {validationErrors.endDate && <p className="error-message">{validationErrors.endDate}</p>}
-                    </div>
-                     <div className="form-group">
-                        <label htmlFor="isActive" className="required">Activation</label>
-                        <select
-                            id="isActive"
-                            name="isActive"
-                            value={formData.isActive}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">Select Activation type</option>
-                            <option value={true}>Active</option>
-                            <option value={false}>Un Active</option>
-                        </select>
-                        {validationErrors.isActive && <p className="error-message">{validationErrors.isActive}</p>}
-                    </div>
-                  
-
-                    <div className="form-group">
-                        <label>Selected Products & Categories</label>
-                        <div style={{ padding: "10px", border: "1px solid #ddd", borderRadius: "4px" }}>
-                            <p><strong>Selected Products:</strong> {formData.productIds.length} product(s)</p>
-                           
-                            {formData.productIds.length === 0 && (
-                                <p style={{ color: "#d9534f" }}>No products selected. Please go back and select products first.</p>
-                            )}
-                        </div>
-                        {validationErrors.productIds && <p className="error-message">{validationErrors.productIds}</p>}
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <RedButton text={"Update Discount"} btn_Function={handleSubmit} />
-                </div>
-            </div>
-
-            <style jsx>{`
-                .error-message {
-                    color: #d9534f;
-                    font-size: 0.85em;
-                    margin-top: 5px;
-                }
-                .required::after {
-                    content: " *";
-                    color: #d9534f;
-                }
-            `}</style>
-        </div>
+  // State to hold and manage form input values
+  const { isAdminLogin, demoDashboard } = useContext(DashboardContext);
+  const [formData, setFormData] = useState(initialFormData);
+  const [validationErrors, setValidationErrors] = useState(initialValidation);
+  const { id } = useParams();
+  async function getDiscount() {
+    console.log("ddd");
+    const selectedProducts = JSON.parse(
+      localStorage.getItem("editSelectedProducts") || "[]",
     );
+    // Extract productIds and categoryIds from the selected products
+    const productIds = selectedProducts
+      .map((item) => item.productId)
+      .filter((id) => id);
+    const categoryIds = selectedProducts
+      .map((item) => item.categoryID)
+      .filter((id) => id);
+
+    let res = await getDiscountId(id);
+    console.log(res);
+    if (!res.statusCode == 200) return;
+    let { data } = res;
+    setFormData({
+      code: data.code,
+      type: data.type,
+      value: data.value,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      productIds: productIds,
+      categoryIds: [...new Set(categoryIds)],
+      isActive: data.isActive,
+    });
+  }
+  // Load selected products from localStorage on component mount
+  useEffect(() => {
+    getDiscount();
+  }, []);
+
+  async function updateDiscount() {
+    //Demo Dashboard
+    if (demoDashboard) {
+      toast.success("Updated Successfully (Simulation)", { duration: 1500 });
+      return;
+    }
+
+    // --- API Submission ---
+    if (isAdminLogin && !demoDashboard) {
+      toast("Updating discount...", { duration: 1000 });
+
+      // Prepare data for API call
+      const discountData = {
+        code: formData.code,
+        type: formData.type,
+        value: Number(formData.value),
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        productIds: formData.productIds,
+        categoryIds: formData.categoryIds,
+        isActive: formData.isActive != "false" ? true : false,
+      };
+
+      console.log(typeof discountData.isActive, discountData.isActive);
+
+      let res = await UpdateDiscount(discountData, id);
+      console.log(res);
+
+      if (res.statusCode === 200) {
+        toast.success(res.message || "Discount updated successfully");
+        setTimeout(() => {
+          // Clear localStorage after successful creation
+          getDiscount();
+        }, 500);
+      } else {
+        toast.error(res.message || "Unable to update this discount.");
+      }
+    }
+  }
+
+  const validateField = (name, value) => {
+    let error = "";
+    console.log(name, value);
+
+    // --- Code Validation ---
+    if (name === "code") {
+      if (!value.trim()) {
+        error = "Discount code is required.";
+      } else if (value.trim().length < 3) {
+        error = "Discount code must be at least 3 characters long.";
+      } else if (value.trim().length > 50) {
+        error = "Discount code cannot exceed 50 characters.";
+      } else if (!/^[a-zA-Z0-9_-]+$/.test(value)) {
+        error =
+          "Discount code can only contain letters, numbers, hyphens, and underscores.";
+      }
+    }
+
+    // --- Type Validation ---
+    if (name === "type") {
+      if (!value.trim()) {
+        error = "Discount type is required.";
+      } else if (!["percentage", "fixedamount"].includes(value.toLowerCase())) {
+        error = "Discount type must be: percentage or fixed.";
+      }
+    }
+
+    // --- Value Validation ---
+    if (name === "value") {
+      const numValue = Number(value);
+      if (isNaN(numValue)) {
+        error = "Discount value must be a number.";
+      } else if (numValue < 0) {
+        error = "Discount value cannot be negative.";
+      } else if (formData.type === "percentage" && numValue > 100) {
+        error = "Percentage discount cannot exceed 100%.";
+      } else if (formData.type === "fixed" && numValue <= 0) {
+        error = "Fixed discount must be greater than 0.";
+      }
+    }
+
+    // --- End Date Validation ---
+    if (name === "startDate") {
+      if (!value) {
+        error = "Start date is required.";
+      } else {
+        const selectedDate = new Date(value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate <= today) {
+          error = "Start date must be in Today's day or in the future.";
+        }
+      }
+    }
+    if (name === "endDate") {
+      if (!value) {
+        error = "End date is required.";
+      } else {
+        const selectedDate = new Date(value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate <= today) {
+          error = "End date must be in the future.";
+        }
+      }
+    }
+
+    // --- Product IDs Validation ---
+    if (name === "productIds") {
+      if (!value || value.length === 0) {
+        error = "At least one product must be selected.";
+      }
+    }
+
+    if (name == "isActive") {
+      if (typeof value == "boolean")
+        error = "choose tha Activation  from avalliable options ";
+    }
+
+    setValidationErrors((prev) => ({ ...prev, [name]: error }));
+    return error.length === 0; // Return true if valid
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Run validation immediately on change
+    validateField(name, value);
+  };
+
+  const handleSubmit = () => {
+    // Re-validate all fields on submit
+    const isCodeValid = validateField("code", formData.code);
+    const isTypeValid = validateField("type", formData.type);
+    const isValueValid = validateField("value", formData.value);
+    const isEndDateValid = validateField("endDate", formData.endDate);
+    const isProductIdsValid = validateField("productIds", formData.productIds);
+    const isActiveValid = validateField("isActive", formData.isActive);
+
+    if (
+      isCodeValid &&
+      isTypeValid &&
+      isValueValid &&
+      isEndDateValid &&
+      isProductIdsValid &&
+      isActiveValid
+    ) {
+      console.log("Form is valid. Submitting data:", formData);
+      updateDiscount();
+    } else {
+      toast.error("Please fix the validation errors before submitting.");
+    }
+  };
+
+  return (
+    <div className="EditProduct DashboardPage">
+      <Toaster position="top-center" reverseOrder={false} />
+
+      <div className="form-container">
+        <h2>Edit Discount</h2>
+
+        <div>
+          <div className="form-group">
+            <label htmlFor="discountCode" className="required">
+              Discount Code
+            </label>
+            <input
+              type="text"
+              id="discountCode"
+              name="code"
+              placeholder="Enter discount code (e.g., SUMMER25)"
+              value={formData.code}
+              onChange={handleChange}
+              required
+            />
+            {validationErrors.code && (
+              <p className="error-message">{validationErrors.code}</p>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="discountType" className="required">
+              Discount Type
+            </label>
+            <select
+              id="discountType"
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select discount type</option>
+              <option value="Percentage">Percentage</option>
+              <option value="FixedAmount">Fixed Amount</option>
+            </select>
+            {validationErrors.type && (
+              <p className="error-message">{validationErrors.type}</p>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="discountValue" className="required">
+              Discount Value
+            </label>
+            <input
+              type="number"
+              id="discountValue"
+              name="value"
+              placeholder={
+                formData.type === "percentage"
+                  ? "Enter percentage (0-100)"
+                  : "Enter amount"
+              }
+              value={formData.value}
+              onChange={handleChange}
+              min="0"
+              step={formData.type === "percentage" ? "1" : "0.01"}
+              required
+            />
+            {validationErrors.value && (
+              <p className="error-message">{validationErrors.value}</p>
+            )}
+            <small>
+              {formData.type === "percentage"
+                ? "Enter percentage value (e.g., 25 for 25% off)"
+                : "Enter fixed amount to deduct"}
+            </small>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="startDate" className="required">
+              Start Date
+            </label>
+            <input
+              type="datetime-local"
+              id="startDate"
+              name="startDate"
+              value={formData?.startDate}
+              onChange={handleChange}
+              required
+            />
+            {validationErrors.startDate && (
+              <p className="error-message">{validationErrors.startDate}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="endDate" className="required">
+              End Date
+            </label>
+            <input
+              type="datetime-local"
+              id="endDate"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleChange}
+              required
+            />
+            {validationErrors.endDate && (
+              <p className="error-message">{validationErrors.endDate}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="isActive" className="required">
+              Activation
+            </label>
+            <select
+              id="isActive"
+              name="isActive"
+              value={formData.isActive}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Activation type</option>
+              <option value={true}>Active</option>
+              <option value={false}>Un Active</option>
+            </select>
+            {validationErrors.isActive && (
+              <p className="error-message">{validationErrors.isActive}</p>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label>Selected Products & Categories</label>
+            <div
+              style={{
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+              }}
+            >
+              <p>
+                <strong>Selected Products:</strong> {formData.productIds.length}{" "}
+                product(s)
+              </p>
+
+              {formData.productIds.length === 0 && (
+                <p style={{ color: "#d9534f" }}>
+                  No products selected. Please go back and select products
+                  first.
+                </p>
+              )}
+            </div>
+            {validationErrors.productIds && (
+              <p className="error-message">{validationErrors.productIds}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="form-group">
+          <RedButton text={"Update Discount"} btn_Function={handleSubmit} />
+        </div>
+      </div>
+
+      <style jsx>{`
+        .error-message {
+          color: #d9534f;
+          font-size: 0.85em;
+          margin-top: 5px;
+        }
+        .required::after {
+          content: " *";
+          color: #d9534f;
+        }
+      `}</style>
+    </div>
+  );
 }

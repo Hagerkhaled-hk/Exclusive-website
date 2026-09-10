@@ -9,10 +9,10 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
   -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
+  -ms-flex-align: start;
+  align-items: start;
 }
 .fixed-bg .DashboardPage {
   overflow-y: auto;
@@ -31,11 +31,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   gap: 25px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -56,12 +56,13 @@
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
-.fixed-bg .DashboardPage:hover::-webkit-scrollbar, .fixed-bg .DashboardPage:hover::-webkit-scrollbar-thumb {
+.fixed-bg .DashboardPage:hover::-webkit-scrollbar,
+.fixed-bg .DashboardPage:hover::-webkit-scrollbar-thumb {
   visibility: visible;
 }
 
-.Layout, .Dasboard-layout {
-  background: url("images/bg_4.jpg") no-repeat center;
+.Layout,
+.Dasboard-layout {
   padding: 0px;
   margin: 0px;
   overflow-x: hidden;
@@ -88,7 +89,7 @@
 
 .Dasboard-layout > * {
   -webkit-box-shadow: 0px 0px solid black;
-          box-shadow: 0px 0px solid black;
+  box-shadow: 0px 0px solid black;
 }
 
 .Dasboard-layout > div:nth-last-of-type(2) {
@@ -129,13 +130,23 @@
 @media (max-width: 1516px) {
   .fixed-bg .DashboardPage .container-Dashboard {
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
     width: 100%;
   }
-  .fixed-bg .DashboardPage .container-Dashboard > *, .fixed-bg .DashboardPage .container-Dashboard .Part3-Dashboard .Part3-Dashboard, .fixed-bg .DashboardPage .container-Dashboard .Part1-Dashboard .css-u237jv-MuiChartsSurface-root {
+  .fixed-bg .DashboardPage .container-Dashboard > *,
+  .fixed-bg
+    .DashboardPage
+    .container-Dashboard
+    .Part3-Dashboard
+    .Part3-Dashboard,
+  .fixed-bg
+    .DashboardPage
+    .container-Dashboard
+    .Part1-Dashboard
+    .css-u237jv-MuiChartsSurface-root {
     width: 100%;
   }
 }
@@ -148,12 +159,16 @@
   .fixed-bg .DashboardPage {
     padding: 5px;
   }
-  .fixed-bg .DashboardPage input, .fixed-bg .DashboardPage textarea, .fixed-bg .DashboardPage select, .fixed-bg .DashboardPage button {
+  .fixed-bg .DashboardPage input,
+  .fixed-bg .DashboardPage textarea,
+  .fixed-bg .DashboardPage select,
+  .fixed-bg .DashboardPage button {
     font-size: var(--input-txt-size) !important;
   }
 }
 @media (max-width: 657px) {
-  .fixed-bg .DashboardPage .Part2-Dashboard, .fixed-bg .DashboardPage .card-container {
+  .fixed-bg .DashboardPage .Part2-Dashboard,
+  .fixed-bg .DashboardPage .card-container {
     width: 100%;
   }
   .fixed-bg .DashboardPage .Part2-Dashboard {
@@ -161,10 +176,10 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
   }
 }

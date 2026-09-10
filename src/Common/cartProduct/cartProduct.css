@@ -1,0 +1,23 @@
+.Cart-container .cart-table td {
+  font-size: var(--input-txt-size);
+  padding: 8px 25px;
+}
+.Cart-container .product-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.Cart-container .cart-table th:nth-child(2),
+.Cart-container .cart-table td.price-cell,
+.Cart-container .cart-table th:nth-child(3),
+.Cart-container .cart-table td.quantity-cell,
+.Cart-container .cart-table th:nth-child(4),
+.Cart-container .cart-table td.subtotal-cell {
+  text-align: center;
+}

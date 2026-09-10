@@ -1,31 +1,26 @@
-.Part3-Dashboard
-{
-height: 100%;
-width: 500px;
-display: flex;
-justify-content: center;
-align-items: center;
-    .Part3-container
-    {
-
-    
-    background:url("aboutimg1.jpeg") no-repeat center  ;
+.Part3-Dashboard {
+  height: 100%;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .Part3-container {
+    background: url("/aboutimg1.jpeg") no-repeat center;
     background-size: contain;
-    width:450px;
-    height:300px;
+    width: 450px;
+    height: 300px;
     border-radius: 25px;
-display: flex;
-justify-content: flex-start;
-align-items: end;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
 
-padding: 40px;
+    padding: 40px;
 
-    .text
-    {
-        color: white;
-        p{
-            width: 320px;
-        }
+    .text {
+      color: white;
+      p {
+        width: 320px;
+      }
     }
-}
+  }
 }
