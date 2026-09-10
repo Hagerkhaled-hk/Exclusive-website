@@ -18,7 +18,7 @@ export default function HomePart5() {
   useEffect(() => {
     (async () => {
       let res = await ViewProducts();
-      setProducts(res.data);
+      setProducts(Array.isArray(res?.data) ? res.data : []);
     })();
 
     setTimeout(() => {
@@ -35,7 +35,7 @@ export default function HomePart5() {
       >
         <div className="products-container-home2">
           {products.length ? (
-            <ProductCards products={products.splice(0, 8)} />
+            <ProductCards products={products.slice(0, 8)} />
           ) : (
             <LoadingModal loading={loading} />
           )}

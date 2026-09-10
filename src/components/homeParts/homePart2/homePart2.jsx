@@ -27,7 +27,9 @@ export default function HomePart2() {
 
     let res_products = await ViewProducts();
 
-    let data = res_products?.data?.filter((item) => {
+    let data = (
+      Array.isArray(res_products?.data) ? res_products.data : []
+    ).filter((item) => {
       return item.categoryName == categName;
     });
 
@@ -37,10 +39,15 @@ export default function HomePart2() {
   useEffect(() => {
     (async () => {
       let res = await Viewateg();
-      setcategories(res.data);
-      setActCateg(res.data[0].name);
+      const categoryData = Array.isArray(res?.data) ? res.data : [];
+      setcategories(categoryData);
 
-      Getproducts(res.data[0].name);
+      if (categoryData.length > 0) {
+        setActCateg(categoryData[0].name);
+        Getproducts(categoryData[0].name);
+      } else {
+        setProducts([]);
+      }
     })();
   }, []);
 
