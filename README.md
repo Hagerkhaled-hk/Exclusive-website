@@ -13,7 +13,7 @@ Frontend lead (React, MUI): UI, authentication, payments and the admin dashboard
 - Wishlist
 - Stripe payments
 - Admin dashboard
-- **Demo Mode:** the app keeps working with sample data when the server is unavailable
+- **Demo Mode:**[exclusive-website-ten.vercel.app]
 
 ## Tech Stack
 
