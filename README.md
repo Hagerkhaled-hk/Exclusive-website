@@ -13,7 +13,7 @@ Frontend lead (React, MUI): UI, authentication, payments and the admin dashboard
 - Wishlist
 - Stripe payments
 - Admin dashboard
-- **Demo Mode:**[exclusive-website-ten.vercel.app]
+- **Demo Mode:**[[exclusive-website-ten.vercel.app]](https://exclusive-website-ten.vercel.app/)
 
 ## Tech Stack
 
